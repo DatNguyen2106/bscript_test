@@ -1,0 +1,31 @@
+POST http://localhost:4000/signup
+Content-Type: application/json
+
+{
+    "username" : "james3",
+    "password" : "james3"
+}
+
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "james2",
+    "password" : "james2"
+}
+###
+POST http://localhost:4000/token
+Content-Type: application/json
+
+{
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJqYW1lczMiLCJpYXQiOjE2NjYyNTUwOTcsImV4cCI6MTY2NjI1ODY5N30.OGZovl04SjjqXalZzGjaH9ScBUrQ505nIo0yVyOEDnM"
+}
+
+###
+GET http://localhost:5000/test
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJqYW1lczIiLCJpYXQiOjE2NjYyNTUzNzAsImV4cCI6MTY2NjI1NTQwMH0.UO5VNQgl5XE3Lg5Zuw7KZv4pNFGO23KjIp-QWFb0zvI
+
+###
+DELETE http://localhost:4000/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJqYW1lczMiLCJpYXQiOjE2NjYyNTU2ODAsImV4cCI6MTY2NjI1NTcxMH0.ZU2po2CfErdH54Y2sSS8zZ3fx6VaukV8jhGP5c9p-xA
