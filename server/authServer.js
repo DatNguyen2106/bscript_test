@@ -1,9 +1,9 @@
 require('dotenv').config();
+const db = require('./db/connectDB.js')
 // const {getList} = require("./query/query");
 const bcrypt = require('bcrypt');
 const express = require('express');
 const cors = require('cors');
-const mysql = require('mysql');
 const app = express();
 const verifyToken = require('./middleware/auth');
 const jwt = require('jsonwebtoken');
@@ -11,25 +11,17 @@ app.use(cors());
 app.use(express.json());
 var users = [];
 
-const db = mysql.createConnection(
-    {
-        user: 'root',
-        host: 'localhost',
-        password: 'admin',
-        database : 'bscriptTest'
-    }
-)
-
 app.post('/signup', async (req , res) => {
-    const {username, password} = req.body;
+    const {username, password,role} = req.body;
+    const roles = JSON.stringify(role);
     const saltRounds = 10;
-    var insertUserQuery = "INSERT INTO users (username, password, salt) VALUES (?, ?, ?)";
+    var insertUserQuery = "INSERT INTO users (username, password, salt, role) VALUES (?, ?, ?, ?)";
         bcrypt.genSalt(saltRounds, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
             if(err) {res.send(err);}     
             // Store hash in database here
             else  { 
-                db.query(insertUserQuery,[username,hash,salt], (err, result) => {
+                db.query(insertUserQuery,[username,hash,salt,roles], (err, result) => {
                     if(err) {
                         res.send("Cannot Insert user into database")
                     }
@@ -54,16 +46,16 @@ app.post('/token', (req, res) => {
         const tokens = generateTokens(user);
         updateRefreshToken(user.username, tokens.refreshToken)
         res.json(tokens);
+        console.log(users);
     } catch (error) {
         console.log(error);
         res.sendStatus(403);
     }
-
 })
-app.post('/login',  async (req, res) => {
-    const {username, password} = req.body;
 
-  
+//login
+app.post('/login',  async (req, res) => {
+    const {username, password} = req.body;  
     var queries = {
         query: "SELECT * FROM users"
     };
@@ -103,17 +95,18 @@ app.post('/login',  async (req, res) => {
 })
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => console.log(`running on port ${PORT}`));
-
 // generate access token and refresh token based on payload
 const generateTokens = payload => {
 // create to remove old refresh token from re-login
-    const {id, username} = payload;
+    const {id, username,role} = payload;
  /* create JWT token */
- const accessToken = jwt.sign({id,username}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
+ console.log(process.env.ACCESS_TOKEN_SECRET + " and " + process.env.REFRESH_TOKEN_SECRET)
+ const accessToken = jwt.sign({id,username,role}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
  
- const refreshToken   = jwt.sign({id,username}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3600s'})
+ const refreshToken   = jwt.sign({id,username,role}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3600s'})
 return {accessToken, refreshToken};
 }
+
 app.delete('/logout', verifyToken, (req, res) => {
     const user = users.find(user => user.id === req.userId)
     updateRefreshToken(user.username, null)
