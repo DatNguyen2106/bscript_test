@@ -184,9 +184,10 @@ app.get('/lecturer2/test', verifyTokenAdmin, verifyTokenLecturer2, async (req, r
 
 app.post('/lecturers/get/:page', verifyTokenLecturer, async (req, res) =>{
     const page = req.params.page;
+    const chunkForPage = 5;
     const id  = (req.body.id === "" || req.body.id === undefined) ?  '%' : req.body.id;
-    const username = (req.body.username === "" || req.body.username === undefined) ?  '%' : req.body.username;
-    const fullname = (req.body.fullname === "" || req.body.fullname === undefined) ?  '%' : req.body.fullname;
+    const userName = (req.body.userName === "" || req.body.userName === undefined) ?  '%' : req.body.userName;
+    const fullName = (req.body.fullName === "" || req.body.fullName === undefined) ?  '%' : req.body.fullName;
     const email = (req.body.email === "" || req.body.email === undefined) ?  '%' : req.body.email;
     const supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ?  '%' : req.body.supervisor;
     const role = req.role;
@@ -195,7 +196,7 @@ app.post('/lecturers/get/:page', verifyTokenLecturer, async (req, res) =>{
             {
                 var filterQuery = "SELECT * FROM lecturers where lecturer_id LIKE ? AND lecturer_user_name LIKE ? AND fullname LIKE ? AND email LIKE ? AND supervisor LIKE ?;";
                 const results = await new Promise((resolve) => {
-                    db.query(filterQuery, [id, username, fullname, email, supervisor], (err, result) => {
+                    db.query(filterQuery, [id, userName, fullName, email, supervisor], (err, result) => {
                       if(err) {res.send(err);}
                       else
                       {  
@@ -207,8 +208,8 @@ app.post('/lecturers/get/:page', verifyTokenLecturer, async (req, res) =>{
                 console.log(results.chunk(page)[page-1]);
                 console.log("TotalPage " + results.chunk(page).length)
                 res.send({
-                    "totalPage" : results.chunk(page).length,
-                    "list" : results.chunk(page)[page-1]
+                    "totalPage" : results.chunk(chunkForPage).length,
+                    "list" : results.chunk(chunkForPage)[page-1]
                 })
             }
         }

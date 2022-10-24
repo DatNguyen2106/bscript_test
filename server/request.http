@@ -57,14 +57,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2Vyb
 
 ###
 POST http://localhost:5000/lecturers/get/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2VybmFtZSI6ImphbWVzMiIsInJvbGUiOiJbXCJsZWN0dXJlcjFcIl0iLCJpYXQiOjE2NjY2MjgxNzUsImV4cCI6MTY2NjYyODIwNX0.W0ljfegZXlxHnmMtn6JByyeG_gqIKKEcueNjFbUAnWQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2VybmFtZSI6ImphbWVzMiIsInJvbGUiOiJbXCJsZWN0dXJlcjFcIl0iLCJpYXQiOjE2NjY2Mjk5MjAsImV4cCI6MTY2NjYyOTk1MH0.l2nBJ6UgGwHqQJqg0F2_Y5s1kjHInvPGyZY_ujqBwXw
 Content-Type: application/json
 
 {
     "id" : "",
+    "username" : "",
     "fullname" : "",
-    "email" : "datnguyen@gmail.com",
-    "supervisor" : "lecturer1"
+    "email" : "",
+    "supervisor" : ""
 }
 
 ###
