@@ -12,18 +12,18 @@ app.use(express.json());
 var users = [];
 
 app.post('/signup', async (req , res) => {
-    const {username, password,role} = req.body;
+    const {id, username, password,role} = req.body;
     const roles = JSON.stringify(role);
     const saltRounds = 10;
-    var insertUserQuery = "INSERT INTO users (username, password, salt, role) VALUES (?, ?, ?, ?)";
+    var insertUserQuery = "INSERT INTO tbl_user (id, username, password, salt, role) VALUES (?, ?, ?, ?, ?)";
         bcrypt.genSalt(saltRounds, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
             if(err) {res.send(err);}     
             // Store hash in database here
             else  { 
-                db.query(insertUserQuery,[username,hash,salt,roles], (err, result) => {
+                db.query(insertUserQuery,[id,username,hash,salt,roles], (err, result) => {
                     if(err) {
-                        res.send("Cannot Insert user into database")
+                        res.send("Cannot Insert on tbl_user into database")
                     }
                     else res.json(result);
                 })} 
@@ -57,7 +57,7 @@ app.post('/token', (req, res) => {
 app.post('/login',  async (req, res) => {
     const {username, password} = req.body;  
     var queries = {
-        query: "SELECT * FROM users"
+        query: "SELECT * FROM tbl_user"
     };
     const getList = (queryName, queryParams) => {
         return new Promise(function(resolve, reject){
@@ -98,7 +98,7 @@ app.listen(PORT, () => console.log(`running on port ${PORT}`));
 // generate access token and refresh token based on payload
 const generateTokens = payload => {
 // create to remove old refresh token from re-login
-    const {id, username,role} = payload;
+    const {id, username, role} = payload;
  /* create JWT token */
  console.log(process.env.ACCESS_TOKEN_SECRET + " and " + process.env.REFRESH_TOKEN_SECRET)
  const accessToken = jwt.sign({id,username,role}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
@@ -117,7 +117,7 @@ app.delete('/logout', verifyToken, (req, res) => {
 
 //find user by username and replace refresh token
 const updateRefreshToken = (username, refreshToken) => {
-    var updateRefreshToken = "UPDATE users SET refreshToken= ? WHERE username = ?;";
+    var updateRefreshToken = "UPDATE tbl_user SET refreshToken= ? WHERE username = ?;";
          db.query(updateRefreshToken,[refreshToken, username], function(err, result) {
             if(err) return console.log(err);
         })

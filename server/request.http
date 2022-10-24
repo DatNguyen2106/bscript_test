@@ -2,9 +2,10 @@ POST http://localhost:4000/signup
 Content-Type: application/json
 
 {
-    "username" : "james103",
-    "password" : "james103",
-    "role" : ["admin", "lecturer2"]
+    "id" : "30000",
+    "username" : "lukas",
+    "password" : "30000",
+    "role" : ["admin"]
 }
 
 ###
@@ -13,8 +14,8 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "james103",
-    "password" : "james103"
+    "username" : "james2",
+    "password" : "james2"
 }
 ###
 POST http://localhost:4000/token
@@ -39,11 +40,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInVzZXJuY
 
 ###
 GET http://localhost:5000/lecturer1/get
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwidXNlcm5hbWUiOiJqYW1lczEwMiIsInJvbGUiOiJbXCJsZWN0dXJlcjJcIixcImxlY3R1cmVyMVwiXSIsImlhdCI6MTY2NjQxNzk0OCwiZXhwIjoxNjY2NDE3OTc4fQ.s66HxVqKlAz9nhOfkddZIMvkNo3TcfO7rdntBzWQNII
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwidXNlcm5hbWUiOiJqYW1lczEwMSIsInJvbGUiOiJbXCJhZG1pblwiLFwibGVjdHVyZXIxXCJdIiwiaWF0IjoxNjY2NTk2MTk5LCJleHAiOjE2NjY1OTYyMjl9.U_ZoOcD-xWn9R2yhbM8WRU7BwZJF-GfU-GH8WYLOJdw
 
 ###
 GET http://localhost:5000/lecturer2/get
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJqYW1lczMiLCJyb2xlIjoibGVjdHVyZXIyIiwiaWF0IjoxNjY2NDE4NTY1LCJleHAiOjE2NjY0MTg1OTV9.ahhB9fmNgqelMzFkzTPaeWTsxFPxNf5KkzTDl0OrMwQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2VybmFtZSI6ImphbWVzMiIsInJvbGUiOiJbXCJsZWN0dXJlcjFcIl0iLCJpYXQiOjE2NjY2MjY1MjMsImV4cCI6MTY2NjYyNjU1M30.bYNN6iVuF1iK3v7HNIyH9q03sCDJWYJ5gtJ9Xl-D9gs
 
 
 ###
@@ -52,10 +53,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInVzZXJuY
 
 ###
 GET http://localhost:5000/lecturer2/test
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJqYW1lczEwMyIsInJvbGUiOiJbXCJhZG1pblwiLFwibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjY2NDM2ODQ1LCJleHAiOjE2NjY0MzY4NzV9.uEvCoLXvjtCxwI7J7LcTe4--7U7J9v-m4Lbx35UdfkA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2VybmFtZSI6ImphbWVzMTAzIiwicm9sZSI6IltcImFkbWluXCIsXCJsZWN0dXJlcjJcIl0iLCJpYXQiOjE2NjY2MDM2MTEsImV4cCI6MTY2NjYwMzY0MX0.0ujQRh5zLzW3bm3qAEZmHy5bBMStDsCwzMYIfHHju2k
 
+###
+POST http://localhost:5000/lecturers/get/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2VybmFtZSI6ImphbWVzMiIsInJvbGUiOiJbXCJsZWN0dXJlcjFcIl0iLCJpYXQiOjE2NjY2MjgxNzUsImV4cCI6MTY2NjYyODIwNX0.W0ljfegZXlxHnmMtn6JByyeG_gqIKKEcueNjFbUAnWQ
+Content-Type: application/json
 
+{
+    "id" : "",
+    "fullname" : "",
+    "email" : "datnguyen@gmail.com",
+    "supervisor" : "lecturer1"
+}
 
 ###
 DELETE http://localhost:4000/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInVzZXJuYW1lIjoiamFtZXMxMDMiLCJyb2xlIjoiW1wiYWRtaW5cIixcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY2NjQzNTY0NywiZXhwIjoxNjY2NDM1Njc3fQ.7va1jmxsYrcbPiBmj-7WZAyQZ6NBDthxbTkbAS_bZQ8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJqYW1lczEwMyIsInJvbGUiOiJbXCJhZG1pblwiLFwibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjY2NTk2MTU5LCJleHAiOjE2NjY1OTYxODl9.hP6UbWaj7PPOMh9HIB4KlCUzCK1xR6qt-GhFp9CY_Ok

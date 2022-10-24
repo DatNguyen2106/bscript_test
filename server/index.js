@@ -4,13 +4,12 @@ const db = require('./db/connectDB.js')
 // const bcrypt = require('bcrypt');
 const express = require('express');
 const verifyToken = require('./middleware/auth');
+const verifyTokenLecturer = require('./middleware/verifyTokenLecturer');
 const verifyTokenAdmin = require('./middleware/verifyTokenAdmin');
 const verifyTokenLecturer1 = require('./middleware/verifyTokenLecturer1');
 const verifyTokenLecturer2 = require('./middleware/verifyTokenLecturer2');
 const verifyTokenStudent = require('./middleware/verifyTokenStudent');
 const cors = require('cors');
-const mysql = require('mysql');
-const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(cors());
@@ -166,22 +165,56 @@ app.get('/lecturer2/test', verifyTokenAdmin, verifyTokenLecturer2, async (req, r
             {
                 var testQuery = "SELECT * FROM posts where username = ? ORDER BY post";
                 const results = await new Promise((resolve) => {
-                    db.query(testQuery, [req.username], (err, res) => {
+                    db.query(testQuery, [req.username], (err, result) => {
                       if(err) {res.send(err);}
                       else
                       {  
-                        resolve( JSON.parse(JSON.stringify(res)))
+                        resolve(JSON.parse(JSON.stringify(result)))
                       }
                     })
                   })
                 console.log(results);
                 console.log(results.chunk(3));
+                console.log(results.chunk())
             }
         }
         else console.log("You are not allowed to access, You are not lecturer2")
     }
 });
 
+app.post('/lecturers/get/:page', verifyTokenLecturer, async (req, res) =>{
+    const page = req.params.page;
+    const id  = (req.body.id === "" || req.body.id === undefined) ?  '%' : req.body.id;
+    const username = (req.body.username === "" || req.body.username === undefined) ?  '%' : req.body.username;
+    const fullname = (req.body.fullname === "" || req.body.fullname === undefined) ?  '%' : req.body.fullname;
+    const email = (req.body.email === "" || req.body.email === undefined) ?  '%' : req.body.email;
+    const supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ?  '%' : req.body.supervisor;
+    const role = req.role;
+    if(req.username) {
+        if(role){
+            {
+                var filterQuery = "SELECT * FROM lecturers where lecturer_id LIKE ? AND lecturer_user_name LIKE ? AND fullname LIKE ? AND email LIKE ? AND supervisor LIKE ?;";
+                const results = await new Promise((resolve) => {
+                    db.query(filterQuery, [id, username, fullname, email, supervisor], (err, result) => {
+                      if(err) {res.send(err);}
+                      else
+                      {  
+                        resolve(JSON.parse(JSON.stringify(result)))
+                      }
+                    })
+                  })
+                console.log(results);
+                console.log(results.chunk(page)[page-1]);
+                console.log("TotalPage " + results.chunk(page).length)
+                res.send({
+                    "totalPage" : results.chunk(page).length,
+                    "list" : results.chunk(page)[page-1]
+                })
+            }
+        }
+        else console.log("You are not allowed to access, You are not lecturer")
+    }
+})
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`running on port ${PORT}`));
 
