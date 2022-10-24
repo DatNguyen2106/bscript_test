@@ -14,8 +14,6 @@ const verifyTokenStudent = (req,res,next) => {
             req.userId = decoded.id;
             req.username = decoded.username;
             req.role = decoded.role;
-            console.log(req.role);
-            console.log(typeof(req.role));
             next();
         } 
         else {console.log("You are not student, cannot execute this API (checked in middleware)")}
