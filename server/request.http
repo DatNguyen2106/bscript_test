@@ -14,8 +14,8 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "james2",
-    "password" : "james2"
+    "username" : "lukas",
+    "password" : "30000"
 }
 ###
 POST http://localhost:4000/token
@@ -56,8 +56,8 @@ GET http://localhost:5000/lecturer2/test
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2VybmFtZSI6ImphbWVzMTAzIiwicm9sZSI6IltcImFkbWluXCIsXCJsZWN0dXJlcjJcIl0iLCJpYXQiOjE2NjY2MDM2MTEsImV4cCI6MTY2NjYwMzY0MX0.0ujQRh5zLzW3bm3qAEZmHy5bBMStDsCwzMYIfHHju2k
 
 ###
-POST http://localhost:5000/lecturers/get/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2VybmFtZSI6ImphbWVzMiIsInJvbGUiOiJbXCJsZWN0dXJlcjFcIl0iLCJpYXQiOjE2NjY2Mjk5MjAsImV4cCI6MTY2NjYyOTk1MH0.l2nBJ6UgGwHqQJqg0F2_Y5s1kjHInvPGyZY_ujqBwXw
+POST http://localhost:5000/admin/get/lecturers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NjcwOTQyMywiZXhwIjoxNjY2NzA5NDUzfQ.NR3rTEcbXE8N4528S2rFRnaMdTVdrgkFuTEPXa1A8SM
 Content-Type: application/json
 
 {
@@ -65,8 +65,39 @@ Content-Type: application/json
     "username" : "",
     "fullname" : "",
     "email" : "",
-    "supervisor" : ""
+    "supervisor" : "",
+    "page" : "2"
 }
+
+
+###
+POST http://localhost:5000/admin/add/lecturer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2Njc2NzI2NiwiZXhwIjoxNjY2NzY3Mjk2fQ.kvFuoQZ8K4h06U3FOMdNXqnOGcSIrarAZeR26OxLXBo
+Content-Type: application/json
+
+{
+    "id" : 22311,
+    "username" : "haotran",
+    "fullname" : "haotran",
+    "email" : "haotran@gmail.com",
+    "supervisor" : "1"
+}
+
+###
+POST http://localhost:5000/admin/update/lecturer/21933
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2Njc3MDA0MywiZXhwIjoxNjY2NzcwMDczfQ.9c_UJ-KKfp8d7oZHbypmziPIfJNraigoXwJVhtWO684
+Content-Type: application/json
+
+{
+    "username" : "linhkhanh_updated",
+    "fullname" : "linhkhanhtran_updated",
+    "email" : "linh1@gmail.com",
+    "supervisor" : "2"
+}
+
+###
+POST http://localhost:5000/admin/get/lecturer/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2Njc2OTU0NCwiZXhwIjoxNjY2NzY5NTc0fQ.O7uijuNksVhtNiCWBRe2RQpTuT245O6oNC8xHp4CLcA
 
 ###
 DELETE http://localhost:4000/logout

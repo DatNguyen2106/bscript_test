@@ -7,6 +7,7 @@ const cors = require('cors');
 const app = express();
 const verifyToken = require('./middleware/auth');
 const jwt = require('jsonwebtoken');
+const { application } = require('express');
 app.use(cors());
 app.use(express.json());
 var users = [];
@@ -113,7 +114,13 @@ app.delete('/logout', verifyToken, (req, res) => {
     console.log(users)
     res.sendStatus(204)
 })
-
+app.get('/roles', verifyToken, (req, res) => {
+    if(req.role) {
+        res.send({
+            role : req.role
+        })
+    }
+})
 
 //find user by username and replace refresh token
 const updateRefreshToken = (username, refreshToken) => {
