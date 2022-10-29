@@ -4,6 +4,7 @@ const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const verifyToken = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
 admin_get_router.get('/test', verifyToken, (req, res) => {
+    console.log(req.body);
     console.log("access by access token successfully");
     if(req.username) {
         switch (req.role){
@@ -57,10 +58,10 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
         var chunkForPage = 5;
         var emailFormat = /^[a-zA-Z0-9_.+]*[a-zA-Z][a-zA-Z0-9_.+]*@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         var page = (req.body.page === "" || req.body.page === undefined) ?  1 : req.body.page;
-        var id  = (req.body.id === "" || req.body.id === undefined) ?  '%' : req.body.id;
-        var userName = (req.body.userName === "" || req.body.userName === undefined) ?  '%' : req.body.userName;
-        var fullName = (req.body.fullName === "" || req.body.fullName === undefined) ?  '%' : req.body.fullName;
-        var email;
+        var id  = (req.body.id === "" || req.body.id === undefined) ?  '%' : ('%' +req.body.id +'%');
+        var userName = (req.body.username === "" || req.body.username === undefined) ?  '%' : ('%' + req.body.username  + '%');
+        var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  '%' :  ('%' + req.body.fullname  + '%');
+        var email ;
         console.log(emailFormat);
         if(req.body.email === "" || req.body.email === undefined){
              email =  '%';
@@ -68,13 +69,15 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
         else if (req.body.email.match(emailFormat)){
              email = ''
         }
-        else { email = req.body.email;}
+        else { email = ('%' +req.body.email +'%')}
         console.log(email);
         var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ?  '%' : req.body.supervisor;
         var role = req.role;
         if(req.username) {
             if(role){
-                {
+                {   console.log(id);
+                    console.log("userName = " + userName);
+                    console.log("fullName = " + fullName);
                     var filterQuery = "SELECT * FROM lecturers where lecturer_id LIKE ? AND lecturer_user_name LIKE ? AND fullname LIKE ? AND email LIKE ? AND supervisor LIKE ?;";
                     const results = await new Promise((resolve) => {
                         db.query(filterQuery, [id, userName, fullName, email, supervisor], (err, result) => {
@@ -89,7 +92,10 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
                     console.log(results.chunk(page)[page-1]);
                     console.log("TotalPage " + results.chunk(chunkForPage).length);
                     if(page > results.chunk(chunkForPage).length){
-                        res.status(404).send("No page found");
+                        res.send({
+                            "totalPage" : results.chunk(chunkForPage).length,
+                            "list" : []
+                        })
                     }
                     else {res.send({
                         "totalPage" : results.chunk(chunkForPage).length,
@@ -97,7 +103,7 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
                     })}
                 }
             }
-            else console.log("You are not allowed to access, You are not admin")
+            else res.send("You are not allowed to access, You are not admin")
         }   
     } catch (error) {
         res.status(404).send(error.message);
@@ -124,7 +130,7 @@ admin_get_router.get('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                             })
                             })
                         if( results.length === 0 || results === null || results === undefined || results === [])
-                        { res.send("No user with that ID in lecturer table")}
+                        { res.send(results)}
                         else {
                             // case return number of objects > 1
                             // but in this case the number of results are only 1 and 0.
@@ -150,7 +156,9 @@ admin_get_router.get('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     }
     
 })
-
+admin_get_router.get('/lecturer', (req, res) => {
+    res.send("Default routes for admin/get/lecturer");
+})
 
 
 // Exports cho biến admin_router

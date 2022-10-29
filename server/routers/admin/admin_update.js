@@ -10,7 +10,7 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     var emailFormat = /^[a-zA-Z0-9][a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]*?[a-zA-Z0-9._-]?@[a-zA-Z0-9][a-zA-Z0-9._-]*?[a-zA-Z0-9]?\\.[a-zA-Z]{2,63}$/;
     var paramId;
     var userName = req.body.username;
-    var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null : req.body.fullname;
+    var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null :  ( '%' + req.body.fullname + '%');
     var email;
     if(req.body.email === "" || req.body.email === undefined){
          email =  '%';
@@ -51,7 +51,9 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     }
     else res.status(404).send("No user with that username");
 })
-
+admin_update_router.get('/lecturer', (req, res) => {
+    res.send("Default routes for admin/update/lecturer");
+})
 
 
 // Exports cho biến admin_router
