@@ -31,7 +31,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/admin/get/test
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2Njg3NzQ5OSwiZXhwIjoxNjY2ODc3NTI5fQ.2rCAHW4Fydr5WTpmsEyJQV2l9BkSPxxv-dXT5tibIs8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAyMTExNywiZXhwIjoxNjY3MDIxMTQ3fQ.S7dobmnkur3Svv8uAotdL79Vr1gXJUbVyRtg19k7qP8
 
 ###
 GET http://localhost:5000/admin/get1
@@ -61,12 +61,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2Vyb
 
 ###
 POST http://localhost:5000/admin/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2Njk0Njc2MCwiZXhwIjoxNjY2OTQ2NzkwfQ.zhpYuNm2aySLSDa96sJHqfGkj-GoL1RwckcXnmQtjeY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNTEzOSwiZXhwIjoxNjY3MDM1MTY5fQ.9f-FnFPEdfStKZXgo8a2-KZsivIjGHI0JizUoDew-QU
 Content-Type: application/json
 
 {
     "id" : "",
-    "username" : "",
+    "username" : "romqweqwe",
     "fullname" : "",
     "email" : "",
     "supervisor" : "",
@@ -76,20 +76,20 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/add/lecturer
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2Njk0NjgyNCwiZXhwIjoxNjY2OTQ2ODU0fQ.uOIQ_EQYWgd_ND4F2ZVNad4EgqaXLmI14QSefXu7dpE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzEzMDI0OSwiZXhwIjoxNjY3MTMwMjc5fQ.mEbLpixsYNcjTv67jRriJopZWkVR6dHEtxFSEBepmmA
 Content-Type: application/json
 
 {
-    "id" : 22311,
-    "username" : "haotran",
+    "id" : 223,
+    "username" : "123",
     "fullname" : "haotran",
-    "email" : "haotran@gmail.com",
-    "supervisor" : "1"
+    "email" : "haotran",
+    "supervisor" : "lecturer1"
 }
 
 ###
 PUT http://localhost:5000/admin/update/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2Njk0NzAwNiwiZXhwIjoxNjY2OTQ3MDM2fQ.-oQcT1sU_UrM1OuPQVmSLOb54N870tz4E7ezAdwI6xo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzEyNzk1MCwiZXhwIjoxNjY3MTI3OTgwfQ.8JGv5MshYIj6LFdhvesEJGjvNwzyPJ0UzJVldJ1Qxzc
 Content-Type: application/json
 
 {
@@ -100,9 +100,16 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/admin/get/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2Njc5NzU4MSwiZXhwIjoxNjY2Nzk3NjExfQ.KFZtADv1INObUMrj-6dRjp5qucSKoxammXU4rCEZglI
+GET http://localhost:5000/admin/get/lecturer/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNTI4MSwiZXhwIjoxNjY3MDM1MzExfQ.gD6nUYApx7IThS2hCU12hfVkw8wHTZV8SzrKBpRm-co
 
+###
+DELETE http://localhost:5000/admin/delete/lecturer/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNDY4OSwiZXhwIjoxNjY3MDM0NzE5fQ.jWem9asn3mJG01BiqgTelT8GqfBT96MkfTPwFv364k0
+
+###
+GET http://localhost:5000/admin/delete/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNDY0NCwiZXhwIjoxNjY3MDM0Njc0fQ.Lz-wWgeZ0tGeiIoVKA3xgEKaHmA0roXEdskqRpDhulg
 ###
 DELETE http://localhost:4000/logout
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJqYW1lczEwMyIsInJvbGUiOiJbXCJhZG1pblwiLFwibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjY2NTk2MTU5LCJleHAiOjE2NjY1OTYxODl9.hP6UbWaj7PPOMh9HIB4KlCUzCK1xR6qt-GhFp9CY_Ok

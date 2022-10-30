@@ -3,6 +3,7 @@ const admin_get_router = express.Router();
 const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const verifyToken = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
+
 admin_get_router.get('/test', verifyToken, (req, res) => {
     console.log(req.body);
     console.log("access by access token successfully");
@@ -65,9 +66,6 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
         console.log(emailFormat);
         if(req.body.email === "" || req.body.email === undefined){
              email =  '%';
-        }
-        else if (req.body.email.match(emailFormat)){
-             email = ''
         }
         else { email = ('%' +req.body.email +'%')}
         console.log(email);
@@ -156,10 +154,83 @@ admin_get_router.get('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     }
     
 })
+admin_get_router.post('/students', verifyTokenAdmin, async (req, res) =>{
+    try {
+        var chunkForPage = 5;
+        const emailFormat = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/;
+        const ectsFormat = /^\d+$/;
+        // yyyy - mm - dd
+        const dateFormat = /^\d{4}-\d{2}-\d{2}$/;
+        var page = (req.body.page === "" || req.body.page === undefined) ?  1 : req.body.page;
+        var id  = (req.body.id === "" || req.body.id === undefined) ?  '%' : ('%' + req.body.id +'%');
+        var userName = (req.body.username === "" || req.body.username === undefined) ?  '%' : ('%' + req.body.username  + '%');
+        var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  '%' :  ('%' + req.body.fullname  + '%');
+        var email;
+        console.log(emailFormat);
+        email = checkTypeToSearch(req.body.email);
+        console.log(email);
+
+        var major = (req.body.major === "" || req.body.major === undefined) ? '%' : ('%' + req.body.major + '%');
+        var ects;
+        ects = checkTypeToSearch(req.body.ects);
+        // check conditions 
+        var registration_day_student;
+        registration_day_student = checkTypeToSearch(req.body.registration_day_student);
+        console.log("check" + checkTypeToSearch(req.body.ects));
+        console.log("major" + major);
+        console.log("ects " + ects);
+        console.log("registration_day_student " + registration_day_student);
+        var role = req.role;
+        if(req.username) {
+            if(role){
+                {  
+                     console.log(id);
+                    console.log("userName = " + userName);
+                    console.log("fullName = " + fullName);
+                    var filterQuery = "SELECT * FROM students where student_id LIKE ? AND student_user_name LIKE ? AND fullname LIKE ? AND major LIKE ? AND email LIKE ? AND ects LIKE ? AND registration_day_student LIKE ?;";
+                    const results = await new Promise((resolve) => {
+                        db.query(filterQuery, [id, userName, fullName, major, email, ects, registration_day_student], (err, result) => {
+                          if(err) {res.send(err);}
+                          else
+                          {  
+                            console.log(filterQuery);
+                            resolve(JSON.parse(JSON.stringify(result)))
+                          }
+                        })
+                      })
+                    console.log(results);
+                    console.log(results.chunk(page)[page-1]);
+                    console.log("TotalPage " + results.chunk(chunkForPage).length);
+                    if(page > results.chunk(chunkForPage).length){
+                        res.send({
+                            "totalPage" : results.chunk(chunkForPage).length,
+                            "list" : []
+                        })
+                    }
+                    else {res.send({
+                        "totalPage" : results.chunk(chunkForPage).length,
+                        "list" : results.chunk(chunkForPage)[page-1]
+                    })}
+                }
+            }
+            else res.send("You are not allowed to access, You are not admin")
+        }   
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+    
+})
 admin_get_router.get('/lecturer', (req, res) => {
-    res.send("Default routes for admin/get/lecturer");
+    res.send("Default routes for admin/get");
 })
 
+
+function checkTypeToSearch (value) {
+    if( value === "" || value === undefined){
+        return '%';
+   }
+   else { return ('%' + value +'%')}
+}
 
 // Exports cho biến admin_router
 module.exports = admin_get_router;
