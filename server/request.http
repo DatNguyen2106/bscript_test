@@ -31,7 +31,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/admin/get/test
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAyMTExNywiZXhwIjoxNjY3MDIxMTQ3fQ.S7dobmnkur3Svv8uAotdL79Vr1gXJUbVyRtg19k7qP8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjgxNjYzMjcsImV4cCI6MTY2ODE2NjM1N30.gPxyJo4AmL92o-Slzcqfpa4k-lXA092S99FzaNeaAH0
 
 ###
 GET http://localhost:5000/admin/get1
@@ -61,13 +61,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2Vyb
 
 ###
 POST http://localhost:5000/admin/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNTEzOSwiZXhwIjoxNjY3MDM1MTY5fQ.9f-FnFPEdfStKZXgo8a2-KZsivIjGHI0JizUoDew-QU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjAzODAsImV4cCI6MTY2ODQyMTI4MH0.uXzlKG13OBKAMEpQ9lpUoYi18b6z2KPvKb0XQJAJmNc
 Content-Type: application/json
 
 {
-    "id" : "",
-    "username" : "romqweqwe",
+    "id" : "21029",
+    "username" : "",
     "fullname" : "",
+    "title" : "",
     "email" : "",
     "supervisor" : "",
     "page" : "1"
@@ -76,32 +77,36 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/add/lecturer
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzEzMDI0OSwiZXhwIjoxNjY3MTMwMjc5fQ.mEbLpixsYNcjTv67jRriJopZWkVR6dHEtxFSEBepmmA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjgxNjgxOTIsImV4cCI6MTY2ODE2ODIyMn0.VvXtu86FnLgvt1VuHITmA2KmXyxKtZ11GpaqWOdYUYw
 Content-Type: application/json
 
 {
-    "id" : 223,
-    "username" : "123",
+    "id" : 12312,
+    "username" : "123541",
     "fullname" : "haotran",
-    "email" : "haotran",
-    "supervisor" : "lecturer1"
+    "email" : "haotran@gmail.com",
+    "title" : "Dr. Hao Tran",
+    "supervisor" : "lecturer1",
+    "signature" : "signature"
 }
 
 ###
 PUT http://localhost:5000/admin/update/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzEyNzk1MCwiZXhwIjoxNjY3MTI3OTgwfQ.8JGv5MshYIj6LFdhvesEJGjvNwzyPJ0UzJVldJ1Qxzc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjgxODY1ODYsImV4cCI6MTY2ODE4NjYxNn0.wuNGGSelFkslUQ7Admu5qTTmLlx_kjBmGDC3a9wCeaA
 Content-Type: application/json
 
 {
     "username" : "linh",
     "fullname" : "linhkhanhtran_updated",
+    "title" : "Dr. Linh",
     "email" : "linh1@gmail.com",
-    "supervisor" : "lecturer"
+    "supervisor" : "lecturer2",
+    "signature" : "signature"
 }
 
 ###
-GET http://localhost:5000/admin/get/lecturer/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNTI4MSwiZXhwIjoxNjY3MDM1MzExfQ.gD6nUYApx7IThS2hCU12hfVkw8wHTZV8SzrKBpRm-co
+GET http://localhost:5000/admin/get/lecturer/21029
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjgxNjY0MjYsImV4cCI6MTY2ODE2NjQ1Nn0.2wmikTlGEpR8mM8FwqfJPij0C6D0sBc26m4S4Skt044
 
 ###
 DELETE http://localhost:5000/admin/delete/lecturer/

@@ -1,0 +1,66 @@
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "lukas",
+    "password" : "30000"
+}
+
+###
+POST http://localhost:5000/admin/get/students
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjA3MjEsImV4cCI6MTY2ODQyMTYyMX0.wpHBQnJswD3P_dhWX45NV0K-Y_sDfrF-vzmmf3-iok8
+Content-Type: application/json
+
+{
+    "id" : "12486",
+    "username" : "",
+    "fullname" : "",
+    "intake" : "",
+    "email" : "",
+    "ects" : "",
+    "signature" : "",
+    "page" : "1"
+}
+###
+GET http://localhost:5000/admin/get/student/12486
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjE0NjAsImV4cCI6MTY2ODQyMjM2MH0.qKHvwxOx_3PdsLV1lFpjkZ55HggZe_cO77SKLPjsM2s
+
+###
+
+POST http://localhost:3001/addSocket
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjgxOTIwNjQsImV4cCI6MTY2ODE5MjA5NH0.1QdCjEGNYw07-_6h5O1UoUvd_8D2ZE1tNr7MueR09WQ
+
+### 
+POST http://localhost:5000/admin/add/student
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjI5MDQsImV4cCI6MTY2ODQyMzgwNH0.oUWuuA_kmPOjwEbiGqL2L6tVfEKzwTFF4jrUqzxXEUE
+Content-Type: application/json
+
+{
+    "id" : "12345",
+    "username" : "11293",
+    "fullname" : "haotran",
+    "email" : "haotran@gmail.com",
+    "intake" : "123",
+    "ects" : "123",
+    "signature" : "signature"
+}
+
+###
+PUT http://localhost:5000/admin/update/student/12345
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjM5MTksImV4cCI6MTY2ODQyNDgxOX0.fRus8X_SSjLNRh_PYGX4R9EpxsFgt0rRNGxskY7NZ6Y
+Content-Type: application/json
+
+{
+    "username" : "linh",
+    "fullname" : "linhkhanhtran_updated",
+    "intake" : "2018",
+    "email" : "linh1@gmail.com",
+    "ects" : 167,
+    "signature" : "signature"
+}
+###
+DELETE http://localhost:5000/admin/delete/student/12345
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU1NzYsImV4cCI6MTY2ODQyNjQ3Nn0.Nnw-oeqLrbnmC_hnq02jhpA7KbA8B6u4-xykXqmPO1Q

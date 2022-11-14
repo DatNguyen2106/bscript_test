@@ -10,7 +10,9 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     var emailFormat = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/;
     var paramId;
     var userName = req.body.username;
-    var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null :  ( '%' + req.body.fullname + '%');
+    var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null : req.body.fullname;
+    var title = (req.body.title === "" || req.body.title === undefined) ?  null : req.body.title;
+    var signature = (req.body.signature === "" || req.body.signature === undefined) ?  null : req.body.signature;
     var email;
     email = checkTypeToUpdate(req.body.email,emailFormat);
     var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ?  null : req.body.supervisor;
@@ -32,9 +34,60 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                             res.status(404).send("unvalid email with that");
                         }
                         else{
-                        var updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , email = ? , supervisor = ? WHERE  lecturer_id = ?";
+                        var updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , title = ?, email = ? , supervisor = ?, signature = ? WHERE  lecturer_id = ?";
                         const results = await new Promise((resolve) => {
-                            db.query(updateQuery, [userName, fullName, email, supervisor, paramId], (err, result) => {
+                            db.query(updateQuery, [userName, fullName, title, email, supervisor, signature, paramId], (err, result) => {
+                                if(err) {res.status(500).send(err.message);}
+                                else
+                                {  resolve(JSON.parse(JSON.stringify(result)))}
+                            })
+                            })
+                        res.send(results);
+                            }
+                    }
+            }
+            
+        }
+        else res.status(405).send("You are not allowed to access, You are not admin")
+    }
+    else res.status(404).send("No user with that username");
+})
+
+
+
+admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
+    // because of unique id value, so this api just returns 1 or no value.
+    var role = req.role;
+    var emailFormat = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/;
+    var paramId;
+    var userName = req.body.username;
+    var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null : req.body.fullname;
+    var intake = (req.body.intake === "" || req.body.intake === undefined) ?  null : req.body.intake;
+    var ects = (req.body.ects === "" || req.body.ects === undefined) ?  null : req.body.ects;
+    var signature = (req.body.signature === "" || req.body.signature === undefined) ?  null : req.body.signature;
+    var email;
+    email = checkTypeToUpdate(req.body.email,emailFormat);
+    if(req.username) {
+        if(role){
+            if(req.params.id === undefined || req.params.id === ""){
+                res.status(404).send("Invalid username with that id")
+            } else if(!(req.params.id)){
+                res.status(404).send("Need a number Parameter Id");
+            } else {
+                    paramId = req.params.id;
+                    console.log(paramId);
+                    console.log(userName);
+                    if(userName === null || userName === undefined || userName === ""){
+                        res.status(404).send("need a valid user name");
+                    } 
+                    else {
+                        if(email === null || email === ''){
+                            res.status(404).send("unvalid email with that");
+                        }
+                        else{
+                        var updateQuery = "UPDATE students SET student_user_name = ? , fullname = ? , intake = ?, email = ? , ects = ?, signature = ? WHERE student_id = ?";
+                        const results = await new Promise((resolve) => {
+                            db.query(updateQuery, [userName, fullName, intake, email, ects, signature, paramId], (err, result) => {
                                 if(err) {res.status(500).send(err.message);}
                                 else
                                 {  resolve(JSON.parse(JSON.stringify(result)))}
@@ -53,7 +106,9 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
 admin_update_router.get('/lecturer', (req, res) => {
     res.send("Default routes for admin/update/lecturer");
 })
-
+admin_update_router.get('/student', (req, res) => {
+    res.send("Default routes for admin/update/student");
+})
 // use for email
 function checkTypeToUpdate (value, type) {
     if( value === "" || value === undefined){

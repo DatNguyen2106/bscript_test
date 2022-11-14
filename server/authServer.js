@@ -102,7 +102,7 @@ const generateTokens = payload => {
     const {id, username, role} = payload;
  /* create JWT token */
  console.log(process.env.ACCESS_TOKEN_SECRET + " and " + process.env.REFRESH_TOKEN_SECRET)
- const accessToken = jwt.sign({id,username,role}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
+ const accessToken = jwt.sign({id,username,role}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '900s'})
  
  const refreshToken   = jwt.sign({id,username,role}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3600s'})
 return {accessToken, refreshToken};
