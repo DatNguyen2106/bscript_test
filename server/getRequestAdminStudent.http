@@ -35,22 +35,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ### 
 POST http://localhost:5000/admin/add/student
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjI5MDQsImV4cCI6MTY2ODQyMzgwNH0.oUWuuA_kmPOjwEbiGqL2L6tVfEKzwTFF4jrUqzxXEUE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU2NTAsImV4cCI6MTY2ODQyNjU1MH0.bJKAzzwcIDL2BS2QQwOdncNQaY8ZWSHZJRYCFfpCJWs
 Content-Type: application/json
 
 {
-    "id" : "12345",
-    "username" : "11293",
+    "id" : 12345,
+    "username" : "12345",
     "fullname" : "haotran",
     "email" : "haotran@gmail.com",
     "intake" : "123",
-    "ects" : "123",
+    "ects" : "168",
     "signature" : "signature"
 }
 
 ###
 PUT http://localhost:5000/admin/update/student/12345
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjM5MTksImV4cCI6MTY2ODQyNDgxOX0.fRus8X_SSjLNRh_PYGX4R9EpxsFgt0rRNGxskY7NZ6Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU3MTIsImV4cCI6MTY2ODQyNjYxMn0.PFIxoIdOv9d7IgszUa8hcAuj6zbjXcWrBvQbHYIgz8I
 Content-Type: application/json
 
 {
@@ -58,9 +58,9 @@ Content-Type: application/json
     "fullname" : "linhkhanhtran_updated",
     "intake" : "2018",
     "email" : "linh1@gmail.com",
-    "ects" : 167,
+    "ects" : 168,
     "signature" : "signature"
 }
 ###
 DELETE http://localhost:5000/admin/delete/student/12345
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU1NzYsImV4cCI6MTY2ODQyNjQ3Nn0.Nnw-oeqLrbnmC_hnq02jhpA7KbA8B6u4-xykXqmPO1Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU3MTIsImV4cCI6MTY2ODQyNjYxMn0.PFIxoIdOv9d7IgszUa8hcAuj6zbjXcWrBvQbHYIgz8I

@@ -65,9 +65,45 @@ admin_delete_router.delete('/student/:id', verifyTokenAdmin, async (req, res) =>
         }
         else res.status(404).send("No user with that username");
     })
-admin_delete_router.delete('/student', (req, res) => {
-    res.send("Default routes for admin/student");
-})
 
+
+admin_delete_router.delete('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
+    // because of unique id value, so this api just returns 1 or no value.
+        var thesisId;
+        var role = req.role;
+        console.log(req.params.id);
+        console.log(typeof(req.params.id));
+        if(req.username) {
+            if(role){
+                if(req.params.id === undefined  || req.params.id === ''){
+                    res.status(404).send("Undefined id for delete");
+                } 
+                else {
+                    thesisId = req.params.id;
+                    console.log(thesisId);
+                    var deleteQuery = "DELETE FROM theses where thesis_id = ?";
+                    const results = await new Promise((resolve) => {
+                        db.query(deleteQuery, [thesisId], (err, result) => {
+                            if(err) {res.status(500).send(err.message);}
+                            else
+                            {  resolve(JSON.parse(JSON.stringify(result)))}
+                        })
+                        })
+                    res.send(results);
+                }
+            }
+            else res.status(405).send("You are not allowed to access, You are not admin")
+        }
+        else res.status(404).send("No thesis with that thesisId");
+    })
+admin_delete_router.delete('/lecturer', (req, res) => {
+    res.send("Default routes for admin/delete/lecturer");
+})    
+admin_delete_router.delete('/student', (req, res) => {
+    res.send("Default routes for admin/delete/student");
+})
+admin_delete_router.delete('/thesis', (req, res) => {
+    res.send("Default routes for admin/delete/thesis");
+})
 // Exports cho admin_delete_router
 module.exports = admin_delete_router;

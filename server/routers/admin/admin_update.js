@@ -103,11 +103,57 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
     }
     else res.status(404).send("No user with that username");
 })
+
+admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) =>{
+    // because of unique id value, so this api just returns 1 or no value.
+    var role = req.role;
+    var role = req.role;
+    const dateFormat = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+    var thesisTopic = (req.body.thesisTopic === "" || req.body.thesisTopic === undefined) ? null : (req.body.thesisTopic);
+    var thesisField = (req.body.thesisField === "" || req.body.thesisField === undefined) ?  null :  (req.body.thesisField);
+    var availableDay = checkTypeToUpdate(req.body.availableDay, dateFormat);
+    var defenseDay = checkTypeToUpdate(req.body.defenseDay, dateFormat);
+    var slot = (req.body.slot === "" || req.body.slot === undefined) ?  null : (req.body.slot);
+    var slotMaximum = (req.body.slotMaximum === "" || req.body.slotMaximum === undefined) ? null : (req.body.slotMaximum);
+    console.log("thesisTopic = " + thesisTopic);
+    console.log("thesisField = " + thesisField);
+    console.log("availableDay = " + availableDay);
+    console.log("defenseDay = " + defenseDay);
+    console.log("slot = " + slot);
+    console.log("slotMaximum = "  + slotMaximum);
+    if(req.username) {
+        if(role){
+            if(req.params.thesisId === undefined || req.params.thesisId === ""){
+                res.status(404).send("Invalid username with that id")
+            } else if(!(req.params.thesisId)){
+                res.status(404).send("Need a number Parameter Id");
+            } else {
+                    paramId = req.params.thesisId;
+                    console.log(paramId);
+                    var updateQuery = "UPDATE theses SET thesis_topic = ? , thesis_field = ? , available_day = ?, defense_day = ? , slot = ?, slot_maximum = ? WHERE thesis_id = ?";
+                    const results = await new Promise((resolve) => {
+                        db.query(updateQuery, [thesisTopic, thesisField, availableDay, defenseDay, slot, slotMaximum, paramId], (err, result) => {
+                            if(err) {res.status(500).send(err.message);}
+                            else
+                            {  resolve(JSON.parse(JSON.stringify(result)))}
+                        })
+                        })
+                    res.send(results);
+            }
+            
+        }
+        else res.status(405).send("You are not allowed to access, You are not admin")
+    }
+    else res.status(404).send("No thesis with that thesisId");
+})
 admin_update_router.get('/lecturer', (req, res) => {
     res.send("Default routes for admin/update/lecturer");
 })
 admin_update_router.get('/student', (req, res) => {
     res.send("Default routes for admin/update/student");
+})
+admin_update_router.get('/thesis', (req, res) => {
+    res.send("Default routes for admin/update/thesis");
 })
 // use for email
 function checkTypeToUpdate (value, type) {

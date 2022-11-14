@@ -1,0 +1,64 @@
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "lukas",
+    "password" : "30000"
+}
+
+###
+POST http://localhost:5000/admin/get/theses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0NDA1MTMsImV4cCI6MTY2ODQ0MTQxM30.G05O9k8Q6c1wWTllvymvZUAAt-iIwS_XAnqw5CnA5h0
+Content-Type: application/json
+
+{
+    "id" : "",
+    "thesisId" : "",
+    "thesisTopic" : "",
+    "thesisField" : "",
+    "availableDay" : "",
+    "defenseDay" : "",
+    "slot" : "",
+    "slotMaximum" : "2",
+    "page" : "1"
+}
+
+###
+GET http://localhost:5000/admin/get/thesis/123122
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0NDIxMjYsImV4cCI6MTY2ODQ0MzAyNn0.pCp3KO2-TXUYqo_cGboqIdXcbE_Qe6ml-XF3h8JUIxA
+
+
+###
+POST http://localhost:5000/admin/add/thesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0NDQ1MzUsImV4cCI6MTY2ODQ0NTQzNX0.FpnXk-2P1Cf8f0a3lyGiQs5CqYnN8YKa8zaWb5SfSeQ
+Content-Type: application/json
+
+{
+    "thesisId" : 123412,
+    "thesisTopic" : "Data For Everything",
+    "thesisField" : "Data",
+    "availableDay" : "2022-12-29",
+    "defenseDay" : "2022-12-29",
+    "slot" : "1",
+    "slotMaximum" : "1"
+}
+
+
+###
+PUT http://localhost:5000/admin/update/thesis/123412
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0NDQ4NTgsImV4cCI6MTY2ODQ0NTc1OH0.I4ilXE6iM5TcwugEMzAd3KIooNqpfWNoB_vT9joTI-4
+Content-Type: application/json
+
+{
+    "thesisTopic" : "Data For Everything Update",
+    "thesisField" : "Data Updated",
+    "availableDay" : "2022-12-01",
+    "defenseDay" : "2022-12-12",
+    "slot" : "1",
+    "slotMaximum" : "2"
+}
+
+###
+DELETE http://localhost:5000/admin/delete/student/12345
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU3MTIsImV4cCI6MTY2ODQyNjYxMn0.PFIxoIdOv9d7IgszUa8hcAuj6zbjXcWrBvQbHYIgz8I
