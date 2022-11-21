@@ -362,7 +362,7 @@ admin_get_router.get('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
                 }
                 else res.status(405).send("You are not allowed to access, You are not admin")
             }
-            else res.status(404).send("No thesis with that thesisId");    
+            else res.status(404).send("No user with that username");    
         } catch (error) {
             console.log(error.message);
             res.status(404).send("You got an error" + error.message);

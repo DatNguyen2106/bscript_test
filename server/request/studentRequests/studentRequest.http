@@ -1,0 +1,67 @@
+
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "dnoakes1",
+    "password" : "12486"
+}
+
+###
+GET http://localhost:5000/student/get/12486
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg4NTM3NjUsImV4cCI6MTY2ODg1NDY2NX0.VQWbboVYlebRCShIWrluYG_IV1XS4ajxRZnA-4tuSv0
+
+
+###
+
+POST http://localhost:5000/student/registrationBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY2ODkzMjUyNywiZXhwIjoxNjY4OTMzNDI3fQ.Ro8uls0wnffxT8L9hTFhIqKBa76sWs8Cx1Xo96RndoA
+Content-Type: application/json
+
+{
+    "studentId" : 12486,
+    "matriculationNumber" : 1238432,
+    "surName" : "phannguyen",
+    "foreName" : "long",
+    "dateOfBirth" : "2000-12-23",
+    "placeOfBirth" : "HCM city",
+    "signature" : "",
+    "titleBachelorThesis" : "Data Mining",
+    "thesisType" : "1",
+    "furtherParticipants" : "",
+    "supervisor1_title" : "Prof. Huynh Trung Hieu",
+    "supervisor1_signature" : "",
+    "supervisor1_date" : "2022-12-12",
+    "supervisor2_title" : "Master Huynh Nguyen",
+    "supervisor2_signature" : "",
+    "supervisor2_date" : "2022-12-12",
+    "issued" : "2023-1-12",
+    "deadlineCopy" : 2,
+    "extensionGranted" : "2022-12-29",
+    "chairmanOfExamination" : "VGU",
+    "date_of_issue" : "2000-12-23"
+}
+
+###
+
+POST http://localhost:5000/student/registrationOralDefense
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY2ODk1MjM3NSwiZXhwIjoxNjY4OTUzMjc1fQ.r_Y1Ux7itTH_w-xCJzA4hMz5Wp4gJDGgEmy3YHqlNvc
+Content-Type: application/json
+
+{
+    "studentId" : 12486,
+    "matriculationNumber" : 1238432,
+    "surName" : "phannguyen",
+    "foreName" : "long",
+    "supervisor1_title" : "Prof Huynh Trung Hieu",
+    "supervisor2_title" : "Master Huynh Nguyen", 
+    "spectatorsPresent" : 1,
+    "weekDate" : "3", 
+    "proposedDate" : "2022-12-29", 
+    "proposedTime" : "07:00:00", 
+    "room" : "A2392.3", 
+    "concernedAgreed" : 1, 
+    "dateReceive" : "2023-03-29", 
+    "dateSubmission" : "2023-03-29"
+}

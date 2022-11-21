@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0NDA1MTMsImV4cCI6MTY2ODQ0MTQxM30.G05O9k8Q6c1wWTllvymvZUAAt-iIwS_XAnqw5CnA5h0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg3MzkzMTQsImV4cCI6MTY2ODc0MDIxNH0.h8ocJNKuzMHiatdvRVbLvZ_GJ6m9T9XjrriRVDuV-QQ
 Content-Type: application/json
 
 {
@@ -60,5 +60,27 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/admin/delete/student/12345
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU3MTIsImV4cCI6MTY2ODQyNjYxMn0.PFIxoIdOv9d7IgszUa8hcAuj6zbjXcWrBvQbHYIgz8I
+DELETE http://localhost:5000/admin/delete/thesis/123412
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0NDU0OTYsImV4cCI6MTY2ODQ0NjM5Nn0.EGOoUkpirTJ_H_OwGc8CnvexIXdZ5DWK0vzeILP2W9k
+
+###
+POST http://localhost:5000/admin/assign/lecturerToThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg4NDE4NjYsImV4cCI6MTY2ODg0Mjc2Nn0.0taga8bOpk28IolQNtNsmVGjCdLzLBhuZyiIAAyTbYY
+Content-Type: application/json
+
+{
+    "lecturerId" : 21933,
+    "thesisId" : 123122,
+    "lecturer2" : 22323
+}
+
+
+###
+POST http://localhost:5000/admin/assign/studentToThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg4NDUxMTQsImV4cCI6MTY2ODg0NjAxNH0.khjMerdBqJaoQr3X-FKz_SLhr45bTfqX3Hecfm2Ofow
+Content-Type: application/json
+
+{
+    "studentId" : 12365,
+    "thesisId" : 123124
+}

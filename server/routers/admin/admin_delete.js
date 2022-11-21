@@ -94,7 +94,7 @@ admin_delete_router.delete('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
             }
             else res.status(405).send("You are not allowed to access, You are not admin")
         }
-        else res.status(404).send("No thesis with that thesisId");
+        else res.status(404).send("No user with that username");
     })
 admin_delete_router.delete('/lecturer', (req, res) => {
     res.send("Default routes for admin/delete/lecturer");

@@ -85,9 +85,7 @@ const checkUser = (username, socketId) => {
 io.on("connection", (socket) => {
   var authenticatedUser;
   socket.on("updateSocket", async (reqToken) => {
-  console.log(reqToken.token);
   authenticatedUser =  authenticateUser(reqToken, socket.id);
-  console.log(authenticatedUser.username);
   updateSocketStatus(socket.id, authenticatedUser.username);
   onlineUsers.push(await getOnlineUsers(authenticatedUser.username));
     console.log("online user" , onlineUsers);

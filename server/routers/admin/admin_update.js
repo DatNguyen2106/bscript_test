@@ -115,12 +115,6 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
     var defenseDay = checkTypeToUpdate(req.body.defenseDay, dateFormat);
     var slot = (req.body.slot === "" || req.body.slot === undefined) ?  null : (req.body.slot);
     var slotMaximum = (req.body.slotMaximum === "" || req.body.slotMaximum === undefined) ? null : (req.body.slotMaximum);
-    console.log("thesisTopic = " + thesisTopic);
-    console.log("thesisField = " + thesisField);
-    console.log("availableDay = " + availableDay);
-    console.log("defenseDay = " + defenseDay);
-    console.log("slot = " + slot);
-    console.log("slotMaximum = "  + slotMaximum);
     if(req.username) {
         if(role){
             if(req.params.thesisId === undefined || req.params.thesisId === ""){
@@ -144,7 +138,7 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
         }
         else res.status(405).send("You are not allowed to access, You are not admin")
     }
-    else res.status(404).send("No thesis with that thesisId");
+    else res.status(404).send("No user with that username");
 })
 admin_update_router.get('/lecturer', (req, res) => {
     res.send("Default routes for admin/update/lecturer");
