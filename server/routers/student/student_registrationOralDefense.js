@@ -40,7 +40,7 @@ student_registrationOralDefense_router.post('/', verifyTokenStudent, async (req,
                     else {
                     studentId = req.body.studentId;
                     var query = "INSERT INTO registrations_for_oral_defense (student_id, matriculation_number, surname, forename, supervisor1_title, supervisor2_title, spectators_present, weekdate, proposed_date, proposed_time, room, concerned_agreed, date_receive, date_submission) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-                    var queryParams = [studentId, matriculationNumber, surName, forename, supervisor1_title, supervisor2_title, spectatorsPresent, weekDate, proposedDate, proposedTime, room, concernedAgreed, dateReceive, dateSubmission]
+                    var queryParams = [studentId, matriculationNumber, surName, foreName, supervisor1_title, supervisor2_title, spectatorsPresent, weekDate, proposedDate, proposedTime, room, concernedAgreed, dateReceive, dateSubmission]
                     var dbResults = await executeQuery(res, query, queryParams);
                     console.log(dbResults);  
                     }
