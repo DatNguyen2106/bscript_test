@@ -65,3 +65,52 @@ Content-Type: application/json
     "dateReceive" : "2023-03-29", 
     "dateSubmission" : "2023-03-29"
 }
+
+###
+
+POST http://localhost:5000/student/assessmentBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY2OTAyNDExNSwiZXhwIjoxNjY5MDI1MDE1fQ.ELhFB-39ejuHD87cELFqFsc6QdnaITwzzDlQrxKEgkc
+Content-Type: application/json
+
+{
+    "studentId" : 12486,
+    "matriculationNumber" : 1238432,
+    "surName" : "phannguyen",
+    "foreName" : "long",
+    "thesisType" : "1",
+    "furtherParticipants" : "",
+    "supervisor1_title" : "Prof. Huynh Trung Hieu",
+    "supervisor1_grade" : 1.5,
+    "supervisor2_title" : "Master Huynh Nguyen",
+    "supervisor2_grade" : 1.2,
+    "assessmentThesis" : "This is assessment Thesis",
+    "assessmentDate" : "2022-12-29",
+    "supervisor1_signature" : "",
+    "supervisor2_signature" : ""
+}
+
+###
+
+POST http://localhost:5000/student/assessmentOralDefense
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY2OTAyOTY4OSwiZXhwIjoxNjY5MDMwNTg5fQ.Y1rKXD_EDATZzIsOjlrhav7Sw_ABjv98B2F2BILIF4c
+Content-Type: application/json
+
+{
+    "studentId" : 12486,
+    "matriculationNumber" : 1238432,
+    "surName" : "phannguyen",
+    "foreName" : "long",
+    "dateDefense" : "2023-03-19",
+    "placeDefense" : "HCM city",
+    "startDate" : "2022-12-29",
+    "finishDate" : "2023-03-19",
+    "stateOfHealth" : 1,
+    "supervisor1_title" : "Prof Huynh Trung Hieu",
+    "supervisor1_grade" : 1.1,
+    "supervisor2_title" : "Master Huynh Nguyen", 
+    "supervisor2_grade" : 1.3,
+    "record" : "This is record",
+    "assessmentDate" : "2023-03-19",
+    "supervisor1_signature" : "",
+    "supervisor2_signature" : ""
+}
