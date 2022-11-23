@@ -35,6 +35,36 @@ admin_assign_router.post('/studentToThesis', verifyTokenAdmin, async (req,res) =
         else res.status(405).send("You are not allowed to access, You are not admin")}
      else res.status(404).send("No user with that username");
 })
+
+admin_assign_router.delete('/studentToThesis/:id', verifyTokenAdmin, async (req,res) => {
+    var role = req.role;
+    var studentId = (req.params.id === "" || req.body.id === undefined) ?  null : req.body.id;
+
+    if(req.username){
+        if(role){
+            query = "DELETE FROM students_theses WHERE student_id = ?";
+            queryParams = [studentId];
+            const dbResults = await executeQuery(res, query, queryParams);
+            console.log(dbResults);
+        }
+        else res.status(405).send("You are not allowed to access, You are not admin")}
+     else res.status(404).send("No user with that username");
+    })
+    
+admin_assign_router.delete('/lecturerToThesis/:id', verifyTokenAdmin, async (req,res) => {
+    var role = req.role;
+    var lecturerId = (req.params.id === "" || req.params.id === undefined) ?  null : req.params.id;
+
+    if(req.username){
+        if(role){
+            query = "DELETE FROM lecturers_theses WHERE lecturer_id = ?";
+            queryParams = [lecturerId];
+            const dbResults = await executeQuery(res, query, queryParams);
+            console.log(dbResults);
+        }
+        else res.status(405).send("You are not allowed to access, You are not admin")}
+        else res.status(404).send("No user with that username");
+    })
 const executeQuery = (res, query, queryParams) => {
     const results =  new Promise((resolve) => {
         db.query(query, queryParams, (err, result) => {
