@@ -10,6 +10,7 @@ const adminRoute = require('./routers/admin');
 const studentRoute = require('./routers/student')
 const chatRoute = require('./routers/chatRoutes')
 app.use(cors());
+app.use(express.json());
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
@@ -30,15 +31,6 @@ app.get('/getNotifications', verifyToken, async (req, res) =>{
                 console.log(dbResults);
                 console.log(dbResults.length);
                 res.send(dbResults);
-                // for (let i = 0; i < dbResults.length; i++){
-                //     res.send({
-                //         "notificationId" : dbResults[i].notification_id,
-                //         "title" : dbResults[i].title12,
-                //         "author" : dbResults[i].author,
-                //         "content" : dbResults[i].content,
-                //         "createAt" : dbResults[i].created_at,
-                //         })
-                //     }
             }
         } catch (error) {
             console.log(error.message);
@@ -57,5 +49,6 @@ const executeQuery = (res, query, queryParams) => {
         })
     return results;
 }
+// app.use('/chat', chatRoute);
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`running on port ${PORT}`));
