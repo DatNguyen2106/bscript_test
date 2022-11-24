@@ -133,14 +133,14 @@ admin_get_router.get('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                         else {
                             // case return number of objects > 1
                             // but in this case the number of results are only 1 and 0.
-                            for (let i = 0; i < results.length; i++){
+                            if(results.length === 1){
                             res.send({
-                                "id" : results[i].lecturer_id,
-                                "userName" : results[i].lecturer_user_name,
-                                "fullName" : results[i].fullname,
-                                "email" : results[i].email,
-                                "supervisor" : results[i].supervisor,
-                                "signature" : results[i].signature
+                                "id" : results[0].lecturer_id,
+                                "userName" : results[0].lecturer_user_name,
+                                "fullName" : results[0].fullname,
+                                "email" : results[0].email,
+                                "supervisor" : results[0].supervisor,
+                                "signature" : results[0].signature
                                 })
                             }
                         }
@@ -237,15 +237,15 @@ admin_get_router.get('/student/:id', verifyTokenAdmin, async (req, res) =>{
                             else {
                                 // case return number of objects > 1
                                 // but in this case the number of results are only 1 and 0.
-                                for (let i = 0; i < results.length; i++){
+                                if(results.length === 1){
                                 res.send({
-                                    "id" : results[i].student_id,
-                                    "userName" : results[i].student_user_name,
-                                    "fullName" : results[i].fullname,
-                                    "intake" : results[i].intake,
-                                    "email" : results[i].email,
-                                    "ects" : results[i].ects,
-                                    "signature" : results[i].signature
+                                    "id" : results[0].student_id,
+                                    "userName" : results[0].student_user_name,
+                                    "fullName" : results[0].fullname,
+                                    "intake" : results[0].intake,
+                                    "email" : results[0].email,
+                                    "ects" : results[0].ects,
+                                    "signature" : results[0].signature
                                     })
                                 }
                             }
@@ -343,17 +343,16 @@ admin_get_router.get('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
                             if( results.length === 0 || results === null || results === undefined || results === [])
                             { res.send(results)}
                             else {
-                                // case return number of objects > 1
                                 // but in this case the number of results are only 1 and 0.
-                                for (let i = 0; i < results.length; i++){
+                                if(results.length === 1){
                                 res.send({
-                                    "thesisId" : results[i].thesis_id,
-                                    "thesisTopic" : results[i].thesis_topic,
-                                    "thesisField" : results[i].thesis_field,
-                                    "availableDay" : results[i].available_day,
-                                    "defenseDay" : results[i].defense_day,
-                                    "slot" : results[i].slot,
-                                    "slotMaximum" : results[i].slot_maximum
+                                    "thesisId" : results[0].thesis_id,
+                                    "thesisTopic" : results[0].thesis_topic,
+                                    "thesisField" : results[0].thesis_field,
+                                    "availableDay" : results[0].available_day,
+                                    "defenseDay" : results[0].defense_day,
+                                    "slot" : results[0].slot,
+                                    "slotMaximum" : results[0].slot_maximum
                                     })
                                 }
                             }

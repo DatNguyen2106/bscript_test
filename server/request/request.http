@@ -17,6 +17,9 @@ Content-Type: application/json
     "username" : "lukas",
     "password" : "30000"
 }
+###
+GET http://localhost:5000/getNotifications
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg4NTM3NjUsImV4cCI6MTY2ODg1NDY2NX0.VQWbboVYlebRCShIWrluYG_IV1XS4ajxRZnA-4tuSv0
 
 ###
 GET http://localhost:4000/roles
