@@ -13,6 +13,7 @@ GET http://localhost:5000/student/get/12486
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg4NTM3NjUsImV4cCI6MTY2ODg1NDY2NX0.VQWbboVYlebRCShIWrluYG_IV1XS4ajxRZnA-4tuSv0
 
 
+
 ###
 
 POST http://localhost:5000/student/registrationBachelorThesis

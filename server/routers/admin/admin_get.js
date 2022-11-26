@@ -3,7 +3,8 @@ const admin_get_router = express.Router();
 const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const verifyToken = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
-
+const io = require('../.././socketServer');
+console.log(io);
 admin_get_router.get('/test', verifyToken, (req, res) => {
     console.log(req.body);
     console.log("access by access token successfully");
@@ -100,7 +101,9 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
                         "totalPage" : results.chunk(chunkForPage).length,
                         "list" : results.chunk(chunkForPage)[page-1]
                     })}
+                    io.emit("getLecturers", results);
                 }
+
             }
             else res.send("You are not allowed to access, You are not admin")
         }   

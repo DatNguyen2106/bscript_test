@@ -83,6 +83,9 @@ const checkUser = (username, socketId) => {
 };
 
 io.on("connection", (socket) => {
+  socket.on("connect_error", (err) => {
+    console.log(`connect_error due to ${err.message}`);
+  });
   var authenticatedUser;
   socket.on("updateSocket", async (reqToken) => {
   authenticatedUser =  authenticateUser(reqToken, socket.id);
@@ -107,4 +110,5 @@ io.on("connection", (socket) => {
   })
 });
 const PORT = process.env.PORT || 3001;
-httpServer.listen(PORT, () => console.log(`running on port ${PORT}`));
+httpServer.listen(PORT, () => {});
+module.exports = io;
