@@ -4,7 +4,6 @@ const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const verifyToken = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
 const io = require('../.././socketServer');
-console.log(io);
 admin_get_router.get('/test', verifyToken, (req, res) => {
     console.log(req.body);
     console.log("access by access token successfully");
@@ -64,7 +63,8 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
         var title = (req.body.title === "" || req.body.title === undefined) ? '%' : ('%' + req.body.title + '%');
         var userName = (req.body.username === "" || req.body.username === undefined) ?  '%' : ('%' + req.body.username  + '%');
         var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  '%' :  ('%' + req.body.fullname  + '%');
-        var email ;
+        var email;
+        var maximumTheses = (req.body.maximumTheses === "" || req.body.maximumTheses === undefined) ? '%' : ('%' + req.body.maximumTheses + '%');
         console.log(emailFormat);
         if(req.body.email === "" || req.body.email === undefined){
              email =  '%';
@@ -78,9 +78,9 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
                 {   console.log(id);
                     console.log("userName = " + userName);
                     console.log("fullName = " + fullName);
-                    var filterQuery = "SELECT * FROM lecturers where lecturer_id LIKE ? AND lecturer_user_name LIKE ? AND fullname LIKE ? AND title LIKE ? AND email LIKE ? AND supervisor LIKE ?;";
+                    var filterQuery = "SELECT * FROM lecturers where lecturer_id LIKE ? AND lecturer_user_name LIKE ? AND fullname LIKE ? AND title LIKE ? AND email LIKE ? AND supervisor LIKE ? AND maximum_of_theses LIKE ?;";
                     const results = await new Promise((resolve) => {
-                        db.query(filterQuery, [id, userName, fullName, title, email, supervisor], (err, result) => {
+                        db.query(filterQuery, [id, userName, fullName, title, email, supervisor, maximumTheses], (err, result) => {
                           if(err) {res.send(err);}
                           else
                           {  
@@ -143,7 +143,10 @@ admin_get_router.get('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                                 "fullName" : results[0].fullname,
                                 "email" : results[0].email,
                                 "supervisor" : results[0].supervisor,
-                                "signature" : results[0].signature
+                                "title" : results[0].title,
+                                "signature" : results[0].signature,
+                                "numberOFTheses" : results[0].number_of_theses,
+                                "maximumOfTheses" : results[0].maximum_of_theses
                                 })
                             }
                         }
@@ -173,12 +176,6 @@ admin_get_router.post('/students', verifyTokenAdmin, async (req, res) =>{
         var email = (req.body.email === "" || req.body.email === undefined) ? '%' : ('%' + req.body.email + '%');
         var ects  = (req.body.etcs === "" || req.body.ects === undefined) ? '%' : ('%' +  req.body.ects + '%'); 
         var signature = (req.body.signature === "" || req.body.signature === undefined) ?  '%' : ('%' + req.body.signature + '%');        
-        console.log("id = " + id);
-        console.log("username = " + userName);
-        console.log("fullName = " + fullName);
-        console.log("intake = " + intake);
-        console.log("email = " + email);
-        console.log("ects = " + ects);
         var role = req.role;
         if(req.username) {
             if(role){
@@ -274,27 +271,22 @@ admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
         const ectsFormat = /^\d+$/;
         var page = (req.body.page === "" || req.body.page === undefined) ?  1 : req.body.page;
         var thesisId  = (req.body.id === "" || req.body.id === undefined) ?  '%' : ('%' + req.body.id +'%');
-        var thesisTopic = (req.body.username === "" || req.body.username === undefined) ?  '%' : ('%' + req.body.username  + '%');
-        var thesisField = (req.body.fullname === "" || req.body.fullname === undefined) ?  '%' :  ('%' + req.body.fullname  + '%');
-        var availableDay = (req.body.availableDay === "" || req.body.availableDay === undefined) ?  '%' :  ('%' + req.body.availableDay  + '%'); 
-        var defenseDay = (req.body.defenseDay === "" || req.body.defenseDay === undefined) ?  '%' :  ('%' + req.body.defenseDay  + '%');
+        var thesisTopic = (req.body.thesisTopic === "" || req.body.thesisTopic === undefined) ?  '%' : ('%' + req.body.thesisTopic  + '%');
+        var lecturer1_id = (req.body.lecturer1_id === "" || req.body.lecturer1_id === undefined) ? '%' : ('%' + req.body.lecturer1_id + '%');
+        var lecturer2_id = (req.body.lecturer2_id === "" || req.body.lecturer2_id === undefined) ? '%' : ('%' + req.body.lecturer2_id + '%');
+        var lecturer1_title = (req.body.lecturer1_title === "" || req.body.lecturer1_title === undefined) ? '%' : ('%' + req.body.lecturer1_title + '%');
+        var lecturer2_title = (req.body.lecturer2_title === "" || req.body.lecturer2_title === undefined) ? '%' : ('%' + req.body.lecturer2_title + '%');
         var slot = (req.body.slot === "" || req.body.slot === undefined) ?  '%' : ('%' + req.body.slot  + '%');
         var slotMaximum = (req.body.slotMaximum === "" || req.body.slotMaximum === undefined) ?  '%' : ('%' + req.body.slotMaximum  + '%');
-        console.log("id = " + thesisId);
-        console.log("thesisTopic = " + thesisTopic);
-        console.log("thesisField = " + thesisField);
-        console.log("availableDay = " + availableDay);
-        console.log("defenseDay = " + defenseDay);
-        console.log("slot = " + slot);
-        console.log("slotMaximum = "  + slotMaximum);
+        
         var role = req.role;
         if(req.username) {
             if(role){
                 {  
                         console.log(thesisId);
-                    var filterQuery = "SELECT * FROM theses where thesis_id LIKE ? AND thesis_topic LIKE ? AND thesis_field LIKE ? AND available_day LIKE ? AND defense_day LIKE ? AND slot LIKE ? AND slot_maximum LIKE ?;";
+                    var filterQuery = "call getThesis(?, ?, ?, ?, ?, ?, ?, ?)";
                     const results = await new Promise((resolve) => {
-                        db.query(filterQuery, [thesisId, thesisTopic, thesisField, availableDay, defenseDay, slot, slotMaximum], (err, result) => {
+                        db.query(filterQuery, [thesisId, thesisTopic, lecturer1_id, lecturer2_id, lecturer1_title, lecturer2_title, slot, slotMaximum], (err, result) => {
                             if(err) {res.send(err);}
                             else
                             {  
@@ -303,9 +295,9 @@ admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
                             }
                         })
                         })
-                    console.log(results);
-                    console.log(results.chunk(page)[page-1]);
-                    console.log("TotalPage " + results.chunk(chunkForPage).length);
+                    //return status server response
+                    var dbResults = results.pop();
+                    console.log(dbResults);
                     if(page > results.chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results.chunk(chunkForPage).length,

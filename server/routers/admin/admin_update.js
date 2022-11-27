@@ -13,6 +13,8 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null : req.body.fullname;
     var title = (req.body.title === "" || req.body.title === undefined) ?  null : req.body.title;
     var signature = (req.body.signature === "" || req.body.signature === undefined) ?  null : req.body.signature;
+    var maximumTheses = (req.body.maximumTheses === "" || req.body.maximumTheses === undefined) ?  0 : req.body.maximumTheses;
+
     var email;
     email = checkTypeToUpdate(req.body.email,emailFormat);
     var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ?  null : req.body.supervisor;
@@ -34,9 +36,9 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                             res.status(404).send("unvalid email with that");
                         }
                         else{
-                        var updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , title = ?, email = ? , supervisor = ?, signature = ? WHERE  lecturer_id = ?";
+                        var updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , title = ?, email = ? , supervisor = ?, signature = ?, maximum_of_theses = ? WHERE  lecturer_id = ?";
                         const results = await new Promise((resolve) => {
-                            db.query(updateQuery, [userName, fullName, title, email, supervisor, signature, paramId], (err, result) => {
+                            db.query(updateQuery, [userName, fullName, title, email, supervisor, signature, maximumTheses, paramId], (err, result) => {
                                 if(err) {res.status(500).send(err.message);}
                                 else
                                 {  resolve(JSON.parse(JSON.stringify(result)))}
