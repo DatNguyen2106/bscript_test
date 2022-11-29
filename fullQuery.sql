@@ -665,6 +665,8 @@ VALUES (23483,453252,20489);
 INSERT INTO lecturers_theses (lecturer_id, thesis_id,lecturer2)
 VALUES (26029,123554,22323);
 use mydb;
+
+use mydb;
 -- insert user_query
 /* total user */ 
 DROP TABLE IF EXISTS `tbl_user`;
@@ -762,55 +764,42 @@ DROP TABLE IF EXISTS `notifications`;
 CREATE TABLE notifications(
 notification_id int auto_increment,
 title varchar(255),
-author bigint,
+sender bigint,
+receiver bigint,
 content varchar(255),
 primary key (notification_id),
-CONSTRAINT fk_inv_author_notifications
-    FOREIGN KEY (author)
-    REFERENCES tbl_user (id)
-    ON DELETE CASCADE
-);
-INSERT INTO notifications (title, author, content) values ("title1s", 21029, "content1");
-INSERT INTO notifications (title, author, content) values ("title1", 30000, "content1");
-INSERT INTO notifications (title, author, content) values ("title2", 30000, "content2");
-INSERT INTO notifications (title, author, content) values ("title3", 30000, "content3");
-INSERT INTO notifications (title, author, content) values ("title4", 30000, "content4");
-INSERT INTO notifications (title, author, content) values ("title5", 30000, "content5");
-INSERT INTO notifications (title, author, content) values ("title6", 30000, "content6");
-INSERT INTO notifications (title, author, content) values ("title7", 30000, "content7");
-INSERT INTO notifications (title, author, content) values ("title8", 30000, "content8");
-INSERT INTO notifications (title, author, content) values ("title9", 30000, "content9");
-INSERT INTO notifications (title, author, content) values ("title10", 30000, "content10");
-INSERT INTO notifications (title, author, content) values ("title11", 30000, "content11");
-INSERT INTO notifications (title, author, content) values ("title12", 30000, "content12");
-
-
-DROP TABLE IF EXISTS `users_notifications`;
-CREATE TABLE users_notifications(
-user_id bigint,
-notification_id int,
-primary key(user_id, notification_id),
-CONSTRAINT fk_inv_user_id_users_notifications
-    FOREIGN KEY (user_id)
+CONSTRAINT fk_inv_sender_notifications
+    FOREIGN KEY (sender)
     REFERENCES tbl_user (id)
     ON DELETE CASCADE,
-CONSTRAINT fk_inv_notification_id_users_notifications
-    FOREIGN KEY (notification_id)
-    REFERENCES notifications (notification_id)
+CONSTRAINT fk_inv_receiver_notifications
+    FOREIGN KEY (receiver)
+    REFERENCES tbl_user (id)
     ON DELETE CASCADE
 );
-INSERT INTO users_notifications (user_id, notification_id) values (21029, 1);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 2);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 3);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 4);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 5);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 6);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 7);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 8);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 9);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 10);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 11);
-INSERT INTO users_notifications (user_id, notification_id) values (30000, 12);
+-- admin 30000, lecturer1 21029, lecturer2 22323, student 12486
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from admin to admin", 30000, 30000, "This is content 1 from admin to admin");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from admin to lecturer1", 30000, 21029, "This is content from admin to lecturer1");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from admin to lecturer2", 30000, 22323, "Notification from admin to lecturer2");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from admin to student", 30000, 12486, "Notification from admin to student");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from lecturer1 to admin", 21029, 30000, "This is content from lecturer1 to admin");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from lecturer1 to lecturer1", 21029, 21029, "This is content from lecturer1 to lecturer1");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from lecturer1 to lecturer2", 21029, 22323, "Notification from lecturer1 to lecturer2");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from lecturer1 to student", 21029, 12486, "Notification from lecturer1 to student");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from lecturer2 to admin", 22323, 30000, "This is content from lecturer2 to admin");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from lecturer2 to lecturer1", 22323, 21029, "This is content from lecturer2 to lecturer1");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from lecturer2 to lecturer2", 22323, 22323, "Notification from lecturer2 to lecturer2");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from lecturer2 to student", 22323, 12486, "Notification from lecturer2 to student");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from student to admin", 12486, 30000, "This is content from student to admin");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from student to lecturer1", 12486, 21029, "This is content from student to lecturer1");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from student to lecturer2", 12486, 22323, "Notification from student to lecturer2");
+INSERT INTO notifications (title, sender, receiver, content) values ("Notification from student to student", 12486, 12486, "Notification from student to student");
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `tbl_per_detail`;
 CREATE TABLE tbl_per_detail(
@@ -994,8 +983,5 @@ VALUES
 /* Assign lecturer to thesis */
 (5,'assign thesis to lecturer', 'ASSIGN THESIS TO LECTURER', 0);
 ALTER TABLE notifications
-ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-ALTER TABLE users_notifications
 ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 ADD COLUMN updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
