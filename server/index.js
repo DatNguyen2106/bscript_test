@@ -24,7 +24,7 @@ app.get('/getNotifications', verifyToken, async (req, res) =>{
             if(req.username){
                 var id = req.userId;
                 console.log(id);
-                const query = "SELECT * FROM notifications WHERE author = ?";
+                const query = "SELECT * FROM notifications WHERE sender = ?";
                 const queryParams = [id];
                 const dbResults = await executeQuery(res, query, queryParams); 
                 console.log(dbResults);

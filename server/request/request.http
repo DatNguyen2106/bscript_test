@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:5000/getNotifications
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjkyNzM5NTEsImV4cCI6MTY2OTI3NDg1MX0.OkrtDGQIIQz-9SrK_gZirlFu-aKetKMn25RqAzfxtRc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk2NTI3OTgsImV4cCI6MTY2OTY1MzY5OH0.FSBZdiyeuybzuWQbAgzv88tVSxpyCmfZ7gHvVqH3Inw
 
 ###
 GET http://localhost:4000/roles
