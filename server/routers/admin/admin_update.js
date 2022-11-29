@@ -3,7 +3,7 @@ const admin_update_router = express.Router();
 const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const verifyToken = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
-
+const io = require('../.././socketServer');
 admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
     var role = req.role;
@@ -34,7 +34,7 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                             res.status(404).send("unvalid email with that");
                         }
                         else{
-                        var updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , title = ?, email = ? , supervisor = ?, signature = ? WHERE  lecturer_id = ?";
+                        const updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , title = ?, email = ? , supervisor = ?, signature = ? WHERE  lecturer_id = ?";
                         const results = await new Promise((resolve) => {
                             db.query(updateQuery, [userName, fullName, title, email, supervisor, signature, paramId], (err, result) => {
                                 if(err) {res.status(500).send(err.message);}
@@ -42,8 +42,23 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                                 {  resolve(JSON.parse(JSON.stringify(result)))}
                             })
                             })
-                        res.send(results);
-                            }
+                        const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                        const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update lecturer successfully"];
+                        const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                        console.log(notification);
+                        const notificationSent = await getNotificationSent(res, req.userId);
+                        console.log("notification sent: " + notificationSent[0].title);
+                        const notificationReceived = await getNotificationReceived(res, req.userId);
+                        console.log("notification received: " + JSON.stringify(notificationReceived));
+
+                        const socket = await getSocketById(res, req.userId);
+                        const socketId = socket[0].socket_id;
+                        console.log(socketId);
+                        if(socketId === null || socketId === undefined){
+                            console.log("no socketId from database");
+                        }
+                        else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                    }
                     }
             }
             
@@ -93,8 +108,11 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
                                 {  resolve(JSON.parse(JSON.stringify(result)))}
                             })
                             })
-                        res.send(results);
-                            }
+                        }
+                        const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                        const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update student successfully"];
+                        const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                        console.log(notification);
                     }
             }
             
@@ -158,6 +176,51 @@ function checkTypeToUpdate (value, type) {
    }
    else { return value;}
 }
-
+var sendNotification = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+var getSocketById = (res, id) => {
+        const query = "select socket_id from tbl_user where id = ?"
+        const queryParams = [id];
+        const results =  new Promise((resolve) => {
+            db.query(query, queryParams, (err, result) => {
+                if(err) {res.status(500).send(err.message)}
+                else
+                {  resolve(JSON.parse(JSON.stringify(result)))}
+            })
+            })
+        return results;
+}
+const getNotificationSent = (res, id) => {
+    const query = "select * from notifications where sender = ?"
+    const queryParams = [id];
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getNotificationReceived = (res, id) => {
+    const query = "select * from notifications where receiver = ?"
+    const queryParams = [id];
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
 // Exports cho biến admin_router
 module.exports = admin_update_router;

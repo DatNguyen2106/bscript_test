@@ -58,7 +58,7 @@ app.post('/token', (req, res) => {
 app.post('/login',  async (req, res) => {
     const {username, password} = req.body;  
     var queries = {
-        query: "SELECT * FROM tbl_user"
+        query: "SELECT id, username, password, salt, role, refreshToken FROM tbl_user"
     };
     const getList = (queryName, queryParams) => {
         return new Promise(function(resolve, reject){
