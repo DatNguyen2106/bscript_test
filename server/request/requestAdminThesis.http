@@ -9,19 +9,18 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk1MzA4OTEsImV4cCI6MTY2OTUzMTc5MX0.gFKsEr5jSyPtVNV1QomDVxpf471-H1ksaOM-YABi_Sk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg3MzkzMTQsImV4cCI6MTY2ODc0MDIxNH0.h8ocJNKuzMHiatdvRVbLvZ_GJ6m9T9XjrriRVDuV-QQ
 Content-Type: application/json
 
 {
     "id" : "",
     "thesisId" : "",
     "thesisTopic" : "",
-    "lecturer1_id" : "",
-    "lecturer2_id" : "",
-    "lecturer1_title" : "",
-    "lecturer2_title" : "",
+    "thesisField" : "",
+    "availableDay" : "",
+    "defenseDay" : "",
     "slot" : "",
-    "slotMaximum" : "",
+    "slotMaximum" : "2",
     "page" : "1"
 }
 
