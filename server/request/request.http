@@ -64,7 +64,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2Vyb
 
 ###
 POST http://localhost:5000/admin/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjkyNzU1OTYsImV4cCI6MTY2OTI3NjQ5Nn0.vLBLSpSt916efEBR46YLxAe9QDXNCNKUwZC-IgetF2k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3NDQ1MzAsImV4cCI6MTY2OTc0NTQzMH0.WcL-UT19Nv7uxMFgHwr3LLWGFVMJpwmauLa3GKoTnuk
 Content-Type: application/json
 
 {
@@ -74,6 +74,7 @@ Content-Type: application/json
     "title" : "",
     "email" : "",
     "supervisor" : "",
+    "maximumTheses" : "2",
     "page" : "1"
 }
 
@@ -90,12 +91,13 @@ Content-Type: application/json
     "email" : "haotran@gmail.com",
     "title" : "Dr. Hao Tran",
     "supervisor" : "lecturer1",
-    "signature" : "signature"
+    "signature" : "signature",
+    "maximumTheses" : 3
 }
 
 ###
 PUT http://localhost:5000/admin/update/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjgxODY1ODYsImV4cCI6MTY2ODE4NjYxNn0.wuNGGSelFkslUQ7Admu5qTTmLlx_kjBmGDC3a9wCeaA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3MDU0OTQsImV4cCI6MTY2OTcwNjM5NH0.rQVVwdH9Tlp7zKlhHDEyeVjeXiYSuIrFNKUgp0e-YgE
 Content-Type: application/json
 
 {
@@ -103,13 +105,14 @@ Content-Type: application/json
     "fullname" : "linhkhanhtran_updated",
     "title" : "Dr. Linh",
     "email" : "linh1@gmail.com",
-    "supervisor" : "lecturer2",
-    "signature" : "signature"
+    "supervisor" : "lecturer1",
+    "signature" : "signature",
+    "maximumTheses" : "3"
 }
 
 ###
 GET http://localhost:5000/admin/get/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjkyNzQzMjgsImV4cCI6MTY2OTI3NTIyOH0.ndHKuikHZGAbPQ6g4utrq0egyYseh90pJ3Aj9sJDGa8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3NDQ1MzAsImV4cCI6MTY2OTc0NTQzMH0.WcL-UT19Nv7uxMFgHwr3LLWGFVMJpwmauLa3GKoTnuk
 
 ###
 DELETE http://localhost:5000/admin/delete/lecturer/

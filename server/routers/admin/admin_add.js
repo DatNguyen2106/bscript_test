@@ -15,8 +15,8 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
         var email;
         console.log(req.body.email);
         email = checkTypeToAdd(req.body.email, emailFormat);
-
         var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ?  null : req.body.supervisor;
+        var maximumTheses = (req.body.maximumTheses === "" || req.body.maximumTheses === undefined) ?  0 : req.body.maximumTheses;
         console.log(supervisor);
         if(req.username) {
             if(role){
@@ -36,10 +36,9 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
                             res.status(500).send("Unvalid email");
                         }
                         else {
-                    var addQuery = "INSERT INTO lecturers (lecturer_id, lecturer_user_name, fullname, title, email, supervisor, signature) VALUES(?, ?, ?, ?, ?, ?, ?)";
-                    const results = await new Promise((resolve) => {
-                        db.query(addQuery, [id, userName, fullName, title, email, supervisor, signature], (err, result) => {
-                            if(err) {res.status(500).send(err.message);}
+                            var addQuery = "INSERT INTO lecturers (lecturer_id, lecturer_user_name, fullname, title, email, supervisor, signature, maximum_of_theses) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";                    const results = await new Promise((resolve) => {
+                            db.query(addQuery, [id, userName, fullName, title, email, supervisor, signature, maximumTheses], (err, result) => {
+                                    if(err) {res.status(500).send(err.message);}
                             else
                             {  resolve(JSON.parse(JSON.stringify(result)))}
                         })

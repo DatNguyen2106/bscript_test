@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg3MzkzMTQsImV4cCI6MTY2ODc0MDIxNH0.h8ocJNKuzMHiatdvRVbLvZ_GJ6m9T9XjrriRVDuV-QQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3NDM5NDgsImV4cCI6MTY2OTc0NDg0OH0.v0bLGI5nC1Rog8paFiFZ2VjWWMPC7hmYqapjm5ipk5o
 Content-Type: application/json
 
 {
@@ -37,9 +37,10 @@ Content-Type: application/json
 {
     "thesisId" : 123412,
     "thesisTopic" : "Data For Everything",
-    "thesisField" : "Data",
-    "availableDay" : "2022-12-29",
-    "defenseDay" : "2022-12-29",
+    "lecturer1_id" : "",
+    "lecturer2_id" : "",
+    "lecturer1_title" : "",
+    "lecturer2_title" : "",
     "slot" : "1",
     "slotMaximum" : "1"
 }
