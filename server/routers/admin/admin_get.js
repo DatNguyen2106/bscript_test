@@ -478,10 +478,6 @@ admin_get_router.get('/student/:id/assessmentOralDefense', verifyTokenAdmin, asy
 admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
     try {
         var chunkForPage = 5;
-        const emailFormat = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/;
-        // yyyy - mm - dd
-        const dateFormat = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
-        const ectsFormat = /^\d+$/;
         var page = (req.body.page === "" || req.body.page === undefined) ?  1 : req.body.page;
         var thesisId  = (req.body.id === "" || req.body.id === undefined) ?  '%' : ('%' + req.body.id +'%');
         var slot = (req.body.slot === "" || req.body.slot === undefined) ?  '%' : ('%' + req.body.slot  + '%');
@@ -492,11 +488,13 @@ admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
         var lecturer1_title = (req.body.lecturer1_title === "" || req.body.lecturer1_title === undefined) ? '%' : ('%' + req.body.lecturer1_title + '%');
         var lecturer2_title = (req.body.lecturer2_title === "" || req.body.lecturer2_title === undefined) ? '%' : ('%' + req.body.lecturer2_title + '%');
         var role = req.role;
+        console.log(role);
         if(req.username) {
             if(role){
                 {  
                         console.log(thesisId);
-                    var filterQuery = "call getTheses(?, ?, ?, ?, ?, ?, ?, ?)";
+                        console.log("slotMaximum" + slotMaximum);
+                    var filterQuery = "CALL getTheses(?, ?, ?, ?, ?, ?, ?, ?)";
                     const results = await new Promise((resolve) => {
                         db.query(filterQuery, [thesisId, thesisTopic, lecturer1_id, lecturer2_id, slot, slotMaximum, lecturer1_title, lecturer2_title], (err, result) => {                            if(err) {res.send(err);}
                             else
@@ -509,15 +507,16 @@ admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
                      //return status server response
                      var dbResults = results.pop();
                      console.log(dbResults);
+                     console.log()
                     if(page > results.chunk(chunkForPage).length){
                         res.send({
-                            "totalPage" : results.chunk(chunkForPage).length,
+                            "totalPage" : results[0].chunk(chunkForPage).length,
                             "list" : []
                         })
                     }
                     else {res.send({
-                        "totalPage" : results.chunk(chunkForPage).length,
-                        "list" : results.chunk(chunkForPage)[page-1]
+                        "totalPage" : results[0].chunk(chunkForPage).length,
+                        "list" : results[0].chunk(chunkForPage)[page-1]
                     })}
                 }
             }
