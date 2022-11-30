@@ -4,7 +4,6 @@ const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const verifyToken = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
 const io = require('../.././socketServer');
-console.log(io);
 admin_get_router.get('/test', verifyToken, (req, res) => {
     console.log(req.body);
     console.log("access by access token successfully");
@@ -290,7 +289,7 @@ admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
             if(role){
                 {  
                         console.log(thesisId);
-                    var filterQuery = "call getThesis(?, ?, ?, ?, ?, ?, ?, ?)";
+                    var filterQuery = "call getTheses(?, ?, ?, ?, ?, ?, ?, ?)";
                     const results = await new Promise((resolve) => {
                         db.query(filterQuery, [thesisId, thesisTopic, lecturer1_id, lecturer2_id, slot, slotMaximum, lecturer1_title, lecturer2_title], (err, result) => {                            if(err) {res.send(err);}
                             else
@@ -328,34 +327,23 @@ admin_get_router.get('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
             if(req.username) {
                 if(role){
                     const thesisId  =  req.params.id;
+                    console.log(thesisId);
                     if(!thesisId || typeof(thesisId) === 'undefined') {
                         res.send("No user params");
                     } else {
                         {
-                            var filterQuery = "SELECT * FROM theses where thesis_id = ?";
+                            var filterQuery = "call getThesisInfoById(?)";
                             const results = await new Promise((resolve) => {
-                                db.query(filterQuery, [thesisId ], (err, result) => {
+                                db.query(filterQuery, [thesisId], (err, result) => {
                                     if(err) {res.send(err);}
                                     else
                                     {  resolve(JSON.parse(JSON.stringify(result)))}
                                 })
                                 })
-                            if( results.length === 0 || results === null || results === undefined || results === [])
-                            { res.send(results)}
-                            else {
-                                // but in this case the number of results are only 1 and 0.
-                                if(results.length === 1){
-                                res.send({
-                                    "thesisId" : results[0].thesis_id,
-                                    "thesisTopic" : results[0].thesis_topic,
-                                    "thesisField" : results[0].thesis_field,
-                                    "availableDay" : results[0].available_day,
-                                    "defenseDay" : results[0].defense_day,
-                                    "slot" : results[0].slot,
-                                    "slotMaximum" : results[0].slot_maximum
-                                    })
-                                }
-                            }
+                            console.log(results);
+                            var dbResults = results.pop();
+                            console.log(dbResults);
+                            res.send(results[0]);
                         }
                     }        
                 }
