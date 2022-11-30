@@ -11,11 +11,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/get/students
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjA3MjEsImV4cCI6MTY2ODQyMTYyMX0.wpHBQnJswD3P_dhWX45NV0K-Y_sDfrF-vzmmf3-iok8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3OTU0NDUsImV4cCI6MTY2OTc5NjM0NX0.bSjqrUzFF4Uv_R9tvyooyB_4jT0JD87wOftyBpLSgcc
 Content-Type: application/json
 
 {
-    "id" : "12486",
+    "id" : "",
     "username" : "",
     "fullname" : "",
     "intake" : "",
@@ -27,6 +27,22 @@ Content-Type: application/json
 ###
 GET http://localhost:5000/admin/get/student/12486
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjE0NjAsImV4cCI6MTY2ODQyMjM2MH0.qKHvwxOx_3PdsLV1lFpjkZ55HggZe_cO77SKLPjsM2s
+
+###
+GET http://localhost:5000/admin/get/student/13961/registrationBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3OTU4MzksImV4cCI6MTY2OTc5NjczOX0.fh3u2QXSZ_Y1F0DtykTDIq9jVbfNM1-w6bfiKq-Dvlo
+
+###
+GET http://localhost:5000/admin/get/student/13961/assessmentBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3OTU4MzksImV4cCI6MTY2OTc5NjczOX0.fh3u2QXSZ_Y1F0DtykTDIq9jVbfNM1-w6bfiKq-Dvlo
+
+###
+GET http://localhost:5000/admin/get/student/13961/registrationOralDefense
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3OTU4MzksImV4cCI6MTY2OTc5NjczOX0.fh3u2QXSZ_Y1F0DtykTDIq9jVbfNM1-w6bfiKq-Dvlo
+
+###
+GET http://localhost:5000/admin/get/student/13961/assessmentOralDefense
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3OTU4MzksImV4cCI6MTY2OTc5NjczOX0.fh3u2QXSZ_Y1F0DtykTDIq9jVbfNM1-w6bfiKq-Dvlo
 
 ###
 
