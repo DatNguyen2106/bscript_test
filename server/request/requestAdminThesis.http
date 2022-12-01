@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4MjQyMTQsImV4cCI6MTY2OTgyNTExNH0.bUPikZr9PLQ1mqN3nA10qLAur1U2YgaiyVgBOh7MN8Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4NzQxMTksImV4cCI6MTY2OTg3NTAxOX0.-kVUiUdyn3lhhFUWCqj95IHdrbOtGKRn0gxzHK6DQJw
 Content-Type: application/json
 
 {
@@ -20,48 +20,48 @@ Content-Type: application/json
     "availableDay" : "",
     "defenseDay" : "",
     "slot" : "",
-    "slotMaximum" : "",
-    "page" : "1"
+    "slotMaximum" : "1",
+    "page" : "2"
 }
 
 ###
-GET http://localhost:5000/admin/get/thesis/210291
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4MjQwNTksImV4cCI6MTY2OTgyNDk1OX0.JNgbrgd_cMV4ys3ug3qevat8qLAPEv0YZ5HOfGZTtP4
+GET http://localhost:5000/admin/get/thesis/123122
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4NzQwNTcsImV4cCI6MTY2OTg3NDk1N30.oByox5sDLSOQRNkSuW4D2Kf-0NgDqy-7XmlaItJzGWE
 
 
 ###
 POST http://localhost:5000/admin/add/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3ODcwODgsImV4cCI6MTY2OTc4Nzk4OH0.C9yCPmzA7WrtF_g7VreaE_i1IEKm58PhAlXCHd6yNcI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4ODIxMTgsImV4cCI6MTY2OTg4MzAxOH0.XGDQhQir9hqxESJ2hn5bEv95uDPN9lla-KExNyGDbUA
 Content-Type: application/json
 
 {
-    "thesisId" : 123412,
+    "thesisId" : 123349,
     "thesisTopic" : "Data For Everything",
-    "lecturer1_id" : "",
-    "lecturer2_id" : "",
-    "lecturer1_title" : "",
-    "lecturer2_title" : "",
-    "slot" : "1",
-    "slotMaximum" : "1"
+    "thesisField" : "Data Testing",
+    "lecturer1_id" : "23483",
+    "lecturer2_id" : "22323",
+    "slotMaximum" : 2
 }
 
 
 ###
-PUT http://localhost:5000/admin/update/thesis/123412
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3OTI1MjgsImV4cCI6MTY2OTc5MzQyOH0.IP1p3S7VSBL-2YpdxGzzY5GxnXTmSqKu2M3YxTGrLWQ
+PUT http://localhost:5000/admin/update/thesis/123122
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4ODQ1ODksImV4cCI6MTY2OTg4NTQ4OX0.cG68v4R8QY5VRPUOcj-WVyKvD_EMKAxgEgr8g8mn2A4
 Content-Type: application/json
 
 {
     "thesisTopic" : "Data For Everything Update",
     "thesisField" : "Data Updated",
-    "availableDay" : "2022-12-01",
-    "defenseDay" : "2022-12-12",
-    "slot" : "1",
-    "slotMaximum" : "2"
+    "activateRegistration" : true,
+    "activateDefense" : false,
+    "numberOfHardCopies" : "2",
+    "printRequirements" : "This is new requirements",
+    "templateFiles" : "word",
+    "submissionDeadline" : "2022-12-12"
 }
 
 ###
-DELETE http://localhost:5000/admin/delete/thesis/123412
+DELETE http://localhost:5000/admin/delete/thesis/123122
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0NDU0OTYsImV4cCI6MTY2ODQ0NjM5Nn0.EGOoUkpirTJ_H_OwGc8CnvexIXdZ5DWK0vzeILP2W9k
 
 ###

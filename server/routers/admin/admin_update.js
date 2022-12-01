@@ -45,15 +45,10 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                         const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update lecturer successfully"];
                         const notification = await sendNotification(res, sendNotificationQuery, sendParams);
-                        console.log(notification);
                         const notificationSent = await getNotificationSent(res, req.userId);
-                        console.log("notification sent: " + notificationSent[0].title);
                         const notificationReceived = await getNotificationReceived(res, req.userId);
-                        console.log("notification received: " + JSON.stringify(notificationReceived));
-
                         const socket = await getSocketById(res, req.userId);
                         const socketId = socket[0].socket_id;
-                        console.log(socketId);
                         if(socketId === null || socketId === undefined){
                             console.log("no socketId from database");
                         }
@@ -125,14 +120,18 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
 admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
     var role = req.role;
-    var role = req.role;
     const dateFormat = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
     var thesisTopic = (req.body.thesisTopic === "" || req.body.thesisTopic === undefined) ? null : (req.body.thesisTopic);
     var thesisField = (req.body.thesisField === "" || req.body.thesisField === undefined) ?  null :  (req.body.thesisField);
     var availableDay = checkTypeToUpdate(req.body.availableDay, dateFormat);
     var defenseDay = checkTypeToUpdate(req.body.defenseDay, dateFormat);
-    var slot = (req.body.slot === "" || req.body.slot === undefined) ?  null : (req.body.slot);
-    var slotMaximum = (req.body.slotMaximum === "" || req.body.slotMaximum === undefined) ? null : (req.body.slotMaximum);
+    var activateRegistration = (req.body.activateRegistration === undefined || req.body.activateRegistration === null) ? null : (req.body.activateRegistration);
+    var activateDefense = (req.body.activateDefense === "" || req.body.activateDefense === undefined) ?  null : req.body.activateDefense;
+    var numberOfHardCopies = (req.body.numberOfHardCopies === "" || req.body.numberOfHardCopies === undefined) ?  null : req.body.numberOfHardCopies;
+    var printRequirements = (req.body.printRequirements === undefined || req.body.printRequirements === null) ? null : req.body.printRequirements; 
+    var templateFiles = (req.body.templateFiles === undefined || req.body.templateFiles === null) ? null : (req.body.templateFiles);
+    var submissionDeadline = (req.body.submissionDeadline === undefined || req.body.submissionDeadline === null) ? null : (req.body.submissionDeadline);
+
     if(req.username) {
         if(role){
             if(req.params.thesisId === undefined || req.params.thesisId === ""){
@@ -142,14 +141,9 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
             } else {
                     paramId = req.params.thesisId;
                     console.log(paramId);
-                    var updateQuery = "UPDATE theses SET thesis_topic = ? , thesis_field = ? , available_day = ?, defense_day = ? , slot = ?, slot_maximum = ? WHERE thesis_id = ?";
-                    const results = await new Promise((resolve) => {
-                        db.query(updateQuery, [thesisTopic, thesisField, availableDay, defenseDay, slot, slotMaximum, paramId], (err, result) => {
-                            if(err) {res.status(500).send(err.message);}
-                            else
-                            {  resolve(JSON.parse(JSON.stringify(result)))}
-                        })
-                        })
+                    const updateThesisQuery = "UPDATE theses SET thesis_topic = ?, thesis_field = ?, activate_registration = ?, activate_defense = ?, number_hard_copies = ?, print_requirements = ?, template_files = ?, submission_deadline = ? where thesis_id = ?"
+                    const queryParams = [thesisTopic, thesisField, activateRegistration, activateDefense, numberOfHardCopies, printRequirements, templateFiles, submissionDeadline, paramId];
+                    const results = await executeQuery(res, updateThesisQuery, queryParams);
                     res.send(results);
             }
             
@@ -222,5 +216,15 @@ const getNotificationReceived = (res, id) => {
         })
     return results;
 }
+const executeQuery = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}   
 // Exports cho biến admin_router
 module.exports = admin_update_router;
