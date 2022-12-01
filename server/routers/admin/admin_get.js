@@ -219,6 +219,53 @@ admin_get_router.post('/students', verifyTokenAdmin, async (req, res) =>{
         res.status(404).send(error.message);
     }
 })
+// admin_get_router.get('/student/:id', verifyTokenAdmin, async (req, res) =>{
+//     // because of unique id value, so this api just returns 1 or no value.
+//         try {
+//             var role = req.role;
+//             if(req.username) {
+//                 if(role){
+//                     const id  =  req.params.id;
+//                     if(!id || typeof(id) === 'undefined') {
+//                         res.send("No user params");
+//                     } else {
+//                         {
+//                             var filterQuery = "SELECT * FROM students where student_id = ?";
+//                             const results = await new Promise((resolve) => {
+//                                 db.query(filterQuery, [id], (err, result) => {
+//                                     if(err) {res.send(err);}
+//                                     else
+//                                     {  resolve(JSON.parse(JSON.stringify(result)))}
+//                                 })
+//                                 })
+//                             if( results.length === 0 || results === null || results === undefined || results === [])
+//                             { res.send(results)}
+//                             else {
+//                                 // case return number of objects > 1
+//                                 // but in this case the number of results are only 1 and 0.
+//                                 if(results.length === 1){
+//                                 res.send({
+//                                     "id" : results[0].student_id,
+//                                     "userName" : results[0].student_user_name,
+//                                     "fullName" : results[0].fullname,
+//                                     "intake" : results[0].intake,
+//                                     "email" : results[0].email,
+//                                     "ects" : results[0].ects,
+//                                     "signature" : results[0].signature
+//                                     })
+//                                 }
+//                             }
+//                         }
+//                     }        
+//                 }
+//                 else res.status(405).send("You are not allowed to access, You are not admin")
+//             }
+//             else res.status(404).send("No user with that username");    
+//         } catch (error) {
+//             console.log(error.message);
+//             res.status(404).send("You got an error" + error.message);
+//         }
+//     })
 admin_get_router.get('/student/:id', verifyTokenAdmin, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         try {
@@ -230,78 +277,21 @@ admin_get_router.get('/student/:id', verifyTokenAdmin, async (req, res) =>{
                         res.send("No user params");
                     } else {
                         {
-                            var filterQuery = "SELECT * FROM students where student_id = ?";
-                            const results = await new Promise((resolve) => {
-                                db.query(filterQuery, [id], (err, result) => {
-                                    if(err) {res.send(err);}
-                                    else
-                                    {  resolve(JSON.parse(JSON.stringify(result)))}
-                                })
-                                })
-                            if( results.length === 0 || results === null || results === undefined || results === [])
-                            { res.send(results)}
-                            else {
-                                // case return number of objects > 1
-                                // but in this case the number of results are only 1 and 0.
-                                if(results.length === 1){
-                                res.send({
-                                    "id" : results[0].student_id,
-                                    "userName" : results[0].student_user_name,
-                                    "fullName" : results[0].fullname,
-                                    "intake" : results[0].intake,
-                                    "email" : results[0].email,
-                                    "ects" : results[0].ects,
-                                    "signature" : results[0].signature
-                                    })
-                                }
-                            }
-                        }
-                    }        
-                }
-                else res.status(405).send("You are not allowed to access, You are not admin")
-            }
-            else res.status(404).send("No user with that username");    
-        } catch (error) {
-            console.log(error.message);
-            res.status(404).send("You got an error" + error.message);
-        }
-    })
-admin_get_router.get('/student/:id', verifyTokenAdmin, async (req, res) =>{
-    // because of unique id value, so this api just returns 1 or no value.
-        try {
-            var role = req.role;
-            if(req.username) {
-                if(role){
-                    const id  =  req.params.id;
-                    if(!id || typeof(id) === 'undefined') {
-                        res.send("No user params");
-                    } else {
-                        {
-                            var filterQuery = "SELECT * FROM students where student_id = ?";
-                            const results = await new Promise((resolve) => {
-                                db.query(filterQuery, [id], (err, result) => {
-                                    if(err) {res.send(err);}
-                                    else
-                                    {  resolve(JSON.parse(JSON.stringify(result)))}
-                                })
-                                })
-                            if( results.length === 0 || results === null || results === undefined || results === [])
-                            { res.send(results)}
-                            else {
-                                // case return number of objects > 1
-                                // but in this case the number of results are only 1 and 0.
-                                if(results.length === 1){
-                                res.send({
-                                    "id" : results[0].student_id,
-                                    "userName" : results[0].student_user_name,
-                                    "fullName" : results[0].fullname,
-                                    "intake" : results[0].intake,
-                                    "email" : results[0].email,
-                                    "ects" : results[0].ects,
-                                    "signature" : results[0].signature
-                                    })
-                                }
-                            }
+                            const studentQuery = "SELECT * FROM students WHERE student_id = ?";
+                            const registrationBachelorThesisQuery = "SELECT * FROM registrations_for_bachelor_thesis WHERE student_id = ?";
+                            const assessmentBachelorThesisQuery = "SELECT * FROM assessment_for_bachelor_thesis WHERE student_id = ?";
+                            const registrationOralDefenseQuery = "SELECT * FROM registrations_for_oral_defense WHERE student_id = ?";
+                            const assessmentOralDefenseQuery = "SELECT * FROM assessment_for_oral_defense WHERE student_id = ?";
+                            const queryParams = [id];
+                            console.log(queryParams);
+                            const studentResults = await executeQuery(res, studentQuery, queryParams);
+                            const registrationBachelorThesisResults = await executeQuery(res, registrationBachelorThesisQuery, queryParams);
+                            const assessmentBachelorThesisResults = await executeQuery(res, assessmentBachelorThesisQuery, queryParams);
+                            const registrationOralDefenseResults  = await executeQuery(res, registrationOralDefenseQuery, queryParams);
+                            const assessmentOralDefenseResults = await executeQuery(res, assessmentOralDefenseQuery, queryParams);
+                            console.log(registrationBachelorThesisResults);
+                            res.send(
+                                {studentResults, registrationBachelorThesisResults, assessmentBachelorThesisResults, registrationOralDefenseResults, assessmentOralDefenseResults})  
                         }
                     }        
                 }
@@ -314,167 +304,6 @@ admin_get_router.get('/student/:id', verifyTokenAdmin, async (req, res) =>{
         }
     })
 
-admin_get_router.get('/student/:id/registrationBachelorThesis', verifyTokenAdmin, async (req, res) =>{
-    // because of unique id value, so this api just returns 1 or no value.
-        try {
-            var role = req.role;
-            if(req.username) {
-                if(role){
-                    const id  =  req.params.id;
-                    console.log(id);
-                    if(!id || typeof(id) === 'undefined') {
-                        res.send("No user params");
-                    } else {
-                        {
-                            var filterQuery = "SELECT * FROM registrations_for_bachelor_thesis where student_id = ?";
-                            const results = await new Promise((resolve) => {
-                                db.query(filterQuery, [id], (err, result) => {
-                                    if(err) {res.send(err);}
-                                    else
-                                    {  resolve(JSON.parse(JSON.stringify(result)))}
-                                })
-                                })
-                            if( results.length === 0 || results === null || results === undefined || results === [])
-                            { res.send(results)}
-                            else {
-                                // case return number of objects > 1
-                                // but in this case the number of results are only 1 and 0.
-                                if(results.length === 1){
-                                res.send(results);
-                                }
-                            }
-                        }
-                    }        
-                }
-                else res.status(405).send("You are not allowed to access, You are not admin")
-            }
-            else res.status(404).send("No user with that username");    
-        } catch (error) {
-            console.log(error.message);
-            res.status(404).send("You got an error" + error.message);
-        }
-    })
-
-admin_get_router.get('/student/:id/assessmentBachelorThesis', verifyTokenAdmin, async (req, res) =>{
-    // because of unique id value, so this api just returns 1 or no value.
-        try {
-            var role = req.role;
-            if(req.username) {
-                if(role){
-                    const id  =  req.params.id;
-                    console.log(id);
-                    if(!id || typeof(id) === 'undefined') {
-                        res.send("No user params");
-                    } else {
-                        {
-                            var filterQuery = "SELECT * FROM assessment_for_bachelor_thesis where student_id = ?";
-                            const results = await new Promise((resolve) => {
-                                db.query(filterQuery, [id], (err, result) => {
-                                    if(err) {res.send(err);}
-                                    else
-                                    {  resolve(JSON.parse(JSON.stringify(result)))}
-                                })
-                                })
-                            if( results.length === 0 || results === null || results === undefined || results === [])
-                            { res.send(results)}
-                            else {
-                                // case return number of objects > 1
-                                // but in this case the number of results are only 1 and 0.
-                                if(results.length === 1){
-                                res.send(results);
-                                }
-                            }
-                        }
-                    }        
-                }
-                else res.status(405).send("You are not allowed to access, You are not admin")
-            }
-            else res.status(404).send("No user with that username");    
-        } catch (error) {
-            console.log(error.message);
-            res.status(404).send("You got an error" + error.message);
-        }
-    })
-admin_get_router.get('/student/:id/registrationOralDefense', verifyTokenAdmin, async (req, res) =>{
-    // because of unique id value, so this api just returns 1 or no value.
-        try {
-            var role = req.role;
-            if(req.username) {
-                if(role){
-                    const id  =  req.params.id;
-                    console.log(id);
-                    if(!id || typeof(id) === 'undefined') {
-                        res.send("No user params");
-                    } else {
-                        {
-                            var filterQuery = "SELECT * from registrations_for_oral_defense where student_id = ?";
-                            const results = await new Promise((resolve) => {
-                                db.query(filterQuery, [id], (err, result) => {
-                                    if(err) {res.send(err);}
-                                    else
-                                    {  resolve(JSON.parse(JSON.stringify(result)))}
-                                })
-                                })
-                            if( results.length === 0 || results === null || results === undefined || results === [])
-                            { res.send(results)}
-                            else {
-                                // case return number of objects > 1
-                                // but in this case the number of results are only 1 and 0.
-                                if(results.length === 1){
-                                res.send(results);
-                                }
-                            }
-                        }
-                    }        
-                }
-                else res.status(405).send("You are not allowed to access, You are not admin")
-            }
-            else res.status(404).send("No user with that username");    
-        } catch (error) {
-            console.log(error.message);
-            res.status(404).send("You got an error" + error.message);
-        }
-    })
-admin_get_router.get('/student/:id/assessmentOralDefense', verifyTokenAdmin, async (req, res) =>{
-    // because of unique id value, so this api just returns 1 or no value.
-        try {
-            var role = req.role;
-            if(req.username) {
-                if(role){
-                    const id  =  req.params.id;
-                    console.log(id);
-                    if(!id || typeof(id) === 'undefined') {
-                        res.send("No user params");
-                    } else {
-                        {
-                            var filterQuery = "SELECT * from assessment_for_oral_defense where student_id = ?";
-                            const results = await new Promise((resolve) => {
-                                db.query(filterQuery, [id], (err, result) => {
-                                    if(err) {res.send(err);}
-                                    else
-                                    {  resolve(JSON.parse(JSON.stringify(result)))}
-                                })
-                                })
-                            if( results.length === 0 || results === null || results === undefined || results === [])
-                            { res.send(results)}
-                            else {
-                                // case return number of objects > 1
-                                // but in this case the number of results are only 1 and 0.
-                                if(results.length === 1){
-                                res.send(results);
-                                }
-                            }
-                        }
-                    }        
-                }
-                else res.status(405).send("You are not allowed to access, You are not admin")
-            }
-            else res.status(404).send("No user with that username");    
-        } catch (error) {
-            console.log(error.message);
-            res.status(404).send("You got an error" + error.message);
-        }
-    })
 admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
     try {
         var chunkForPage = 5;
@@ -507,8 +336,8 @@ admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
                      //return status server response
                      var dbResults = results.pop();
                      console.log(dbResults);
-                     console.log()
-                    if(page > results.chunk(chunkForPage).length){
+                     console.log(results.chunk(chunkForPage).length);
+                    if(page > results[0].chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results[0].chunk(chunkForPage).length,
                             "list" : []
@@ -581,6 +410,15 @@ function checkTypeToSearch (value) {
    }
    else { return ('%' + value +'%')}
 }
-
+const executeQuery = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
 // Exports cho biến admin_router
 module.exports = admin_get_router;

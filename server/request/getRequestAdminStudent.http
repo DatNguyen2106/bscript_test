@@ -25,8 +25,8 @@ Content-Type: application/json
     "page" : "1"
 }
 ###
-GET http://localhost:5000/admin/get/student/12486
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjE0NjAsImV4cCI6MTY2ODQyMjM2MH0.qKHvwxOx_3PdsLV1lFpjkZ55HggZe_cO77SKLPjsM2s
+GET http://localhost:5000/admin/get/student/13961
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4NzU4ODEsImV4cCI6MTY2OTg3Njc4MX0.uk0B87DRRgxv6yP4PEJ6sR2Pii7Jd9EveeoBMhJyA5I
 
 ###
 GET http://localhost:5000/admin/get/student/13961/registrationBachelorThesis
