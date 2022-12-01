@@ -2,6 +2,7 @@ const express = require('express');
 const admin_add_router = express.Router();
 const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
+const io = require('../.././socketServer');
 // api for add lecturer by id
 admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
@@ -125,6 +126,17 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
                     const results = await executeQuery(res, insertThesesQuery, queryParams);
                     res.send(results);
                 }
+                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                const sendParams = [`Admin ${req.userId} add new thesis ${thesisId}` , req.userId, thesisId, "add new thesis successfully"];
+                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                const notificationSent = await getNotificationSent(res, req.userId);
+                const notificationReceived = await getNotificationReceived(res, req.userId);
+                const socket = await getSocketById(res, req.userId);
+                const socketId = socket[0].socket_id;
+                if(socketId === null || socketId === undefined){
+                    console.log("no socketId from database");
+                }
+                else { io.to(socketId).emit("notificationSent", (notificationSent))};
             }
             else res.status(405).send("You are not allowed to access, You are not admin")
         }
@@ -132,24 +144,61 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
     });
     
 // use for email
-    function checkTypeToAdd (value, type) {
-        if( value === "" || value === undefined){
-            return null; 
-       } else if(!value.toString().match(type)){
-            return '';
-       }
-       else { return value;}
+function checkTypeToAdd (value, type) {
+    if( value === "" || value === undefined){
+        return null; 
+    } else if(!value.toString().match(type)){
+        return '';
     }
+    else { return value;}
+}
 
-    const executeQuery = (res, query, queryParams) => {
-        const results =  new Promise((resolve) => {
-            db.query(query, queryParams, (err, result) => {
-                if(err) {res.status(500).send(err.message)}
-                else
-                {  resolve(JSON.parse(JSON.stringify(result)))}
-            })
-            })
-        return results;
-    }    
+const executeQuery = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}   
+const getSocketById = (res, id) => {
+    const query = "select socket_id from tbl_user where id = ?"
+    const queryParams = [id];
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getNotificationSent = (res, id) => {
+const query = "select * from notifications where sender = ?"
+const queryParams = [id];
+const results =  new Promise((resolve) => {
+    db.query(query, queryParams, (err, result) => {
+        if(err) {res.status(500).send(err.message)}
+        else
+        {  resolve(JSON.parse(JSON.stringify(result)))}
+    })
+    })
+return results;
+}
+const getNotificationReceived = (res, id) => {
+const query = "select * from notifications where receiver = ?"
+const queryParams = [id];
+const results =  new Promise((resolve) => {
+    db.query(query, queryParams, (err, result) => {
+        if(err) {res.status(500).send(err.message)}
+        else
+        {  resolve(JSON.parse(JSON.stringify(result)))}
+    })
+    })
+return results;
+}
+
 // Exports cho biến admin_router
 module.exports = admin_add_router;

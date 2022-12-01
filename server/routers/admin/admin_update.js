@@ -26,6 +26,7 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
             } else {
                     paramId = req.params.id;
                     console.log(paramId);
+                    console.log(req)
                     console.log(userName);
                     if(userName === null || userName === undefined || userName === ""){
                         res.status(404).send("need a valid user name");
@@ -35,13 +36,9 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                             res.status(404).send("unvalid email with that");
                         }
                         else{
-                            var updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , title = ?, email = ? , supervisor = ?, signature = ?, maximum_of_theses = ? WHERE  lecturer_id = ?";                        const results = await new Promise((resolve) => {
-                                db.query(updateQuery, [userName, fullName, title, email, supervisor, signature, maximumTheses, paramId], (err, result) => {
-                                    if(err) {res.status(500).send(err.message);}
-                                else
-                                {  resolve(JSON.parse(JSON.stringify(result)))}
-                            })
-                            })
+                        const updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , title = ?, email = ? , supervisor = ?, signature = ?, maximum_of_theses = ? WHERE  lecturer_id = ?";                       
+                        const queryParams = [userName, fullName, title, email, supervisor, signature, maximumTheses, paramId]
+                        const results = await executeQuery(res, updateQuery, queryParams);
                         const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update lecturer successfully"];
                         const notification = await sendNotification(res, sendNotificationQuery, sendParams);
@@ -49,10 +46,13 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                         const notificationReceived = await getNotificationReceived(res, req.userId);
                         const socket = await getSocketById(res, req.userId);
                         const socketId = socket[0].socket_id;
+                        console.log(notification);
+                        console.log(notificationSent);
                         if(socketId === null || socketId === undefined){
                             console.log("no socketId from database");
                         }
                         else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                        res.send(results);
                     }
                     }
             }
@@ -104,10 +104,6 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
                             })
                             })
                         }
-                        const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                        const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update student successfully"];
-                        const notification = await sendNotification(res, sendNotificationQuery, sendParams);
-                        console.log(notification);
                     }
             }
             
@@ -180,7 +176,7 @@ var sendNotification = (res, query, queryParams) => {
         })
     return results;
 }
-var getSocketById = (res, id) => {
+const getSocketById = (res, id) => {
         const query = "select socket_id from tbl_user where id = ?"
         const queryParams = [id];
         const results =  new Promise((resolve) => {
