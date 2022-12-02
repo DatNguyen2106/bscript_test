@@ -102,6 +102,7 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
                         "list" : results.chunk(chunkForPage)[page-1]
                     })}
                     io.emit("getLecturers", results);
+                    res.send(results);
                 }
 
             }
