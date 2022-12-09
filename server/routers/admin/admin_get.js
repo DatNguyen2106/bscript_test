@@ -91,6 +91,7 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
                     console.log(results);
                     console.log(results.chunk(page)[page-1]);
                     console.log("TotalPage " + results.chunk(chunkForPage).length);
+                    io.emit("getLecturers", results);
                     if(page > results.chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results.chunk(chunkForPage).length,
@@ -101,8 +102,6 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
                         "totalPage" : results.chunk(chunkForPage).length,
                         "list" : results.chunk(chunkForPage)[page-1]
                     })}
-                    io.emit("getLecturers", results);
-                    res.send(results);
                 }
 
             }

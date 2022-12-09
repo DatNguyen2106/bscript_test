@@ -2,46 +2,131 @@ const express = require('express');
 const student_get_router = express.Router();
 const readStudentMiddleware = require('../../middleware/readStudentMiddleware');
 const db = require('../../db/connectDB');
+const verifyTokenStudent = require('../../middleware/verifyTokenStudent');
+const { request } = require('express');
 
-student_get_router.get('/:id', readStudentMiddleware, async (req, res) =>{
+student_get_router.post('/lecturers', verifyTokenStudent, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         try {
+            var lecturerId  = (req.body.lecturerId === null || req.body.lecturerId === undefined || req.body.lecturerId === "") ?  '%' : ('%' + req.body.lecturerId +'%');
+            var lecturerTitle = (req.body.lecturerTitle === "" || req.body.lecturerTitle === undefined || req.body.lecturerTitle === "") ?  '%' : req.body.lecturerTitle;
+            var lecturerFullName = (req.body.lecturerFullName === "" || req.body.lecturerFullName === undefined || req.body.lecturerFullName === null)  ?  '%' : req.body.lecturerFullName;
+            var email = (req.body.email === "" || req.body.email === undefined || req.body.email === null) ? '%' : ('%' + req.body.email + '%');
+            var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined || req.body.supervisor === null) ? '%' : ('%' + req.body.supervisor +  '%')
+            var isAvailable = (req.body.isAvailable === "" || req.body.isAvailable === undefined || req.body.isAvailable === null) ? true : false;
+            console.log(isAvailable);
             var role = req.role;
             if(req.username && req.userId) {
                 if(role){
-                    console.log (req.params.id);
-                    console.log(req.userId);
-                    if(req.params.id.toString() === req.userId.toString()) {
-                        console.log("This is student access");
+                    var results;
+                    if(isAvailable === true) {
+                        console.log(isAvailable);
+                        var query = "SELECT * FROM lecturers WHERE lecturer_id LIKE ? AND fullname LIKE ? AND title LIKE ?  AND email LIKE ? AND supervisor LIKE ? AND number_of_theses < maximum_of_theses"
+                        var queryParams = [lecturerId, lecturerTitle, lecturerFullName, email, supervisor]
+                        results =  await executeQuery(res, query, queryParams);
+                        console.log(results);
+                        res.send(results);
                     }
-                    else console.log("This is role " + role + " access with this ID " + req.userId);
-                    var studentId = req.params.id;
-                    if(!studentId || typeof(studentId) === 'undefined') {
-                        res.send("No user params");
+                    else if (isAvailable === false) {
+                        console.log(isAvailable);
+                        var query = "SELECT * FROM lecturers WHERE lecturer_id LIKE ? AND fullname LIKE ? AND title LIKE ?  AND email LIKE ? AND supervisor LIKE ? AND number_of_theses = maximum_of_theses"
+                        var queryParams = [lecturerId, lecturerTitle, lecturerFullName, email, supervisor]
+                        results = await executeQuery(res, query, queryParams);
+                        console.log(results);
+                        res.send(results);
+                     }
+                    else {res.sendStatus(404).send("Unavailable value")}
+                }
+                else res.status(405).send("You are not allowed to access, You are not admin")
+            }
+            else res.status(404).send("No user with that username");    
+        } catch (error) {
+            console.log(error.message);
+            res.status(404).send("You got an error" + error.message);
+        }
+        
+    })
+student_get_router.get('/lecturer/:id', verifyTokenStudent, async (req, res) =>{
+    // because of unique id value, so this api just returns 1 or no value.
+        try {
+            var lecturerId;
+            var role = req.role;
+            if(req.username && req.userId) {
+                if(role){
+                    if(req.params.id === undefined || req.params.id === ""){
+                        res.status(404).send("Invalid username with that id")
+                    } else if(!(req.params.id)){
+                        res.status(404).send("Need a number Parameter Id");
                     } else {
-                        {
-                            var filterQuery = "SELECT * FROM students where student_id = ?";
-                            var queryParams = [studentId];
-                            const results = await executeQuery(res, filterQuery, queryParams);
-                            if( results.length === 0 || results === null || results === undefined || results === [])
-                            { res.send(results)}
-                            else {
-                                // case return number of objects > 1
-                                // but in this case the number of results are only 1 and 0.
-                                for (let i = 0; i < results.length; i++){
-                                res.send({
-                                    "id" : results[i].student_id,
-                                    "userName" : results[i].student_user_name,
-                                    "fullName" : results[i].fullname,
-                                    "intake" : results[i].intake,
-                                    "email" : results[i].email,
-                                    "ects" : results[i].ects,
-                                    "signature" : results[i].signature
-                                    })
-                                }
-                            }
-                        }
-                    }        
+                        lecturerId = req.params.id;
+                        const query = "CALL getLecturer1(?)";
+                        const queryParams = [lecturerId];
+                        const results = await executeQuery(res, query, queryParams);
+                        results.pop();
+                        res.send(results[0]);
+                    }               
+                }
+                else res.status(405).send("You are not allowed to access, You are not admin")
+            }
+            else res.status(404).send("No user with that username");    
+        } catch (error) {
+            console.log(error.message);
+            res.status(404).send("You got an error" + error.message);
+        }
+        
+    })
+student_get_router.get('/theses', verifyTokenStudent, async (req, res) =>{
+    // because of unique id value, so this api just returns 1 or no value.
+        try {
+            var studentId;
+            var role = req.role;
+            if(req.username && req.userId) {
+                if(role){
+                    if(req.userId === undefined || req.userId === ""){
+                        res.status(404).send("Invalid username with that id")
+                    } else if(!(req.userId) === "number"){
+                        res.status(404).send("Need a number Parameter Id");
+                    } else {
+                        studentId = req.userId;
+                        const query = "CALL getThesesFromStudent()";
+                        const results = await executeQuery(res, query);
+                        const registrationBachelorThesisQuery = "SELECT * FROM registrations_for_bachelor_thesis WHERE student_id  = ?";
+                        const queryParamsRegistrationBachelorThesis = [studentId]
+                        const registrationBachelorThesisResults = await executeQuery(res, registrationBachelorThesisQuery,  queryParamsRegistrationBachelorThesis);
+                        const registrationOralDefenseQuery = "SELECT * FROM registrations_for_oral_defense WHERE student_id  = ?";
+                        const queryParamsRegistrationOralDefense = [studentId]
+                        const registrationOralDefenseResults = await executeQuery(res, registrationOralDefenseQuery,  queryParamsRegistrationOralDefense);
+                        results.pop();
+                        res.send({"list": results[0], registrationBachelorThesisResults, registrationOralDefenseResults});
+                    }               
+                }
+                else res.status(405).send("You are not allowed to access, You are not admin")
+            }
+            else res.status(404).send("No user with that username");    
+        } catch (error) {
+            console.log(error.message);
+            res.status(404).send("You got an error" + error.message);
+        }
+        
+    })
+student_get_router.get('/account', verifyTokenStudent, async (req, res) =>{
+    // because of unique id value, so this api just returns 1 or no value.
+        try {
+            var studentId;
+            var role = req.role;
+            if(req.username && req.userId) {
+                if(role){
+                    if(req.userId === undefined || req.userId === ""){
+                        res.status(404).send("Invalid username with that id")
+                    } else if(!(req.userId) === "number"){
+                        res.status(404).send("Need a number Parameter Id");
+                    } else {
+                        studentId = req.userId;
+                        const query = "call getAccountByStudentId(?)";
+                        const queryParams = [studentId];
+                        const results = await executeQuery(res, query, queryParams);
+                        res.send(results[0]);
+                    }               
                 }
                 else res.status(405).send("You are not allowed to access, You are not admin")
             }

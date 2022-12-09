@@ -4,6 +4,7 @@ const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const verifyToken = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
 const io = require('../.././socketServer');
+const { reset } = require('nodemon');
 admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
     var role = req.role;
@@ -103,6 +104,7 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
                                 {  resolve(JSON.parse(JSON.stringify(result)))}
                             })
                             })
+                        res.send(results);
                         }
                     }
             }

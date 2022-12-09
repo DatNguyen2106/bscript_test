@@ -115,3 +115,74 @@ Content-Type: application/json
     "supervisor1_signature" : "",
     "supervisor2_signature" : ""
 }
+
+###
+POST http://localhost:5000/student/get/lecturers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDMzNDIzMCwiZXhwIjoxNjcwMzM1MTMwfQ.F-baybVwfWWjBWxZG41TfN4PuN6Gnic8EbJ7pO_hTwQ
+Content-Type: application/json
+
+{
+    "lecturerId" : "",
+    "lecturerTitle" : "",
+    "lecturerFullName" : "",
+    "email" : "",
+    "supervisor" : "",
+    "isAvailable" : false
+}
+
+###
+GET http://localhost:5000/student/get/lecturer/21029
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDQzMDQxNywiZXhwIjoxNjcwNDMxMzE3fQ.UNrF-q39ZKPsEX5WZySk70jFBHNLmjxV1YsvfYFyHJE
+
+###
+PUT http://localhost:5000/admin/update/student/13961/registrationBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk5NzMzMDYsImV4cCI6MTY2OTk3NDIwNn0.w6-usDeiWXu27l44Fp1Yad4Go1D626RpqMHvpkbO0Fc
+Content-Type: application/json
+
+{
+    "surName" : "phannguyen",
+    "foreName" : "long",
+    "dateOfBirth" : "2000-12-23",
+    "placeOfBirth" : "HCM city",
+    "signature" : "",
+    "titleBachelorThesis" : "Data Mining",
+    "thesisType" : "1",
+    "furtherParticipants" : "",
+    "supervisor1_title" : "Prof. Huynh Trung Hieu",
+    "supervisor1_signature" : "",
+    "supervisor1_date" : "2022-12-12",
+    "supervisor2_title" : "Master Huynh Nguyen",
+    "supervisor2_signature" : "",
+    "supervisor2_date" : "2022-12-12",
+    "issued" : "2023-1-12",
+    "deadlineCopy" : 2,
+    "extensionGranted" : "2022-12-29",
+    "chairmanOfExamination" : "VGU",
+    "dateOfIssue" : "2022-12-23"
+}
+
+###
+GET http://localhost:5000/student/get/theses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDUwMjE2NSwiZXhwIjoxNjcwNTAzMDY1fQ.EXe2xM7KdoiGtOelxAPimHEfgqIQ5CxHkrboC357XBs
+
+###
+GET http://localhost:5000/student/get/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDUwMzczNywiZXhwIjoxNjcwNTA0NjM3fQ.u53BqvJfjeJPoO1a8jczxqB4J4aOA4TVvrKnl0BTOh4
+
+###
+POST http://localhost:5000/student/add/confirmSup1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM0NDQsInVzZXJuYW1lIjoiYWJlenphbnQ2Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2NzA1MDc4NjYsImV4cCI6MTY3MDUwODc2Nn0.XsU5TQmsztBuk3XFiyEq57WXW-HD6ixgZv92Ejl2sKk
+Content-Type: application/json
+
+{
+    "thesisId" : "123122"
+}
+
+###
+PUT http://localhost:5000/student/update/confirmSup2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDUxMDk5NiwiZXhwIjoxNjcwNTExODk2fQ.A0ytyj2veUcuMgTb6I-SEuLwO4IPlj-Dr8Lw-aktYBk
+Content-Type: application/json
+
+{
+    "lecturer2_id" : "25489"
+}
