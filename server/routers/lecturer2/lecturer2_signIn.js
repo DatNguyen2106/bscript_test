@@ -7,10 +7,9 @@ lecturer2_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer2
         try {
             var role = req.role;
             var studentId = (req.body.studentId === undefined || req.body.studentId === null || req.body.studentId === "") ? null : req.body.studentId;
-            var confirmSignature = (req.body.confirmSignature === undefined || req.body.confirmSignature === null || req.body.confirmSignature === "" || req.body.confirmSignature === false) ? false : true; 
+            var confirmSignature = req.body.confirmSignature; 
             if(req.username && req.userId) {
                 if(role){
-
                     if(confirmSignature === true) {
                         const changeStepRegistrationBachelorThesisQuery = "Update registrations_for_bachelor_thesis SET step = ? where student_id = ?";
                         const changeStepRegistrationBachelorThesisQueryParams = [3, studentId];
@@ -32,6 +31,9 @@ lecturer2_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer2
                     else if (confirmSignature === false){
                         // do something here 
 
+                    }
+                    else {
+                        res.send("invalid confirmSignature")
                     }
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1")

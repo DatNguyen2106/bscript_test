@@ -10,7 +10,7 @@ lecturer1_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer1
         try {
             var role = req.role;
             var studentId = (req.body.studentId === undefined || req.body.studentId === null || req.body.studentId === "") ? null : req.body.studentId;
-            var confirmSignature = (req.body.confirmSignature === undefined || req.body.confirmSignature === null || req.body.confirmSignature === "" || req.body.confirmSignature === false) ? false : true; 
+            var confirmSignature =  req.body.confirmSignature; 
             if(req.username && req.userId) {
                 if(role){
                     if(confirmSignature === true){
@@ -24,6 +24,9 @@ lecturer1_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer1
                         const queryParams = [0, studentId];
                         const result = await executeQuery(res, query, queryParams);
                         res.send(result);
+                    }
+                    else {
+                        res.send("invalid confirm signature");
                     }
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1")
