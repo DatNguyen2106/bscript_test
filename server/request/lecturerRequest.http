@@ -1,0 +1,105 @@
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "tiffany",
+    "password" : "23483"
+}
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "romein",
+    "password" : "20489"
+}
+
+###
+GET http://localhost:5000/lecturer1/get/theses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzA4NTg0NDIsImV4cCI6MTY3MDg1OTM0Mn0.2Y-85x-yhoZezZHoyWBc3TmTObjnjyVwE-hTWpxDCB8
+
+###
+POST http://localhost:5000/lecturer1/add/thesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MDg2MTgxMSwiZXhwIjoxNjcwODYyNzExfQ.IVtEqwDSqRCeTec7wCD6LNTbmLjjq5l-bn4qHaekdJg
+Content-Type: application/json
+
+{
+    "thesisId" : 201202,
+    "thesisTopic" : "Data test",
+    "thesisField" : "Data test field",
+    "slotMaximum" : 2
+}
+
+###
+POST http://localhost:5000/lecturer1/get/theses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MTExNzg3NywiZXhwIjoxNjcxMTE4Nzc3fQ.YHaswsSbXTB8mNW5N8x0z3bXuo1ANA_ecUtaDpA3jgE
+Content-Type: application/json
+
+{
+    "thesisTopic" : "",
+    "thesisField" : "",
+    "lecturer2Id" : "",
+    "step" : "",
+    "slot" : "",
+    "slotMaximum" : 1,
+    "page" : 1
+}
+
+###
+POST http://localhost:5000/lecturer2/get/theses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MTExOTA1NiwiZXhwIjoxNjcxMTE5OTU2fQ.j-dEL6tsc1Ysf6wYZU1GlSbjXh4YsL3hs-0bvgeEF4Q
+Content-Type: application/json
+
+{
+    "thesisTopic" : "",
+    "thesisField" : "",
+    "lecturer1Id" : "",
+    "step" : "",
+    "slot" : "",
+    "slotMaximum" : 1,
+    "confirmSup2" : "",
+    "page" : 2
+}
+
+
+###
+GET http://localhost:5000/lecturer1/get/thesis/210292
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MTAyNTYwOSwiZXhwIjoxNjcxMDI2NTA5fQ.sKN0WyWE4UdWWdHcYgLSTdCWtA9rEcbye4wc5BOrD0A
+
+###
+GET http://localhost:5000/lecturer2/get/thesis/210291
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MTExOTEyNSwiZXhwIjoxNjcxMTIwMDI1fQ.uu_oRMZ6VYioMtQlDIHC7l02xcDeHONdaAnPihkVPs4
+
+###
+POST http://localhost:5000/lecturer1/confirm/confirmStudent
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MTAzMzU3MCwiZXhwIjoxNjcxMDM0NDcwfQ.CGOGl5wnkoep15nByotQr3TNnB2nMf4Cy2ysbGILDXI
+Content-Type: application/json
+
+{
+    "studentId" : 12211,
+    "confirmStudent" : true
+}
+
+###
+POST http://localhost:5000/lecturer2/confirm/confirmThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MTAzNzMyOSwiZXhwIjoxNjcxMDM4MjI5fQ.piTqf4TBHWtTPsQhf9oxbGqWJxbd7m4gAgKxOGHU8l0
+Content-Type: application/json
+
+{
+    "thesisId" : 123554,
+    "confirmThesis" : true
+}
+
+###
+POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MTAzMzU3MCwiZXhwIjoxNjcxMDM0NDcwfQ.CGOGl5wnkoep15nByotQr3TNnB2nMf4Cy2ysbGILDXI
+Content-Type: application/json
+
+{
+    "studentId" : 12211,
+    "confirmStudent" : true
+}

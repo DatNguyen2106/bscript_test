@@ -200,16 +200,16 @@ admin_get_router.post('/students', verifyTokenAdmin, async (req, res) =>{
                       })
                     console.log(results);
                     console.log(results.chunk(page)[page-1]);
-                    console.log("TotalPage " + results.chunk(chunkForPage).length);
-                    if(page > results.chunk(chunkForPage).length){
+                    console.log("TotalPage " + results[0].chunk(chunkForPage).length);
+                    if(page > results[0].chunk(chunkForPage).length){
                         res.send({
-                            "totalPage" : results.chunk(chunkForPage).length,
+                            "totalPage" : results[0].chunk(chunkForPage).length,
                             "list" : []
                         })
                     }
                     else {res.send({
-                        "totalPage" : results.chunk(chunkForPage).length,
-                        "list" : results.chunk(chunkForPage)[page-1]
+                        "totalPage" : results[0].chunk(chunkForPage).length,
+                        "list" : results[0].chunk(chunkForPage)[page-1]
                     })}
                 }
             }
@@ -364,7 +364,7 @@ admin_get_router.get('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
                     const thesisId  =  req.params.id;
                     console.log(thesisId);
                     if(!thesisId || typeof(thesisId) === 'undefined') {
-                        res.send("No user params");
+                        res.send("No thesis params");
                     } else {
                         {
                             var filterQuery = "call getThesisInfoById(?)";

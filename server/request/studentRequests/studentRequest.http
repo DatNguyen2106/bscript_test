@@ -118,7 +118,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/student/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDMzNDIzMCwiZXhwIjoxNjcwMzM1MTMwfQ.F-baybVwfWWjBWxZG41TfN4PuN6Gnic8EbJ7pO_hTwQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTExNzEzNiwiZXhwIjoxNjcxMTE4MDM2fQ.Osy5UcE5-qSwlpOXgiVfxopUKkDM5tPR0fqP5bprP6g
 Content-Type: application/json
 
 {
@@ -127,7 +127,8 @@ Content-Type: application/json
     "lecturerFullName" : "",
     "email" : "",
     "supervisor" : "",
-    "isAvailable" : false
+    "isAvailable" : true,
+    "page" : 2
 }
 
 ###
@@ -163,7 +164,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/student/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDUwMjE2NSwiZXhwIjoxNjcwNTAzMDY1fQ.EXe2xM7KdoiGtOelxAPimHEfgqIQ5CxHkrboC357XBs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTAyNjI2NCwiZXhwIjoxNjcxMDI3MTY0fQ.fd2LX1ccsHOhogkhAB-yXqkLJzw2cfIsLemW7XTkrSw
 
 ###
 GET http://localhost:5000/student/get/account

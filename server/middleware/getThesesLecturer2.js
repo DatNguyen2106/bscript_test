@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const verifyTokenLecturer = (req,res,next) => {
+const getThesesLecturer2 = (req,res,next) => {
     const authHeader = req.header('Authorization');
     const token = authHeader && authHeader.split(' ')[1];
     if(!token) return res.sendStatus(401);
@@ -10,7 +10,7 @@ const verifyTokenLecturer = (req,res,next) => {
         console.log(decoded);
         console.log(typeof(JSON.parse(decoded.role)));
         // req.role = JSON.parse(decoded.role);
-        const accessRole = ['lecturer1.1', 'lecturer1.2', 'lecturer2'];
+        const accessRole = ['lecturer2'];
         const role = decoded.role.replace(/[[\]]/g,'');
         console.log(accessRole.includes(JSON.parse(role)));
         if(accessRole.includes(JSON.parse(role))){
@@ -19,10 +19,10 @@ const verifyTokenLecturer = (req,res,next) => {
             req.role = decoded.role;
             next();
         } 
-        else {console.log("You are not lecturer, cannot execute this API (checked in middleware)")}
+        else {console.log("You are not lecturer1.1, cannot execute this API (checked in middleware)")}
     } catch (error) {
         console.log(error);
         res.sendStatus(403);
     }
 }
-module.exports = verifyTokenLecturer;
+module.exports = getThesesLecturer2;

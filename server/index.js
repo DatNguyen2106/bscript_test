@@ -8,7 +8,10 @@ const cors = require('cors');
 const app = express();
 const adminRoute = require('./routers/admin');
 const studentRoute = require('./routers/student')
-const chatRoute = require('./routers/chatRoutes')
+const lecturer1Route = require('./routers/lecturer1');
+const lecturer2Route = require('./routers/lecturer2');
+const chatRoute = require('./routers/chatRoutes');
+const { application } = require('express');
 app.use(cors());
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -16,7 +19,8 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 // Dùng userRoute cho tất cả các route bắt đầu bằng '/users'
 app.use('/admin', adminRoute);
 app.use('/student', studentRoute);
-
+app.use('/lecturer1', lecturer1Route);
+app.use('/lecturer2', lecturer2Route);
 app.get('/getNotifications', verifyToken, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         try {

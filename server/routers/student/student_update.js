@@ -46,7 +46,7 @@ student_update_router.put('/registrationBachelorThesis', verifyTokenStudent, asy
                 }
                 // }
             }
-            else res.status(405).send("You are not allowed to access, You are not admin")
+            else res.status(405).send("You are not allowed to access, You are not student")
         }
         else res.status(404).send("No user with that username");
 
@@ -85,7 +85,7 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
                 res.send(dbResults);  
                 }
             }
-            else res.status(405).send("You are not allowed to access, You are not admin")
+            else res.status(405).send("You are not allowed to access, You are not student")
         }
         else res.status(404).send("No user with that username");
 
@@ -120,7 +120,7 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                 res.send(results);
                 }
             }
-            else res.status(405).send("You are not allowed to access, You are not admin")
+            else res.status(405).send("You are not allowed to access, You are not student")
         }
         else res.status(404).send("No user with that username");
 
