@@ -187,3 +187,7 @@ Content-Type: application/json
 {
     "lecturer2_id" : "25489"
 }
+
+###
+GET http://localhost:5000/student/get/thesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDUxMDk5NiwiZXhwIjoxNjcwNTExODk2fQ.A0ytyj2veUcuMgTb6I-SEuLwO4IPlj-Dr8Lw-aktYBk
