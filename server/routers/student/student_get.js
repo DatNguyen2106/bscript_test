@@ -174,8 +174,23 @@ student_get_router.get('/thesis', verifyTokenStudent, async (req, res) =>{
                         const queryParamsAssessmentOralDefense = [studentId]
                         const assessmentOralDefenseResults = await executeQuery(res, assessmentOralDefenseQuery,  queryParamsAssessmentOralDefense);  
                         results.pop();
-                        results[0]['student_id'] = studentId;
-                        res.send({"list": results[0], registrationBachelorThesisResults, registrationOralDefenseResults, assessmentBachelorThesisResults, assessmentOralDefenseResults});
+                        console.log(results[0]);
+                        console.log(results[0].length);
+                        var studentList = [];
+                        for(var i = 0; i < results[0].length; i++){
+                            // var studentList = {"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1}
+                            studentList.push({"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1});
+                            results[0][i]["student_list"] = studentList;
+                            delete results[0][i]["student_id"];
+                            delete results[0][i]["fullname"];
+                            delete results[0][i]["intake"];
+                            delete results[0][i]["student_id"];
+                            delete results[0][i]["confirm_sup1"];
+                        }
+                        console.log(results[0]["student_id"]);
+
+                        results[0]["student_list"] = studentList;
+                        res.send({"student_id" : studentId, "list" : results[0], registrationBachelorThesisResults, registrationOralDefenseResults, assessmentBachelorThesisResults, assessmentOralDefenseResults});
                     }               
                 }
                 else res.status(405).send("You are not allowed to access, You are not student")
