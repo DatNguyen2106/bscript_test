@@ -107,9 +107,9 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                 else {
                 studentId = req.userId;
                 var thesisId;
-                const getThesisByStudentIdQuery = "call getThesisByStudentId(?)"
-                const getThesisByStudentIdQueryParams = [studentId];
-                const thesisResults = await executeQuery(res, getThesisByStudentIdQuery, getThesisByStudentIdQueryParams);
+                const getThesisFromStudentIdQuery = "call getThesisFromStudentId(?)"
+                const getThesisFromStudentIdQueryParams = [studentId];
+                const thesisResults = await executeQuery(res, getThesisFromStudentIdQuery, getThesisFromStudentIdQueryParams);
                 console.log(thesisResults[0][0].thesis_id);
                 thesisId = thesisResults[0][0].thesis_id;
                 console.log(thesisId);
