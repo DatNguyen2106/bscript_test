@@ -27,9 +27,10 @@ lecturer2_get_router.post('/theses', getThesesLecturer2, async (req, res) =>{
                     console.log("slot" +slot);
                     console.log("slotMaximum" +slotMaximum);
                     console.log("confirmSUp2" + confirmSup2);
-                    const query = "call getThesesByLecturer2(?,?,?,?,?,?,?);"
-                    const queryParams = [thesisTopic, thesisField, step, slot, slotMaximum, lecturer1Id, confirmSup2];
+                    const query = "call getThesesByLecturer2(?,?,?,?,?,?,?,?);"
+                    const queryParams = [thesisTopic, thesisField, step, slot, slotMaximum, lecturer1Id, confirmSup2, req.userId];
                     const results = await executeQuery(res, query, queryParams);
+                    console.log(results[0])
                     if(page > results[0].chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results[0].chunk(chunkForPage).length,
@@ -91,6 +92,8 @@ lecturer2_get_router.get('/thesis/:id', verifyTokenLecturer2, async (req, res) =
                             results[0][i]['assessmentOralDefenseResults'] = assessmentOralDefenseResults;
                           } 
                           console.log(results);
+                          results.id = req.userId;
+                          res.send({"lecturer_id" : results.id, "list" : results[0]});
                           res.send(results[0]);
                         }
                 }

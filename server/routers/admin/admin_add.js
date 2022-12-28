@@ -142,7 +142,28 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
         }
         else res.status(404).send("No user with that username");
     });
-    
+// admin_add_router.post('/signature', verifyTokenAdmin, async (req, res) =>{
+//         // because of unique id value, so this api just returns 1 or no value.
+//             var role = req.role;
+//             var id;
+//             var signature = req.params.signature;
+//             if(req.username) {
+//                 if(role){
+//                     if(req.userId === undefined  || req.userId === ''){
+//                         res.status(500).send("Undefined id for add");
+//                     } 
+//                     else {
+//                         const insertSignatureQuery = "INSERT INTO admins(admin_id, signature) VALUES(?,?)";
+//                         const insertSignatureQueryParams = [req.userId, signature];
+//                         const results = await executeQuery(res, insertSignatureQuery, insertSignatureQueryParams);
+//                         res.send(results);
+//                     }
+//                 }
+//                 else res.status(405).send("You are not allowed to access, You are not admin")
+//             }
+//             else res.status(404).send("No user with that username");
+// });
+          
 // use for email
 function checkTypeToAdd (value, type) {
     if( value === "" || value === undefined){

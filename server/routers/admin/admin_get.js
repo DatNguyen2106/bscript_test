@@ -219,6 +219,26 @@ admin_get_router.post('/students', verifyTokenAdmin, async (req, res) =>{
         res.status(404).send(error.message);
     }
 })
+
+
+admin_get_router.get('/signature', verifyTokenAdmin, async (req, res) =>{
+    try {
+        var role = req.role;
+        if(req.username) {
+            if(role){
+                {  
+                    const getAdminSignatureQuery = "SELECT admin_id, signature from admins WHERE admin_id = ?"
+                    const getAdminSignatureQueryParams = [req.userId];
+                    const results = await executeQuery(res, getAdminSignatureQuery, getAdminSignatureQueryParams);
+                    res.send(results);
+                }
+            }
+            else res.send("You are not allowed to access, You are not admin")
+        }   
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+})
 // admin_get_router.get('/student/:id', verifyTokenAdmin, async (req, res) =>{
 //     // because of unique id value, so this api just returns 1 or no value.
 //         try {
@@ -391,6 +411,67 @@ admin_get_router.get('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
         }
         
     })
+admin_get_router.get('/testForm', verifyTokenAdmin, async (req, res) =>{
+// because of unique id value, so this api just returns 1 or no value.
+    try {
+        var studentId = 12486;
+        var role = req.role;
+        if(req.username && req.userId) {
+            if(role){
+                if(req.userId === undefined || req.userId === ""){
+                    res.status(404).send("Invalid username with that id")
+                } else if(!(req.userId) === "number"){
+                    res.status(404).send("Need a number Parameter Id");
+                } else {
+                    studentId = 12486;
+                    const query = "CALL getThesisFromStudentId(?)";
+                    const queryParams = [studentId];
+                    const results = await executeQuery(res, query, queryParams);
+                    const registrationBachelorThesisQuery = "SELECT * FROM registrations_for_bachelor_thesis WHERE student_id  = ?";
+                    const queryParamsRegistrationBachelorThesis = [studentId]
+                    const registrationBachelorThesisResults = await executeQuery(res, registrationBachelorThesisQuery,  queryParamsRegistrationBachelorThesis);
+                    
+                    const assessmentBachelorThesisQuery = "SELECT * FROM assessment_for_bachelor_thesis WHERE student_id  = ?";
+                    const queryParamsAssessmentBachelorThesisQuery = [studentId];
+                    const assessmentBachelorThesisResults = await executeQuery(res, assessmentBachelorThesisQuery, queryParamsAssessmentBachelorThesisQuery);
+
+                    const registrationOralDefenseQuery = "SELECT * FROM registrations_for_oral_defense WHERE student_id  = ?";
+                    const queryParamsRegistrationOralDefense = [studentId]
+                    const registrationOralDefenseResults = await executeQuery(res, registrationOralDefenseQuery,  queryParamsRegistrationOralDefense);  
+                    
+                    
+                    const assessmentOralDefenseQuery = "SELECT * FROM assessment_for_oral_defense WHERE student_id  = ?";
+                    const queryParamsAssessmentOralDefense = [studentId]
+                    const assessmentOralDefenseResults = await executeQuery(res, assessmentOralDefenseQuery,  queryParamsAssessmentOralDefense);  
+                    results.pop();
+                    console.log(results[0]);
+                    console.log(results[0].length);
+                    var studentList = [];
+                    for(var i = 0; i < results[0].length; i++){
+                        // var studentList = {"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1}
+                        studentList.push({"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1});
+                        results[0][i]["student_list"] = studentList;
+                        delete results[0][i]["student_id"];
+                        delete results[0][i]["fullname"];
+                        delete results[0][i]["intake"];
+                        delete results[0][i]["student_id"];
+                        delete results[0][i]["confirm_sup1"];
+                    }
+                    console.log(results[0]["student_id"]);
+
+                    results[0]["student_list"] = studentList;
+                    res.send({"student_id" : studentId, "list" : results[0], registrationBachelorThesisResults, registrationOralDefenseResults, assessmentBachelorThesisResults, assessmentOralDefenseResults});
+                }               
+            }
+            else res.status(405).send("You are not allowed to access, You are not admin")
+        }
+        else res.status(404).send("No user with that username");    
+    } catch (error) {
+        console.log(error.message);
+        res.status(404).send("You got an error" + error.message);
+    }
+    
+})
 
 admin_get_router.get('/lecturer', (req, res) => {
     res.send("Default routes for admin/get/lecturer");

@@ -118,7 +118,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/student/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTExNzEzNiwiZXhwIjoxNjcxMTE4MDM2fQ.Osy5UcE5-qSwlpOXgiVfxopUKkDM5tPR0fqP5bprP6g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTY0ODcyOCwiZXhwIjoxNjcxNjQ5NjI4fQ.ltWhrpIB1deeA8hmd22U4x1E1FXVHlF0RyXhNfC7Rqw
 Content-Type: application/json
 
 {
@@ -133,7 +133,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/student/get/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDQzMDQxNywiZXhwIjoxNjcwNDMxMzE3fQ.UNrF-q39ZKPsEX5WZySk70jFBHNLmjxV1YsvfYFyHJE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTY1MTA1MCwiZXhwIjoxNjcxNjUxOTUwfQ.iWTIOloO9iACzHchZZeqlg_1MBAG5kpLyt85GZioa7Y
 
 ###
 PUT http://localhost:5000/admin/update/student/13961/registrationBachelorThesis
@@ -181,7 +181,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/student/update/confirmSup2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDUxMDk5NiwiZXhwIjoxNjcwNTExODk2fQ.A0ytyj2veUcuMgTb6I-SEuLwO4IPlj-Dr8Lw-aktYBk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTcxODI2NSwiZXhwIjoxNjcxNzE5MTY1fQ.bZDb-P4iHysRvfGe8Lh0i8ceOhFaLRO_hd9JqTvtRdc
 Content-Type: application/json
 
 {
@@ -190,4 +190,4 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/student/get/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MDUxMDk5NiwiZXhwIjoxNjcwNTExODk2fQ.A0ytyj2veUcuMgTb6I-SEuLwO4IPlj-Dr8Lw-aktYBk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTYzNzk3NywiZXhwIjoxNjcxNjM4ODc3fQ.-m0bSrVck2lWo0xO9zh0OJSYIzXoGJ2IDBzsAW7I5l0

@@ -19,18 +19,27 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) =>{
             var page = (req.body.page === "" || req.body.page === undefined) ?  1 : req.body.page;
             if(req.username && req.userId) {
                 if(role){
-
-                    const query = "call getThesesByLecturer1(?,?,?,?,?,?);"
-                    const queryParams = [thesisTopic, thesisField, lecturer2Id, step, slot, slotMaximum];
+                    console.log("thesisTopic" + thesisTopic);
+                    console.log("thesisField" +thesisField);
+                    console.log("lecturer1ID"+ lecturer2Id);
+                    console.log("step" +step);
+                    console.log("slot" +slot);
+                    console.log("slotMaximum" +slotMaximum);
+                    const query = "call getThesesByLecturer1(?,?,?,?,?,?,?);"
+                    const queryParams = [thesisTopic, thesisField, lecturer2Id, step, slot, slotMaximum, req.userId];
                     const results = await executeQuery(res, query, queryParams);
+                    console.log("results" + results)
+
                     if(page > results[0].chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results[0].chunk(chunkForPage).length,
+                            "lecturer_id" : req.userId,
                             "list" : []
                         })
                     }
                     else {res.send({
                         "totalPage" : results[0].chunk(chunkForPage).length,
+                        "lecturer_id" : req.userId,
                         "list" : results[0].chunk(chunkForPage)[page-1]
                     })}
                 }
@@ -84,7 +93,8 @@ lecturer1_get_router.get('/thesis/:id', verifyTokenLecturer1, async (req, res) =
                         results[0][i]['assessmentOralDefenseResults'] = assessmentOralDefenseResults;
                       } 
                       console.log(results);
-                      res.send(results[0]);
+                      results.id = req.userId;
+                      res.send({"lecturer_id" : results.id, "list" : results[0]});
                     }
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1")

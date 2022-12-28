@@ -77,6 +77,14 @@ Content-Type: application/json
     "maximumTheses" : "2",
     "page" : "1"
 }
+###
+POST http://localhost:5000/admin/add/signature
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3NDQ1MzAsImV4cCI6MTY2OTc0NTQzMH0.WcL-UT19Nv7uxMFgHwr3LLWGFVMJpwmauLa3GKoTnuk
+Content-Type: application/json
+
+{
+    "signature" : "this is signature"
+}
 
 
 ###
@@ -119,8 +127,8 @@ DELETE http://localhost:5000/admin/delete/lecturer/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNDY4OSwiZXhwIjoxNjY3MDM0NzE5fQ.jWem9asn3mJG01BiqgTelT8GqfBT96MkfTPwFv364k0
 
 ###
-GET http://localhost:5000/admin/delete/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNDY0NCwiZXhwIjoxNjY3MDM0Njc0fQ.Lz-wWgeZ0tGeiIoVKA3xgEKaHmA0roXEdskqRpDhulg
+GET http://localhost:5000/admin/get/testForm
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzE4NjAxODMsImV4cCI6MTY3MTg2MTA4M30.mlPTH2X7uxhRQU80b94vtzxg0VyP9cOlm5j7xjRJquI
 ###
 DELETE http://localhost:4000/logout
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJqYW1lczEwMyIsInJvbGUiOiJbXCJhZG1pblwiLFwibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjY2NTk2MTU5LCJleHAiOjE2NjY1OTYxODl9.hP6UbWaj7PPOMh9HIB4KlCUzCK1xR6qt-GhFp9CY_Ok
