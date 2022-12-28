@@ -94,7 +94,6 @@ lecturer2_get_router.get('/thesis/:id', verifyTokenLecturer2, async (req, res) =
                           console.log(results);
                           results.id = req.userId;
                           res.send({"lecturer_id" : results.id, "list" : results[0]});
-                          res.send(results[0]);
                         }
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer2")
