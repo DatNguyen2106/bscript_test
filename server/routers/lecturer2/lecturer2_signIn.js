@@ -36,7 +36,7 @@ lecturer2_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer2
                         res.send("invalid confirmSignature")
                     }
                 }
-                else res.status(405).send("You are not allowed to access, You are not lecturer1")
+                else res.status(405).send("You are not allowed to access, You are not lecturer2")
             }
             else res.status(404).send("No user with that username");    
         } catch (error) {
