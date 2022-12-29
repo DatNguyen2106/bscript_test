@@ -24,7 +24,10 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
                     else if (confirmThesis === false){
                         queryParams = [false, thesisId];
                         const results = await executeQuery(res, query, queryParams);
-                        res.send(results);
+                        const setNullLecturer2Query = "UPDATE lecturers_theses SET lecturer2 = NULL where thesis_id = ?";
+                        const setNullLecturer2QueryParams = [thesisId];
+                        const setNullLecturer2Results = await executeQuery(res, setNullLecturer2Query, setNullLecturer2QueryParams);
+                        res.send(setNullLecturer2Results);
                     }
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1")

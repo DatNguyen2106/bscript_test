@@ -55,7 +55,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2Vyb
 
 
 ###
-GET http://localhost:5000/student/get
+GET http://localhost:5000/admin/get/student
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInVzZXJuYW1lIjoiamFtZXMxMDMiLCJyb2xlIjoiW1wiYWRtaW5cIixcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY2NjQzNTczNSwiZXhwIjoxNjY2NDM1NzY1fQ.1uXkapiACWg1K0YnoO5bgWHp9WCjGMKWF1OjFLZktIY
 
 ###
@@ -78,13 +78,17 @@ Content-Type: application/json
     "page" : "1"
 }
 ###
-POST http://localhost:5000/admin/add/signature
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3NDQ1MzAsImV4cCI6MTY2OTc0NTQzMH0.WcL-UT19Nv7uxMFgHwr3LLWGFVMJpwmauLa3GKoTnuk
+POST http://localhost:5000/admin/update/signature
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzIwNjQ1MDgsImV4cCI6MTY3MjA2NTQwOH0.RPwHQDP0Z8YfmkaiFBQ0Hd8rrZgJYJMo_9RaQF2k-fg
 Content-Type: application/json
 
 {
-    "signature" : "this is signature"
+    "signature" : "this is signature test"
 }
+
+###
+GET http://localhost:5000/admin/get/signature
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzIwNjU3NjgsImV4cCI6MTY3MjA2NjY2OH0.fdhtVyRAPSp5Ecii30rNDkzFlrGYK1KkPwZECYv_fgE
 
 
 ###

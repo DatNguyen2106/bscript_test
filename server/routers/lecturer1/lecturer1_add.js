@@ -21,10 +21,22 @@ lecturer1_add_router.post('/thesis', addThesisLecturer11, async (req, res) =>{
                     else {
                         console.log(req.body.thesisId);
                         thesisId = req.body.thesisId;
+                        const getLecturerInfoQuery = "SELECT * FROM lecturers WHERE lecturer_id = ?";
+                        const getLecturerInfoQueryParams = [req.userId]
+                        const getLecturerInfoResults = await executeQuery(res, getLecturerInfoQuery, getLecturerInfoQueryParams);
+                        getLecturerInfoResults[0].number_of_theses
+                        if(getLecturerInfoResults[0].number_of_theses < getLecturerInfoResults[0].maximum_of_theses){
                         const query = "INSERT INTO THESES(thesis_id, thesis_topic, thesis_field, slot_maximum) VALUES (?,?,?,?);"
                         const queryParams = [thesisId, thesisTopic, thesisField, slotMaximum];
                         const results = await executeQuery(res, query, queryParams);
-                        res.send(results);
+                        
+
+                        const insertLecturersThesesQuery = "INSERT INTO lecturers_theses(lecturer_id, thesis_id, confirm_sup2) values (?, ?, ?)"
+                        const insertLecturersThesesQueryParams = [req.userId, thesisId, 0];
+                        const insertLecturersThesesResults = await executeQuery(res, insertLecturersThesesQuery, insertLecturersThesesQueryParams);
+                        res.send(getLecturerInfoResults);
+                        }
+                        else {res.send("this lecturer is full of slot")}
                     }
 
                     console.log(role);

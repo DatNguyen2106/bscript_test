@@ -34,7 +34,10 @@ lecturer1_confirm_router.post('/confirmStudent', verifyTokenLecturer1, async (re
                     else if (confirmStudent === false){
                         queryParams = [false, studentId];
                         const results = await executeQuery(res, query, queryParams);
-                        res.send(results);
+                        const deleteStudentsThesesQuery = "DELETE FROM students_theses WHERE student_id = ?";
+                        const deleteStudentsThesesQueryParams = [studentId];
+                        const deleteStudentsThesesResults = await executeQuery(res, deleteStudentsThesesQuery, deleteStudentsThesesQueryParams);
+                        res.send(deleteStudentsThesesResults);
                     }
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1")
@@ -68,7 +71,10 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                     else if (confirmThesis === false){
                         queryParams = [false, thesisId];
                         const results = await executeQuery(res, query, queryParams);
-                        res.send(results);
+                        const setNullLecturer2Query = "UPDATE lecturers_theses SET lecturer2 = NULL where thesis_id = ?";
+                        const setNullLecturer2QueryParams = [thesisId];
+                        const setNullLecturer2Results = await executeQuery(res, setNullLecturer2Query, setNullLecturer2QueryParams);
+                        res.send(setNullLecturer2Results);
                     }
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1")
