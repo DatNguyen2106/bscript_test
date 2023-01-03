@@ -45,15 +45,15 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:5000/admin/update/thesis/123122
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk5MDkxNzYsImV4cCI6MTY2OTkxMDA3Nn0.TAtK84TIkQClylFWhCUzjHRv3mqp950uAH81r8eDtLk
+PUT http://localhost:5000/admin/update/thesis/210292
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzI3MzU2NTcsImV4cCI6MTY3MjczNjU1N30.5o2FAsqL0xjs174D_0k8OHAvAIbUq-YN-tEHRCtJBHE
 Content-Type: application/json
 
 {
     "thesisTopic" : "Data For Everything Update",
     "thesisField" : "Data Updated",
     "activateRegistration" : true,
-    "activateDefense" : false,
+    "activateDefense" : true,
     "numberOfHardCopies" : "2",
     "printRequirements" : "This is new requirements",
     "templateFiles" : "word",
@@ -66,11 +66,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/admin/assign/lecturerToThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg4NDE4NjYsImV4cCI6MTY2ODg0Mjc2Nn0.0taga8bOpk28IolQNtNsmVGjCdLzLBhuZyiIAAyTbYY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzI2NDc4OTYsImV4cCI6MTY3MjY0ODc5Nn0.Zp26hpmERwHuN8tM5JSyVBhh5IOPYoi2MRLL9IZeuNE
 Content-Type: application/json
 
 {
-    "lecturerId" : 21933,
+    "lecturerId" : 23483,
     "thesisId" : 123122,
     "lecturer2" : 22323
 }
@@ -78,10 +78,10 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/assign/studentToThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg4NDUxMTQsImV4cCI6MTY2ODg0NjAxNH0.khjMerdBqJaoQr3X-FKz_SLhr45bTfqX3Hecfm2Ofow
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzI2NDgzNDcsImV4cCI6MTY3MjY0OTI0N30.6R3ACUZPxtSixeEwhN0vMSZ8GbIzgZFbIGUPlX96N2o
 Content-Type: application/json
 
 {
     "studentId" : 12365,
-    "thesisId" : 123124
+    "thesisId" : 329852
 }

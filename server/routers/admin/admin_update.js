@@ -104,6 +104,19 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
                                 {  resolve(JSON.parse(JSON.stringify(result)))}
                             })
                             })
+                            const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update student " + req.params.id + " successfully"];
+                            const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                            const notificationSent = await getNotificationSent(res, req.userId);
+                            const notificationReceived = await getNotificationReceived(res, req.userId);
+                            const socket = await getSocketById(res, req.userId);
+                            const socketId = socket[0].socket_id;
+                            console.log(notification);
+                            console.log(notificationSent);
+                            if(socketId === null || socketId === undefined){
+                                console.log("no socketId from database");
+                            }
+                            else { io.to(socketId).emit("notificationSent", (notificationSent))};
                         res.send(results);
                         }
                     }
@@ -121,12 +134,12 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
     const dateFormat = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
     var thesisTopic = (req.body.thesisTopic === "" || req.body.thesisTopic === undefined) ? null : (req.body.thesisTopic);
     var thesisField = (req.body.thesisField === "" || req.body.thesisField === undefined) ?  null :  (req.body.thesisField);
-    var activateRegistration = (req.body.activateRegistration === undefined || req.body.activateRegistration === null) ? null : (req.body.activateRegistration);
-    var activateDefense = (req.body.activateDefense === "" || req.body.activateDefense === undefined) ?  null : req.body.activateDefense;
+    var activateRegistration = (req.body.activateRegistration === undefined || req.body.activateRegistration === null || req.body.activateRegistration === "") ? false : (req.body.activateRegistration);
+    var activateDefense = (req.body.activateDefense === "" || req.body.activateDefense === undefined || req.body.activateRegistration === "") ?  false : req.body.activateDefense;
     var numberOfHardCopies = (req.body.numberOfHardCopies === "" || req.body.numberOfHardCopies === undefined) ?  null : req.body.numberOfHardCopies;
     var printRequirements = (req.body.printRequirements === undefined || req.body.printRequirements === null) ? null : req.body.printRequirements; 
     var templateFiles = (req.body.templateFiles === undefined || req.body.templateFiles === null) ? null : (req.body.templateFiles);
-    var submissionDeadline = (req.body.submissionDeadline === undefined || req.body.submissionDeadline === null) ? null : (req.body.submissionDeadline);
+    var submissionDeadline = (req.body.submissionDeadline === undefined || req.body.submissionDeadline === null || req.body.submissionDeadline === "") ? null : (req.body.submissionDeadline);
 
     if(req.username) {
         if(role){
@@ -136,11 +149,46 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                 res.status(404).send("Need a number Parameter Id");
             } else {
                     paramId = req.params.thesisId;
-                    console.log(paramId);
-                    const updateThesisQuery = "UPDATE theses SET thesis_topic = ?, thesis_field = ?, activate_registration = ?, activate_defense = ?, number_hard_copies = ?, print_requirements = ?, template_files = ?, submission_deadline = ? where thesis_id = ?"
-                    const queryParams = [thesisTopic, thesisField, activateRegistration, activateDefense, numberOfHardCopies, printRequirements, templateFiles, submissionDeadline, paramId];
-                    const results = await executeQuery(res, updateThesisQuery, queryParams);
-                    res.send(results);
+
+                    const getThesisInfoQuery = "call getThesisInfoById(?)";
+                    const getThesisInfoQueryParams = [paramId];
+                    const getThesisInfoQueryResults = await executeQuery(res, getThesisInfoQuery, getThesisInfoQueryParams);
+                    console.log(getThesisInfoQueryResults[0][0].submissionDeadline === undefined);
+                    if((getThesisInfoQueryResults[0][0].submissionDeadline === null || getThesisInfoQueryResults[0][0].submissionDeadline === undefined) && submissionDeadline !== null){
+                        // set step thesis = 4
+                        const updateThesisQuery = "UPDATE theses SET thesis_topic = ?, thesis_field = ?, activate_registration = ?, activate_defense = ?, number_hard_copies = ?, print_requirements = ?, template_files = ?, submission_deadline = ?, step = ? where thesis_id = ?"
+                        const queryParams = [thesisTopic, thesisField, activateRegistration, activateDefense, numberOfHardCopies, printRequirements, templateFiles, submissionDeadline, 4, paramId];
+                        const results = await executeQuery(res, updateThesisQuery, queryParams);
+                        console.log(results);
+                        if(activateRegistration === true) {
+                        for (var i = 0; i < getThesisInfoQueryResults[0].length; i++){
+                            var insertRegistrationBachelorQuery = "INSERT INTO registrations_for_bachelor_thesis(student_id, step) VALUES (?,?)";
+                            var insertRegistrationBachelorQueryParams = [getThesisInfoQueryResults[0][i].student_id, 0];
+                            var insertRegistrationBachelorQueryResults = await executeQuery(res, insertRegistrationBachelorQuery, insertRegistrationBachelorQueryParams)
+                            console.log(insertRegistrationBachelorQueryResults);
+                        }
+                        }
+                        // activate Registration = false
+                        else {
+                            console.log(activateRegistration);
+                        }
+                        if(activateDefense === true) {
+                            for (var i = 0; i < getThesisInfoQueryResults[0].length; i++){
+                                var insertRegistrationDefenseQuery = "INSERT INTO registrations_for_oral_defense(student_id, step) VALUES (?,?)";
+                                var insertRegistrationDefenseQueryParams = [getThesisInfoQueryResults[0][i].student_id, 0];
+                                var insertRegistrationDefenseQueryResults = await executeQuery(res, insertRegistrationDefenseQuery, insertRegistrationDefenseQueryParams)
+                                }
+                            }
+                            // activate defense = false
+                            else {
+                                console.log("activate defense false");
+                            }
+                        res.send({"results" : results, "activateRegistration" : insertRegistrationBachelorQueryResults, "activateDefense" : insertRegistrationDefenseQueryResults});
+                    }
+                    // submissionDeadline = null, we do later.
+                    else {
+
+                    }
             }
             
         }
@@ -189,6 +237,19 @@ admin_update_router.put('/student/:id/registrationBachelorThesis', verifyTokenAd
                 const query = "UPDATE registrations_for_bachelor_thesis SET surname = ?, forename = ?, date_of_birth = ?, place_of_birth = ?, signature = ?, title_bachelor_thesis = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_signature = ?, supervisor1_date = ?, supervisor2_title = ?, supervisor2_signature = ?, supervisor2_date = ?, issued = ?, deadline_copy = ?, extension_granted = ?, chairman_of_examination = ?, date_of_issue = ? where student_id = ?";
                 const queryParams = [surName, foreName, dateOfBirth, placeOfBirth, signature, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue, studentId]
                 const dbResults = await executeQuery(res, query, queryParams);
+                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update Student Registration Bachelor Thesis of " + req.params.id + " successfully"];
+                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                const notificationSent = await getNotificationSent(res, req.userId);
+                const notificationReceived = await getNotificationReceived(res, req.userId);
+                const socket = await getSocketById(res, req.userId);
+                const socketId = socket[0].socket_id;
+                console.log(notification);
+                console.log(notificationSent);
+                if(socketId === null || socketId === undefined){
+                    console.log("no socketId from database");
+                }
+                else { io.to(socketId).emit("notificationSent", (notificationSent))};
                 res.send(dbResults);  
                 }
                 // }
@@ -229,6 +290,19 @@ admin_update_router.put('/student/:id/registrationOralDefense', verifyTokenAdmin
                 const query = "UPDATE registrations_for_oral_defense SET surname = ?, forename = ?, supervisor1_title = ?, supervisor2_title = ?, spectators_present = ?, weekdate = ?, proposed_date = ?, proposed_time = ?, room = ?, concerned_agreed = ?, date_receive = ?, date_submission = ? where student_id = ?";
                 const queryParams = [surName, foreName, supervisor1_title, supervisor2_title, spectatorsPresent, weekDate, proposedDate, proposedTime, room, concernedAgreed, dateReceive, dateSubmission, studentId]
                 const dbResults = await executeQuery(res, query, queryParams);
+                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update student Registration Oral Defense of " + req.params.id + " successfully"];
+                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                const notificationSent = await getNotificationSent(res, req.userId);
+                const notificationReceived = await getNotificationReceived(res, req.userId);
+                const socket = await getSocketById(res, req.userId);
+                const socketId = socket[0].socket_id;
+                console.log(notification);
+                console.log(notificationSent);
+                if(socketId === null || socketId === undefined){
+                    console.log("no socketId from database");
+                }
+                else { io.to(socketId).emit("notificationSent", (notificationSent))};
                 res.send(dbResults);  
                 }
             }
@@ -269,6 +343,19 @@ admin_update_router.put('/student/:id/assessmentBachelorThesis', verifyTokenAdmi
                 const query = "UPDATE assessment_for_bachelor_thesis SET surname = ?, forename = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ? where student_id = ?";
                 const queryParams = [surName, foreName, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature, studentId];                
                 const dbResults = await executeQuery(res, query, queryParams);
+                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update Student Assessment Bachelor Thesis of " + req.params.id + " successfully"];
+                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                const notificationSent = await getNotificationSent(res, req.userId);
+                const notificationReceived = await getNotificationReceived(res, req.userId);
+                const socket = await getSocketById(res, req.userId);
+                const socketId = socket[0].socket_id;
+                console.log(notification);
+                console.log(notificationSent);
+                if(socketId === null || socketId === undefined){
+                    console.log("no socketId from database");
+                }
+                else { io.to(socketId).emit("notificationSent", (notificationSent))};
                 res.send(dbResults);  
                 }
             }
@@ -312,6 +399,20 @@ admin_update_router.put('/student/:id/assessmentOralDefense', verifyTokenAdmin, 
                 const query = "UPDATE assessment_for_oral_defense SET surName = ?, foreName = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ? where student_id = ?";
                 const queryParams = [surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, studentId]
                 const dbResults = await executeQuery(res, query, queryParams);
+              
+                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update Student Assessment Bachelor Thesis of " + req.params.id + " successfully"];
+                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                const notificationSent = await getNotificationSent(res, req.userId);
+                const notificationReceived = await getNotificationReceived(res, req.userId);
+                const socket = await getSocketById(res, req.userId);
+                const socketId = socket[0].socket_id;
+                console.log(notification);
+                console.log(notificationSent);
+                if(socketId === null || socketId === undefined){
+                    console.log("no socketId from database");
+                }
+                else { io.to(socketId).emit("notificationSent", (notificationSent))};
                 res.send(dbResults);  
                 }
             }
