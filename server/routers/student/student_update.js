@@ -6,6 +6,7 @@ student_update_router.put('/registrationBachelorThesis', verifyTokenStudent, asy
     try {
         var role = req.role;
         var studentId;
+        var matriculationNumber = (req.body.matriculationNumber === "" || req.body.matriculationNumber === undefined) ?  0 : req.body.matriculationNumber;    
         var surName = (req.body.surName === "" || req.body.surName === undefined) ?  null : req.body.surName;    
         var foreName = (req.body.foreName === "" || req.body.foreName === undefined) ? null : req.body.foreName;
         var dateOfBirth = (req.body.dateOfBirth === "" || req.body.dateOfBirth === undefined) ?  null : req.body.dateOfBirth;
@@ -39,8 +40,8 @@ student_update_router.put('/registrationBachelorThesis', verifyTokenStudent, asy
                 }
                 else {
                 studentId = req.userId;
-                const query = "UPDATE registrations_for_bachelor_thesis SET surname = ?, forename = ?, date_of_birth = ?, place_of_birth = ?, signature = ?, title_bachelor_thesis = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_signature = ?, supervisor1_date = ?, supervisor2_title = ?, supervisor2_signature = ?, supervisor2_date = ?, issued = ?, deadline_copy = ?, extension_granted = ?, chairman_of_examination = ?, date_of_issue = ?, step = ? where student_id = ?";
-                const queryParams = [surName, foreName, dateOfBirth, placeOfBirth, signature, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue, 1, studentId]
+                const query = "UPDATE registrations_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, date_of_birth = ?, place_of_birth = ?, signature = ?, title_bachelor_thesis = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_signature = ?, supervisor1_date = ?, supervisor2_title = ?, supervisor2_signature = ?, supervisor2_date = ?, issued = ?, deadline_copy = ?, extension_granted = ?, chairman_of_examination = ?, date_of_issue = ?, step = ? where student_id = ?";
+                const queryParams = [matriculationNumber, surName, foreName, dateOfBirth, placeOfBirth, signature, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue, 1, studentId]
                 const dbResults = await executeQuery(res, query, queryParams);
                 res.send(dbResults);  
                 }

@@ -15,13 +15,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 
 ###
-
-POST http://localhost:5000/student/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY2ODkzMjUyNywiZXhwIjoxNjY4OTMzNDI3fQ.Ro8uls0wnffxT8L9hTFhIqKBa76sWs8Cx1Xo96RndoA
+POST http://localhost:5000/student/add/registrationBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3Mjc2NzI2NCwiZXhwIjoxNjcyNzY4MTY0fQ.7umocnaNqf18OcABmBQ-JXlOFotshX9QN0wRXRqyS1w
 Content-Type: application/json
 
 {
-    "studentId" : 12486,
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen",
     "foreName" : "long",
@@ -135,32 +133,6 @@ Content-Type: application/json
 GET http://localhost:5000/student/get/lecturer/21029
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTY1MTA1MCwiZXhwIjoxNjcxNjUxOTUwfQ.iWTIOloO9iACzHchZZeqlg_1MBAG5kpLyt85GZioa7Y
 
-###
-PUT http://localhost:5000/admin/update/student/13961/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk5NzMzMDYsImV4cCI6MTY2OTk3NDIwNn0.w6-usDeiWXu27l44Fp1Yad4Go1D626RpqMHvpkbO0Fc
-Content-Type: application/json
-
-{
-    "surName" : "phannguyen",
-    "foreName" : "long",
-    "dateOfBirth" : "2000-12-23",
-    "placeOfBirth" : "HCM city",
-    "signature" : "",
-    "titleBachelorThesis" : "Data Mining",
-    "thesisType" : "1",
-    "furtherParticipants" : "",
-    "supervisor1_title" : "Prof. Huynh Trung Hieu",
-    "supervisor1_signature" : "",
-    "supervisor1_date" : "2022-12-12",
-    "supervisor2_title" : "Master Huynh Nguyen",
-    "supervisor2_signature" : "",
-    "supervisor2_date" : "2022-12-12",
-    "issued" : "2023-1-12",
-    "deadlineCopy" : 2,
-    "extensionGranted" : "2022-12-29",
-    "chairmanOfExamination" : "VGU",
-    "dateOfIssue" : "2022-12-23"
-}
 
 ###
 GET http://localhost:5000/student/get/theses
@@ -187,6 +159,57 @@ Content-Type: application/json
 {
     "lecturer2_id" : "25489"
 }
+
+###
+PUT http://localhost:5000/student/update/registrationBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3Mjc2NzY5NSwiZXhwIjoxNjcyNzY4NTk1fQ.v98HzX1jnpb2zrVnbdJ6brWU4kBRwxDi-wx_CAd5Qm4
+Content-Type: application/json
+
+{
+    "matriculationNumber" : 1232312,
+    "surName" : "phannguyen",
+    "foreName" : "long",
+    "dateOfBirth" : "2000-12-23",
+    "placeOfBirth" : "HCM city",
+    "signature" : "",
+    "titleBachelorThesis" : "Data Mining",
+    "thesisType" : "1",
+    "furtherParticipants" : "",
+    "supervisor1_title" : "Prof. Huynh Trung Hieu",
+    "supervisor1_signature" : "",
+    "supervisor1_date" : "2022-12-12",
+    "supervisor2_title" : "Master Huynh Nguyen",
+    "supervisor2_signature" : "",
+    "supervisor2_date" : "2022-12-12",
+    "issued" : "2023-1-12",
+    "deadlineCopy" : 2,
+    "extensionGranted" : "2022-12-29",
+    "chairmanOfExamination" : "VGU",
+    "date_of_issue" : "2000-12-23"
+}
+
+###
+
+PUT http://localhost:5000/student/update/registrationOralDefense
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3Mjc2NzgyNCwiZXhwIjoxNjcyNzY4NzI0fQ.7m5rM8s2j2VZgg_LPsEbGWPHsrJxrKBA3yhc3jIOgzQ
+Content-Type: application/json
+
+{
+    "matriculationNumber" : 1232312,
+    "surName" : "phannguyen",
+    "foreName" : "long",
+    "supervisor1_title" : "Prof Huynh Trung Hieu",
+    "supervisor2_title" : "Master Huynh Nguyen", 
+    "spectatorsPresent" : 1,
+    "weekDate" : "3", 
+    "proposedDate" : "2022-12-29", 
+    "proposedTime" : "07:00:00", 
+    "room" : "A2392.3", 
+    "concernedAgreed" : 1, 
+    "dateReceive" : "2023-03-29", 
+    "dateSubmission" : "2023-03-29"
+}
+
 
 ###
 GET http://localhost:5000/student/get/thesis

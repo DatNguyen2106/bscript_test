@@ -19,7 +19,7 @@ const verifyTokenLecturer2 = (req,res,next) => {
             req.role = decoded.role;
             next();
         } 
-        else {console.log("You are not lecturer1, cannot execute this API (checked in middleware)")}
+        else {console.log("You are not lecturer2, cannot execute this API (checked in middleware)")}
     } catch (error) {
         console.log(error);
         res.sendStatus(403);
