@@ -46,7 +46,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/admin/update/thesis/210292
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzI3MzU2NTcsImV4cCI6MTY3MjczNjU1N30.5o2FAsqL0xjs174D_0k8OHAvAIbUq-YN-tEHRCtJBHE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzMwODI5NzcsImV4cCI6MTY3MzA4Mzg3N30.K5o5i4Q9Pxmmwjn-FMSgYFR20QxELVrINeISgEwm4ZU
 Content-Type: application/json
 
 {

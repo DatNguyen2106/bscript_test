@@ -153,42 +153,43 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                     const getThesisInfoQuery = "call getThesisInfoById(?)";
                     const getThesisInfoQueryParams = [paramId];
                     const getThesisInfoQueryResults = await executeQuery(res, getThesisInfoQuery, getThesisInfoQueryParams);
-                    console.log(getThesisInfoQueryResults[0][0].submissionDeadline === undefined);
+                    console.log(getThesisInfoQueryResults[0][0]);
                     if((getThesisInfoQueryResults[0][0].submissionDeadline === null || getThesisInfoQueryResults[0][0].submissionDeadline === undefined) && submissionDeadline !== null){
                         // set step thesis = 4
                         const updateThesisQuery = "UPDATE theses SET thesis_topic = ?, thesis_field = ?, activate_registration = ?, activate_defense = ?, number_hard_copies = ?, print_requirements = ?, template_files = ?, submission_deadline = ?, step = ? where thesis_id = ?"
                         const queryParams = [thesisTopic, thesisField, activateRegistration, activateDefense, numberOfHardCopies, printRequirements, templateFiles, submissionDeadline, 4, paramId];
                         const results = await executeQuery(res, updateThesisQuery, queryParams);
-                        console.log(results);
-                        if(activateRegistration === true) {
+                    }
+                    // submissionDeadline = null, we do later.
+                    else {
+                    }
+                    console.log(getThesisInfoQueryResults[0][0].activate_registration)
+                    console.log(getThesisInfoQueryResults[0][0].activate_defense)
+                    if(getThesisInfoQueryResults[0][0].activate_registration === 0 && activateRegistration === true) {
                         for (var i = 0; i < getThesisInfoQueryResults[0].length; i++){
                             var insertRegistrationBachelorQuery = "INSERT INTO registrations_for_bachelor_thesis(student_id, step) VALUES (?,?)";
                             var insertRegistrationBachelorQueryParams = [getThesisInfoQueryResults[0][i].student_id, 0];
                             var insertRegistrationBachelorQueryResults = await executeQuery(res, insertRegistrationBachelorQuery, insertRegistrationBachelorQueryParams)
-                            console.log(insertRegistrationBachelorQueryResults);
+                            console.log(("insertRegistrationBachelorQuery "))
                         }
                         }
                         // activate Registration = false
-                        else {
-                            console.log(activateRegistration);
-                        }
-                        if(activateDefense === true) {
+                    else {
+
+                    } 
+                    if(getThesisInfoQueryResults[0][0].activate_defense === 0 && activateDefense === true) {
                             for (var i = 0; i < getThesisInfoQueryResults[0].length; i++){
                                 var insertRegistrationDefenseQuery = "INSERT INTO registrations_for_oral_defense(student_id, step) VALUES (?,?)";
                                 var insertRegistrationDefenseQueryParams = [getThesisInfoQueryResults[0][i].student_id, 0];
                                 var insertRegistrationDefenseQueryResults = await executeQuery(res, insertRegistrationDefenseQuery, insertRegistrationDefenseQueryParams)
+
                                 }
                             }
                             // activate defense = false
                             else {
-                                console.log("activate defense false");
-                            }
-                        res.send({"results" : results, "activateRegistration" : insertRegistrationBachelorQueryResults, "activateDefense" : insertRegistrationDefenseQueryResults});
-                    }
-                    // submissionDeadline = null, we do later.
-                    else {
 
-                    }
+                        }
+                    res.send({"result" : "done"});
             }
             
         }
