@@ -5,13 +5,13 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "lukas",
-    "password" : "30000"
+    "username" : "paskasz",
+    "password" : "19999"
 }
 
 ###
 POST http://localhost:5000/admin/get/students
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3OTU0NDUsImV4cCI6MTY2OTc5NjM0NX0.bSjqrUzFF4Uv_R9tvyooyB_4jT0JD87wOftyBpLSgcc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzIzMzI1NjIsImV4cCI6MTY3MjMzMzQ2Mn0.F-mkdH88uWTakrsWyYxRbNxzk8wCaOlVuaSvEOqj_M8
 Content-Type: application/json
 
 {
@@ -51,12 +51,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ### 
 POST http://localhost:5000/admin/add/student
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU2NTAsImV4cCI6MTY2ODQyNjU1MH0.bJKAzzwcIDL2BS2QQwOdncNQaY8ZWSHZJRYCFfpCJWs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzM0MjY1MzQsImV4cCI6MTY3MzQyNzQzNH0.yGXlytqaczwhChCMBstw0pppCjzUo6PGQqomCMj1pWQ
 Content-Type: application/json
 
 {
-    "id" : 12345,
-    "username" : "12345",
+    "id" : 19999,
+    "username" : "paskasz",
     "fullname" : "haotran",
     "email" : "haotran@gmail.com",
     "intake" : "123",
@@ -65,12 +65,12 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5000/admin/update/student/12345
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0MjU3MTIsImV4cCI6MTY2ODQyNjYxMn0.PFIxoIdOv9d7IgszUa8hcAuj6zbjXcWrBvQbHYIgz8I
+PUT http://localhost:5000/admin/update/student/19363
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzI2Mzk5MzEsImV4cCI6MTY3MjY0MDgzMX0.rmJYwERNmnEmvd0btcScLStcFBwfzVu1xxR_0P_IRb0
 Content-Type: application/json
 
 {
-    "username" : "linh",
+    "username" : "linh12",
     "fullname" : "linhkhanhtran_updated",
     "intake" : "2018",
     "email" : "linh1@gmail.com",
@@ -80,8 +80,8 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:5000/admin/update/student/13961/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk5NzMzMDYsImV4cCI6MTY2OTk3NDIwNn0.w6-usDeiWXu27l44Fp1Yad4Go1D626RpqMHvpkbO0Fc
+PUT http://localhost:5000/admin/update/student/12486/registrationBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzM1MTA0NDksImV4cCI6MTY3MzUxMTM0OX0.0nz8RJLR0FeUMh0nMzzFOneI_2ifv7mZhEiGdhiMfMs
 Content-Type: application/json
 
 {
@@ -90,6 +90,7 @@ Content-Type: application/json
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
     "signature" : "",
+    "student_date": "2023-01-01",
     "titleBachelorThesis" : "Data Mining",
     "thesisType" : "1",
     "furtherParticipants" : "",

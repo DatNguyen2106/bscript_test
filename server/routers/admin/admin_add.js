@@ -3,12 +3,15 @@ const admin_add_router = express.Router();
 const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
 const io = require('../.././socketServer');
+const bcrypt = require('bcrypt');
+
 // api for add lecturer by id
+const saltRounds = 10;
 admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         var role = req.role;
         var emailFormat = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/;
-        var id;
+        var lecturerId;
         var title = (req.body.title === "" || req.body.title === undefined) ?  null : req.body.title;
         var signature = (req.body.signature === "" || req.body.signature === undefined) ?  null : req.body.signature;
         var userName = req.body.username;
@@ -27,9 +30,7 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
                     res.status(500).send("Invalid Type for Id, need a number")
                 }
                 else {
-                    id = req.body.id;
-                    console.log(id);
-                    console.log(userName);
+                    lecturerId = req.body.id;
                     if(userName === null || userName === undefined || userName === ""){
                         res.status(500).send("need a valid user name");
                     } else {
@@ -37,14 +38,46 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
                             res.status(500).send("Unvalid email");
                         }
                         else {
-                            var addQuery = "INSERT INTO lecturers (lecturer_id, lecturer_user_name, fullname, title, email, supervisor, signature, maximum_of_theses) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";                    const results = await new Promise((resolve) => {
-                            db.query(addQuery, [id, userName, fullName, title, email, supervisor, signature, maximumTheses], (err, result) => {
-                                    if(err) {res.status(500).send(err.message);}
-                            else
-                            {  resolve(JSON.parse(JSON.stringify(result)))}
-                        })
-                        })
-                    res.send(results);
+                        
+                            const addQuery = "INSERT INTO lecturers (lecturer_id, lecturer_user_name, fullname, title, email, supervisor, signature, maximum_of_theses) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";                   
+                            const addQueryParams = [lecturerId, userName, fullName, title, email, supervisor, signature, maximumTheses];
+                            const addQueryResults = await executeQuery(res, addQuery, addQueryParams);
+                            console.log(addQueryResults);
+                            if(addQueryResults){
+
+                                const role = req.role;
+                                // default password = id of this user;
+                                var password = JSON.stringify(lecturerId);
+                                const roleOfUser = `["${supervisor}"]`;
+                                console.log(roleOfUser);
+                                const insertUserQuery = "INSERT INTO tbl_user (id, username, password, salt, role) VALUES (?, ?, ?, ?, ?)";
+                                bcrypt.genSalt(saltRounds, function(err, salt) {
+                                    bcrypt.hash(password, salt, function(err, hash) {
+                                        if(err) {res.send(err);}     
+                                        // Store hash in database here
+                                        else  { 
+                                            db.query(insertUserQuery,[lecturerId, userName, hash, salt, roleOfUser], (err, result) => {
+                                                if(err) {
+                                                    console.log("Cannot Insert on tbl_user into database")
+                                                }
+                                                else res.json(result);
+                                            })} 
+                                     });
+                                  });
+                                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                const sendParams = [`Update from ${req.userId} to ${req.userId}` , req.userId, req.userId, `insert new lecturer  ${lecturerId} successfully`];
+                                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                                const notificationSent = await getNotificationSent(res, req.userId);
+                                const notificationReceived = await getNotificationReceived(res, req.userId);
+                                const socket = await getSocketById(res, req.userId);
+                                const socketId = socket[0].socket_id;
+                                console.log(notificationSent);
+                                if(socketId === null || socketId === undefined){
+                                      console.log("no socketId from database");
+                                  }
+                                  else { io.to(socketId).emit("notificationSent", (notificationSent))}     
+                            } else {console.log("error")};
+                            
                         }
                     }
                 }
@@ -64,7 +97,6 @@ admin_add_router.post('/student', verifyTokenAdmin, async (req, res) =>{
         var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null : req.body.fullname;
         var ects = (req.body.ects === "" || req.body.ects === undefined ) ? null : req.body.ects;
         var email;
-        console.log(req.body.email);
         email = checkTypeToAdd(req.body.email, emailFormat);
         var signature = (req.body.signature === "" || req.body.signature === undefined) ?  null : req.body.signature;
         if(req.username) {
@@ -76,8 +108,6 @@ admin_add_router.post('/student', verifyTokenAdmin, async (req, res) =>{
                 }
                 else {
                     id = req.body.id;
-                    console.log(id);
-                    console.log(userName);
                     if(userName === null || userName === undefined || userName === ""){
                         res.status(500).send("need a valid user name");
                     } else {
@@ -85,15 +115,42 @@ admin_add_router.post('/student', verifyTokenAdmin, async (req, res) =>{
                             res.status(500).send("Unvalid email");
                         }
                         else {
-                    var addQuery = "INSERT INTO students (student_id, student_user_name, fullname, intake, email, ects, signature) VALUES(?, ?, ?, ?, ?, ?, ?)";
-                    const results = await new Promise((resolve) => {
-                        db.query(addQuery, [id, userName, fullName, intake, email, ects, signature], (err, result) => {
-                            if(err) {res.status(500).send(err.message);}
-                            else
-                            {  resolve(JSON.parse(JSON.stringify(result)))}
-                        })
-                        })
-                    res.send(results);
+                            const addQuery = "INSERT INTO students (student_id, student_user_name, fullname, intake, email, ects, signature) VALUES(?, ?, ?, ?, ?, ?, ?)";
+                            const addQueryParams = [id, userName, fullName, intake, email, ects, signature];
+                            const addQueryResults = await executeQuery(res, addQuery, addQueryParams);
+                            console.log(addQueryResults);
+
+                            if(addQueryResults){
+                                // default password = id of this user;
+                                var password = JSON.stringify(id);
+                                const roleOfUser = `["student"]`;
+                                const insertUserQuery = "INSERT INTO tbl_user (id, username, password, salt, role) VALUES (?, ?, ?, ?, ?)";
+                                bcrypt.genSalt(saltRounds, function(err, salt) {
+                                    bcrypt.hash(password, salt, function(err, hash) {
+                                        if(err) {res.send(err);}     
+                                        // Store hash in database here
+                                        else  { 
+                                            db.query(insertUserQuery,[id, userName, hash, salt, roleOfUser], (err, result) => {
+                                                if(err) {
+                                                    res.send("Cannot Insert on tbl_user into database")
+                                                }
+                                                else res.json(result);
+                                            })} 
+                                     });
+                                });
+                                    const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                    const sendParams = [`Update from ${req.userId} to ${req.userId}` , req.userId, req.userId, `insert new student  ${id} successfully`];
+                                    const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                                    const notificationSent = await getNotificationSent(res, req.userId);
+                                    const notificationReceived = await getNotificationReceived(res, req.userId);
+                                    const socket = await getSocketById(res, req.userId);
+                                    const socketId = socket[0].socket_id;
+                                    console.log(notificationSent);
+                                    if(socketId === null || socketId === undefined){
+                                        console.log("no socketId from database");
+                                    }
+                                    else { io.to(socketId).emit("notificationSent", (notificationSent))}     
+                            } else {console.log("error")};
                         }
                     }
                 }
@@ -207,6 +264,16 @@ const results =  new Promise((resolve) => {
     })
     })
 return results;
+}
+var sendNotification = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
 }
 const getNotificationReceived = (res, id) => {
 const query = "select * from notifications where receiver = ?"

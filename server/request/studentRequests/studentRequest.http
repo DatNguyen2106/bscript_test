@@ -16,7 +16,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/student/add/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3Mjc2NzI2NCwiZXhwIjoxNjcyNzY4MTY0fQ.7umocnaNqf18OcABmBQ-JXlOFotshX9QN0wRXRqyS1w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MzUwOTc5MiwiZXhwIjoxNjczNTEwNjkyfQ.mKtqJ_-QyhbCqluCspGtNZG4ms2_Fh0LN1A4L4KnmoY
 Content-Type: application/json
 
 {
@@ -26,6 +26,7 @@ Content-Type: application/json
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
     "signature" : "",
+    "student_date" : "2022-12-2",
     "titleBachelorThesis" : "Data Mining",
     "thesisType" : "1",
     "furtherParticipants" : "",
@@ -162,7 +163,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/student/update/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3Mjc2NzY5NSwiZXhwIjoxNjcyNzY4NTk1fQ.v98HzX1jnpb2zrVnbdJ6brWU4kBRwxDi-wx_CAd5Qm4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MzUxMDE5NSwiZXhwIjoxNjczNTExMDk1fQ.ddS3gCVOIBMDITHiOniCq-IVTBcFKgqCaC8qbVtmjhs
 Content-Type: application/json
 
 {
@@ -172,6 +173,7 @@ Content-Type: application/json
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
     "signature" : "",
+    "student_date" : "2022-12-2",
     "titleBachelorThesis" : "Data Mining",
     "thesisType" : "1",
     "furtherParticipants" : "",

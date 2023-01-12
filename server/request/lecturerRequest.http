@@ -4,10 +4,19 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "alexnguyen",
-    "password" : "21029"
+    "username" : "tiffany",
+    "password" : "23483"
 }
 
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "haotran12",
+    "password" : "21457"
+}
 ###
 
 POST http://localhost:4000/login
@@ -24,7 +33,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/lecturer1/add/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MDg2MTgxMSwiZXhwIjoxNjcwODYyNzExfQ.IVtEqwDSqRCeTec7wCD6LNTbmLjjq5l-bn4qHaekdJg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMzMjIwMiwiZXhwIjoxNjcyMzMzMTAyfQ.JYECVPegzOjvhrxteTw8RaMEfgb5W8yMFmcuFSuIqfA
 Content-Type: application/json
 
 {
@@ -36,7 +45,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjIzMDgwNiwiZXhwIjoxNjcyMjMxNzA2fQ.ydfodT7EoSLQgOPCXVYUs3tSGtEHg3L3ULoScf3Asho
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMzMTU4OSwiZXhwIjoxNjcyMzMyNDg5fQ.UXMAIlG2twFJZeE-G9VZh-q2HetuyVhkx-0y0qkyicA
 Content-Type: application/json
 
 {
@@ -68,57 +77,67 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/lecturer1/get/thesis/210291
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjIyNzQzMiwiZXhwIjoxNjcyMjI4MzMyfQ.Q-HaIfsyRs1HovP6O6w-yMOfMdbJesTYWoxGT6s2Umc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3Mjc2ODY4OCwiZXhwIjoxNjcyNzY5NTg4fQ.2rRIDh5uEgr2Y4ZMy_ii9-w4a64AXnc1q04MHHwF9Z8
 
 ###
-GET http://localhost:5000/lecturer2/get/thesis/210291
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MjIyNzYzNCwiZXhwIjoxNjcyMjI4NTM0fQ.lGEgvAFcADziVPH2LgoJ_UYOFHQLN8GdUdabzQJE_z4
+GET http://localhost:5000/lecturer2/get/thesis/210292
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3Mjc2ODgwMiwiZXhwIjoxNjcyNzY5NzAyfQ.YZ85gRe83YEZl5IlmZF_6SLjR72BN8IlO8TG_C7UA0E
 
 ###
 POST http://localhost:5000/lecturer1/confirm/confirmStudent
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MTAzMzU3MCwiZXhwIjoxNjcxMDM0NDcwfQ.CGOGl5wnkoep15nByotQr3TNnB2nMf4Cy2ysbGILDXI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMzMjIwMiwiZXhwIjoxNjcyMzMzMTAyfQ.JYECVPegzOjvhrxteTw8RaMEfgb5W8yMFmcuFSuIqfA
 Content-Type: application/json
 
 {
     "studentId" : 12211,
-    "confirmStudent" : true
+    "confirmStudent" : false
 }
 
 ###
 POST http://localhost:5000/lecturer2/confirm/confirmThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MTAzNzMyOSwiZXhwIjoxNjcxMDM4MjI5fQ.piTqf4TBHWtTPsQhf9oxbGqWJxbd7m4gAgKxOGHU8l0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MjMzMDk4NCwiZXhwIjoxNjcyMzMxODg0fQ.VUajfetgS8nQSoW4K-FOj52GR7_cFcVBzoVCxuNjCa0
 Content-Type: application/json
 
 {
     "thesisId" : 123554,
-    "confirmThesis" : true
+    "confirmThesis" : false
 }
 ###
 POST http://localhost:5000/lecturer1/confirm/confirmThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MTAzNzMyOSwiZXhwIjoxNjcxMDM4MjI5fQ.piTqf4TBHWtTPsQhf9oxbGqWJxbd7m4gAgKxOGHU8l0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMzMDc3OSwiZXhwIjoxNjcyMzMxNjc5fQ.TvXH8CcrbDmlzf4hfn0ZqFNvXVnoqhEGc25cNA2e6qY
 Content-Type: application/json
 
 {
-    "thesisId" : 123554,
+    "thesisId" : 123454,
     "confirmThesis" : true
 }
 
 ###
-POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MTEyMjY5NywiZXhwIjoxNjcxMTIzNTk3fQ.jsBHsSxQghE7HiIucoCnbmtptjzfbVb_4kaT3Fv7DBI
+POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesisAsSup1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMxMjU1MCwiZXhwIjoxNjcyMzEzNDUwfQ.li54BHpN1eKakY6jvu5K9Ysi7wj4UwHIt3Lif95eZ7M
 Content-Type: application/json
 
 {
     "studentId" : 12486,
-    "confirmSignature" : false
+    "confirmSignature" : true
 }
-
 ###
-POST http://localhost:5000/lecturer2/signIn/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MTEyOTIzOCwiZXhwIjoxNjcxMTMwMTM4fQ.CeGGDBy3izZPyIVLktToHULjvHBpjM3mW--sAv0BngM
+POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesisAsSup2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMxMjUxMiwiZXhwIjoxNjcyMzEzNDEyfQ.JJoKeSupwsqfFUFCOkthyg4FgDRfikrJQO-1PSF9qOE
 Content-Type: application/json
 
 {
     "studentId" : 19363,
+    "confirmSignature" : true
+}
+
+
+###
+POST http://localhost:5000/lecturer2/signIn/registrationBachelorThesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MjMxMjY4OCwiZXhwIjoxNjcyMzEzNTg4fQ.Nsl3UGqQlI8UAhTIkMMOwsTo9wn3hA3NEGBnYatg1Q4
+Content-Type: application/json
+
+{
+    "studentId" : 12323,
     "confirmSignature" : true
 }

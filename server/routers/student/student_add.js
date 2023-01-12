@@ -41,6 +41,7 @@ student_add_router.post('/registrationBachelorThesis', verifyTokenStudent, async
             var dateOfBirth = (req.body.dateOfBirth === "" || req.body.dateOfBirth === undefined) ?  null : req.body.dateOfBirth;
             var placeOfBirth = (req.body.placeOfBirth === "" || req.body.placeOfBirth === undefined) ?  null : req.body.placeOfBirth;
             var signature = (req.body.signature === "" || req.body.signature === undefined) ? null : req.body.signature;
+            var student_date = (req.body.student_date === "" || req.body.student_date === undefined) ?  null : req.body.student_date;
             var titleBachelorThesis = (req.body.titleBachelorThesis === "" || req.body.titleBachelorThesis === undefined) ?  null : req.body.titleBachelorThesis;
             var thesisType = (req.body.thesisType === "" || req.body.thesisType === undefined) ?  null : req.body.thesisType;
             var furtherParticipants = (req.body.furtherParticipants === "" || req.body.furtherParticipants === undefined) ?  null : req.body.furtherParticipants;
@@ -64,16 +65,17 @@ student_add_router.post('/registrationBachelorThesis', verifyTokenStudent, async
                     }
                     else {
                         matriculationNumber = req.body.matriculationNumber;
-                        if(req.body.studentId === undefined || req.body.studentId === ''){
+                        if(req.userId === undefined || req.userId === ''){
                             res.status(500).send("Undefined id for add")
                         }
-                        else if (typeof(req.body.studentId) != 'number') {
+                        else if (typeof(req.userId) != 'number') {
                             res.status(500).send("Invalid Type for id, need a number")
                         }
                         else {
-                        studentId = req.body.studentId;
-                        var query = "INSERT INTO registrations_for_bachelor_thesis (student_id, matriculation_number, surname, forename, date_of_birth, place_of_birth , signature, title_bachelor_thesis, thesis_type, further_participants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued , deadline_copy, extension_granted, chairman_of_examination ,date_of_issue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
-                        var queryParams = [studentId, matriculationNumber, surName, foreName, dateOfBirth, placeOfBirth, signature, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue]
+                        studentId = req.userId;
+                        console.log("studentId" + studentId);
+                        var query = "INSERT INTO registrations_for_bachelor_thesis (student_id, matriculation_number, surname, forename, date_of_birth, place_of_birth , signature, student_date, title_bachelor_thesis, thesis_type, further_participants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued , deadline_copy, extension_granted, chairman_of_examination ,date_of_issue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+                        var queryParams = [studentId, matriculationNumber, surName, foreName, dateOfBirth, placeOfBirth, signature, student_date, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue]
                         var dbResults = await executeQuery(res, query, queryParams);
                         console.log(dbResults);  
                         }
