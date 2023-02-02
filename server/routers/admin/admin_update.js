@@ -111,10 +111,7 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
                             const notificationReceived = await getNotificationReceived(res, req.userId);
                             const socket = await getSocketById(res, req.userId);
                             const socketId = socket[0].socket_id;
-                            console.log(notification);
-                            console.log(notificationSent);
                             if(socketId === null || socketId === undefined){
-                                console.log("no socketId from database");
                             }
                             else { io.to(socketId).emit("notificationSent", (notificationSent))};
                         res.send(results);
@@ -135,12 +132,11 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
     var thesisTopic = (req.body.thesisTopic === "" || req.body.thesisTopic === undefined) ? null : (req.body.thesisTopic);
     var thesisField = (req.body.thesisField === "" || req.body.thesisField === undefined) ?  null :  (req.body.thesisField);
     var activateRegistration = (req.body.activateRegistration === undefined || req.body.activateRegistration === null || req.body.activateRegistration === "") ? false : (req.body.activateRegistration);
-    var activateDefense = (req.body.activateDefense === "" || req.body.activateDefense === undefined || req.body.activateRegistration === "") ?  false : req.body.activateDefense;
+    var activateDefense = (req.body.activateDefense === "" || req.body.activateDefense === undefined || req.body.activateDefense === "") ?  false : req.body.activateDefense;
     var numberOfHardCopies = (req.body.numberOfHardCopies === "" || req.body.numberOfHardCopies === undefined) ?  null : req.body.numberOfHardCopies;
     var printRequirements = (req.body.printRequirements === undefined || req.body.printRequirements === null) ? null : req.body.printRequirements; 
     var templateFiles = (req.body.templateFiles === undefined || req.body.templateFiles === null) ? null : (req.body.templateFiles);
     var submissionDeadline = (req.body.submissionDeadline === undefined || req.body.submissionDeadline === null || req.body.submissionDeadline === "") ? null : (req.body.submissionDeadline);
-
     if(req.username) {
         if(role){
             if(req.params.thesisId === undefined || req.params.thesisId === ""){
@@ -153,7 +149,6 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                     const getThesisInfoQuery = "call getThesisInfoById(?)";
                     const getThesisInfoQueryParams = [paramId];
                     const getThesisInfoQueryResults = await executeQuery(res, getThesisInfoQuery, getThesisInfoQueryParams);
-                    console.log(getThesisInfoQueryResults[0][0]);
                     if((getThesisInfoQueryResults[0][0].submissionDeadline === null || getThesisInfoQueryResults[0][0].submissionDeadline === undefined) && submissionDeadline !== null){
                         // set step thesis = 4
                         const updateThesisQuery = "UPDATE theses SET thesis_topic = ?, thesis_field = ?, activate_registration = ?, activate_defense = ?, number_hard_copies = ?, print_requirements = ?, template_files = ?, submission_deadline = ?, step = ? where thesis_id = ?"
@@ -162,15 +157,14 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                     }
                     // submissionDeadline = null, we do later.
                     else {
+
                     }
-                    console.log(getThesisInfoQueryResults[0][0].activate_registration)
-                    console.log(getThesisInfoQueryResults[0][0].activate_defense)
+
                     if(getThesisInfoQueryResults[0][0].activate_registration === 0 && activateRegistration === true) {
                         for (var i = 0; i < getThesisInfoQueryResults[0].length; i++){
                             var insertRegistrationBachelorQuery = "INSERT INTO registrations_for_bachelor_thesis(student_id, step) VALUES (?,?)";
                             var insertRegistrationBachelorQueryParams = [getThesisInfoQueryResults[0][i].student_id, 0];
                             var insertRegistrationBachelorQueryResults = await executeQuery(res, insertRegistrationBachelorQuery, insertRegistrationBachelorQueryParams)
-                            console.log(("insertRegistrationBachelorQuery "))
                         }
                         }
                         // activate Registration = false
