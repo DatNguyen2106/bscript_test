@@ -2,25 +2,18 @@ const express = require('express');
 const lecturer1_add_router = express.Router();
 const db = require('../../db/connectDB');
 const addThesisLecturer11 = require('../../middleware/addThesisLecturer11');
-
+const moment = require('moment');
 lecturer1_add_router.post('/thesis', addThesisLecturer11, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         try {
             var role = req.role;
-            var thesisId;
+            var currentTimeValue = moment().valueOf();
             var thesisField = (req.body.thesisField === "" || req.body.thesisField === undefined || req.body.thesisField === null) ? null : req.body.thesisField;
             var thesisTopic = (req.body.thesisTopic === "" || req.body.thesisTopic === undefined || req.body.thesisTopic === null) ? null : req.body.thesisTopic;
             var slotMaximum = (req.body.slotMaximum === "" || req.body.slotMaximum === undefined || req.body.slotMaximum === null) ? null : req.body.slotMaximum;
             if(req.username && req.userId) {
-                if(role){
-                    if(req.body.thesisId === undefined  || req.body.thesisId === ''){
-                        res.status(500).send("Undefined id for add");
-                    } else if (typeof(req.body.thesisId) != 'number'){
-                        res.status(500).send("Invalid Type for Id, need a number")
-                    }                
-                    else {
-                        console.log(req.body.thesisId);
-                        thesisId = req.body.thesisId;
+                if(role){                
+                        thesisId = currentTimeValue * req.userId;
                         const getLecturerInfoQuery = "SELECT * FROM lecturers WHERE lecturer_id = ?";
                         const getLecturerInfoQueryParams = [req.userId]
                         const getLecturerInfoResults = await executeQuery(res, getLecturerInfoQuery, getLecturerInfoQueryParams);
@@ -30,16 +23,12 @@ lecturer1_add_router.post('/thesis', addThesisLecturer11, async (req, res) =>{
                         const queryParams = [thesisId, thesisTopic, thesisField, slotMaximum];
                         const results = await executeQuery(res, query, queryParams);
                         
-
                         const insertLecturersThesesQuery = "INSERT INTO lecturers_theses(lecturer_id, thesis_id, confirm_sup2) values (?, ?, ?)"
                         const insertLecturersThesesQueryParams = [req.userId, thesisId, 0];
                         const insertLecturersThesesResults = await executeQuery(res, insertLecturersThesesQuery, insertLecturersThesesQueryParams);
                         res.send(getLecturerInfoResults);
                         }
                         else {res.send("this lecturer is full of slot")}
-                    }
-
-                    console.log(role);
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
             }

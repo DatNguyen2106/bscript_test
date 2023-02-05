@@ -124,7 +124,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/admin/get/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3NDQ1MzAsImV4cCI6MTY2OTc0NTQzMH0.WcL-UT19Nv7uxMFgHwr3LLWGFVMJpwmauLa3GKoTnuk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzM1MTE4NTgsImV4cCI6MTY3MzUxMjc1OH0.koO2LBm9bUmiUqFg1HPYx3NlhBmEDQUPmGe-yAlIdkE
 
 ###
 DELETE http://localhost:5000/admin/delete/lecturer/

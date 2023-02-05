@@ -31,11 +31,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/admin/add/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4ODIxMTgsImV4cCI6MTY2OTg4MzAxOH0.XGDQhQir9hqxESJ2hn5bEv95uDPN9lla-KExNyGDbUA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzU1MjA2ODQsImV4cCI6MTY3NTUyMTU4NH0.qU6ADvmNvutjptnOuuduVbYRmSku2Au7H5ltiDp5NdI
 Content-Type: application/json
 
 {
-    "thesisId" : 123349,
     "thesisTopic" : "Data For Everything",
     "thesisField" : "Data Testing",
     "lecturer1_id" : "23483",
@@ -45,8 +44,8 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:5000/admin/update/thesis/210292
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzMwODI5NzcsImV4cCI6MTY3MzA4Mzg3N30.K5o5i4Q9Pxmmwjn-FMSgYFR20QxELVrINeISgEwm4ZU
+PUT http://localhost:5000/admin/update/thesis/123124
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzUzNDEzOTIsImV4cCI6MTY3NTM0MjI5Mn0.Ou8UidtKdSN3gNZAQUlg60GOIkIPgPAP1sHY6-jHlvA
 Content-Type: application/json
 
 {

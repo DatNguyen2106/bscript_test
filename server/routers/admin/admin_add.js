@@ -4,7 +4,7 @@ const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
 const io = require('../.././socketServer');
 const bcrypt = require('bcrypt');
-
+const moment = require('moment');
 // api for add lecturer by id
 const saltRounds = 10;
 admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
@@ -162,29 +162,21 @@ admin_add_router.post('/student', verifyTokenAdmin, async (req, res) =>{
 admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         var role = req.role;
-        var thesisId = (req.body.thesisId === "" || req.body.thesisId === undefined) ?  null : req.body.thesisId;
         var thesisTopic = (req.body.thesisTopic === "" || req.body.thesisTopic === undefined) ? null : req.body.thesisTopic;
         var thesisField = (req.body.thesisField === "" || req.body.thesisField === undefined) ? null : req.body.thesisField;
         var lecturer1_id = (req.body.lecturer1_id === "" || req.body.lecturer1_id === undefined) ? null : req.body.lecturer1_id;
         var lecturer2_id = (req.body.lecturer2_id === "" || req.body.lecturer2_id === undefined) ? null : req.body.lecturer2_id;
         var slotMaximum = (req.body.slotMaximum === "" || req.body.slotMaximum === undefined) ?  null : req.body.slotMaximum;
+        var currentTimeValue = moment().valueOf();
+        console.log(currentTimeValue);
         if(req.username) {
-            if(role){
-                if(req.body.thesisId === undefined  || req.body.thesisId === ''){
-                    res.status(500).send("Undefined id for add");
-                } else if (typeof(req.body.thesisId) != 'number'){
-                    res.status(500).send("Invalid Type for Id, need a number")
-                }
-                else {
-                    thesisId = req.body.thesisId;
-                    console.log(thesisId);
-                    const insertThesesQuery = "call addNewThesis(?, ?, ?, ?, ?, ?)";
-                    const queryParams = [thesisId, thesisTopic, thesisField, lecturer1_id, lecturer2_id, slotMaximum];
-                    const results = await executeQuery(res, insertThesesQuery, queryParams);
-                    res.send(results);
-                }
+            if(role && req.userId){
+                var thesisId = currentTimeValue * lecturer1_id;
+                const insertThesesQuery = "call addNewThesis(?, ?, ?, ?, ?, ?)";
+                const queryParams = [thesisId, thesisTopic, thesisField, lecturer1_id, lecturer2_id, slotMaximum];
+                const results = await executeQuery(res, insertThesesQuery, queryParams);
                 const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                const sendParams = [`Admin ${req.userId} add new thesis ${thesisId}` , req.userId, thesisId, "add new thesis successfully"];
+                const sendParams = [`Admin ${req.userId} add new thesis ${thesisId} for this lecturer ${lecturer1_id}` , req.userId, req.userId, "add new thesis successfully"];
                 const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                 const notificationSent = await getNotificationSent(res, req.userId);
                 const notificationReceived = await getNotificationReceived(res, req.userId);
@@ -194,6 +186,7 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
                     console.log("no socketId from database");
                 }
                 else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                res.send(results);
             }
             else res.status(405).send("You are not allowed to access, You are not admin")
         }

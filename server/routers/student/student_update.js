@@ -62,6 +62,7 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
     try {
         var role = req.role;
         var studentId;
+        var matriculationNumber = (req.body.matriculationNumber === "" || req.body.matriculationNumber === undefined) ?  0 : req.body.matriculationNumber;    
         var surName = (req.body.surName === "" || req.body.surName === undefined) ?  null : req.body.surName;    
         var foreName = (req.body.foreName === "" || req.body.foreName === undefined) ? null : req.body.foreName;
         var supervisor1_title = (req.body.supervisor1_title === "" || req.body.supervisor1_title === undefined) ?  null : req.body.supervisor1_title;
@@ -81,9 +82,25 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
                 }
                 else {
                 studentId = req.userId;
-                const query = "UPDATE registrations_for_oral_defense SET surname = ?, forename = ?, supervisor1_title = ?, supervisor2_title = ?, spectators_present = ?, weekdate = ?, proposed_date = ?, proposed_time = ?, room = ?, concerned_agreed = ?, date_receive = ?, date_submission = ?, step = ? where student_id = ?";
-                const queryParams = [surName, foreName, supervisor1_title, supervisor2_title, spectatorsPresent, weekDate, proposedDate, proposedTime, room, concernedAgreed, dateReceive, dateSubmission, 1, studentId]
+                const getRegistrationBachelorThesisQuery = "SELECT * FROM registrations_for_bachelor_thesis WHERE student_id = ?";
+                const getRegistrationBachelorThesisParams = [req.userId];
+                const getRegistrationBachelorThesisResults = await executeQuery(res, getRegistrationBachelorThesisQuery, getRegistrationBachelorThesisParams);
+                const infoRegistrationBachelor = getRegistrationBachelorThesisResults[0];
+                console.log(infoRegistrationBachelor)
+                console.log(matriculationNumber);
+                console.log(surName);
+                const query = "UPDATE registrations_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, supervisor1_title = ?, supervisor2_title = ?, spectators_present = ?, weekdate = ?, proposed_date = ?, proposed_time = ?, room = ?, concerned_agreed = ?, date_receive = ?, date_submission = ?, step = ? where student_id = ?";
+                const queryParams = [matriculationNumber, surName, foreName, supervisor1_title, supervisor2_title, spectatorsPresent, weekDate, proposedDate, proposedTime, room, concernedAgreed, dateReceive, dateSubmission, 1, studentId]
                 const dbResults = await executeQuery(res, query, queryParams);
+                //add row to assessmentBachelor and assessmentOral
+                const insertAssessmentBachelorThesisQuery = "INSERT INTO assessment_for_bachelor_thesis (student_id, matriculation_number, surname, forename, thesis_type, further_participants, supervisor1_title, supervisor2_title, step) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                const insertAssessmentBachelorThesisParams = [req.userId, matriculationNumber, infoRegistrationBachelor.surname, infoRegistrationBachelor.forename, infoRegistrationBachelor.thesis_type, infoRegistrationBachelor.further_participants, infoRegistrationBachelor.supervisor1_title, infoRegistrationBachelor.supervisor2_title, 0];
+                const insertAssessmentBachelorThesisResults = await executeQuery(res, insertAssessmentBachelorThesisQuery, insertAssessmentBachelorThesisParams);
+
+                const insertAssessmentOralQuery = "INSERT INTO assessment_for_oral_defense (student_id, matriculation_number, surname, forename, supervisor1_title, supervisor2_title, step) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                const insertAssessmentOralParams = [req.userId, matriculationNumber, infoRegistrationBachelor.surname, infoRegistrationBachelor.forename, infoRegistrationBachelor.supervisor1_title, infoRegistrationBachelor.supervisor2_title, 0];
+                const insertAssessmentResults = await executeQuery(res, insertAssessmentOralQuery, insertAssessmentOralParams);
+                
                 res.send(dbResults);  
                 }
             }
