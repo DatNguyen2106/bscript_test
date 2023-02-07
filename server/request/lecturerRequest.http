@@ -144,21 +144,21 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentBachelor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTU5MzI5NiwiZXhwIjoxNjc1NTk0MTk2fQ.xtruw7uyrMPMJ55GKAeS17zzxkVu-DvdVPImibUhPWQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTU5NDAzMSwiZXhwIjoxNjc1NTk0OTMxfQ.PRQ6z1bzUGcv38_xZOYIMKkK_f50j9dVX_Yr8ACuV-U
 Content-Type: application/json
 
 {
     "studentId" : 12486,
     "matriculationNumber" : 1238432,
-    "surName" : "phannguyen",
-    "foreName" : "long",
+    "surName" : "phannguyen1",
+    "foreName" : "long1",
     "thesisType" : "1",
     "furtherParticipants" : "",
-    "supervisor1_title" : "Prof. Huynh Trung Hieu",
+    "supervisor1_title" : "Prof. Huynh Trung Hieu of lecturer1 ",
     "supervisor1_grade" : 1.5,
-    "supervisor2_title" : "Master Huynh Nguyen",
+    "supervisor2_title" : "Master Huynh Nguyen of lec1",
     "supervisor2_grade" : 1.2,
-    "assessmentThesis" : "This is assessment Thesis",
+    "assessmentThesis" : "This is assessment Thesis lec1",
     "assessmentDate" : "2022-12-29",
     "supervisor1_signature" : "",
     "supervisor2_signature" : ""
@@ -166,22 +166,22 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTU5MjMxNiwiZXhwIjoxNjc1NTkzMjE2fQ.DJ7GXsSx_hom3CeO9K9hpZ1HlUrGKdWuQ3s8VmguzPw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTU5NDAzMSwiZXhwIjoxNjc1NTk0OTMxfQ.PRQ6z1bzUGcv38_xZOYIMKkK_f50j9dVX_Yr8ACuV-U
 Content-Type: application/json
 
 {
     "studentId" : 12486,
     "matriculationNumber" : 1238432,
-    "surName" : "phannguyen",
-    "foreName" : "long",
+    "surName" : "phannguyen1",
+    "foreName" : "long1",
     "dateDefense" : "2023-03-19",
     "placeDefense" : "HCM city",
     "startDate" : "2022-12-29",
     "finishDate" : "2023-03-19",
     "stateOfHealth" : 1,
-    "supervisor1_title" : "Prof Huynh Trung Hieu",
+    "supervisor1_title" : "Prof Huynh Trung Hieu of lecturer1",
     "supervisor1_grade" : 1.1,
-    "supervisor2_title" : "Master Huynh Nguyen", 
+    "supervisor2_title" : "Master Huynh Nguyen of lec1", 
     "supervisor2_grade" : 1.3,
     "record" : "This is record",
     "assessmentDate" : "2023-03-19",
@@ -191,7 +191,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer2/update/assessmentBachelor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTU5MzIxOSwiZXhwIjoxNjc1NTk0MTE5fQ.pxx43wrbbu5sDEMKVIVvMRbamFR1ytlWNHTak3o8c4w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTU5NDAwMywiZXhwIjoxNjc1NTk0OTAzfQ._Ff9SABvJiD-bKa-1Op7EHJTHKMSsJCfBSc14-y3jvg
 Content-Type: application/json
 
 {
@@ -201,9 +201,9 @@ Content-Type: application/json
     "foreName" : "long",
     "thesisType" : "1",
     "furtherParticipants" : "",
-    "supervisor1_title" : "Prof. Huynh Trung Hieu",
+    "supervisor1_title" : "Prof. Huynh Trung Hieu 2",
     "supervisor1_grade" : 1.5,
-    "supervisor2_title" : "Master Huynh Nguyen",
+    "supervisor2_title" : "Master Huynh Nguyen 2",
     "supervisor2_grade" : 1.2,
     "assessmentThesis" : "This is assessment Thesis test for lecturer2",
     "assessmentDate" : "2022-12-29",
@@ -213,7 +213,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer2/update/assessmentOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTU5MjMxNiwiZXhwIjoxNjc1NTkzMjE2fQ.DJ7GXsSx_hom3CeO9K9hpZ1HlUrGKdWuQ3s8VmguzPw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTU5NDAwMywiZXhwIjoxNjc1NTk0OTAzfQ._Ff9SABvJiD-bKa-1Op7EHJTHKMSsJCfBSc14-y3jvg
 Content-Type: application/json
 
 {
@@ -226,11 +226,11 @@ Content-Type: application/json
     "startDate" : "2022-12-29",
     "finishDate" : "2023-03-19",
     "stateOfHealth" : 1,
-    "supervisor1_title" : "Prof Huynh Trung Hieu",
+    "supervisor1_title" : "Prof Huynh Trung Hieu 2",
     "supervisor1_grade" : 1.1,
-    "supervisor2_title" : "Master Huynh Nguyen", 
+    "supervisor2_title" : "Master Huynh Nguyen 2", 
     "supervisor2_grade" : 1.3,
-    "record" : "This is record",
+    "record" : "This is record 2",
     "assessmentDate" : "2023-03-19",
     "supervisor1_signature" : "",
     "supervisor2_signature" : ""

@@ -37,9 +37,8 @@ lecturer2_update_router.put('/assessmentBachelor', verifyTokenLecturer2, async (
                             const updateAssessmentBachelorThesisQuery = "UPDATE assessment_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
                             const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature, 2, studentId];
                             const updateAssessmentBachelorThesisResults = await executeQuery(res, updateAssessmentBachelorThesisQuery, updateAssessmentBachelorThesisParams);
-                            console.log("step 2");
+                            res.send(updateAssessmentBachelorThesisResults);
                         }
-                        res.send(getBeforeAssessmentBachelorThesisResults);
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
             }
@@ -86,6 +85,7 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
                                 const updateAssessmentOralDefenseQuery = "UPDATE assessment_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
                                 const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, 2, studentId];
                                 const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
+                                res.send(updateAssessmentOralDefenseResults);
                             }
                     }
                     else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
