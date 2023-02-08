@@ -117,7 +117,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/student/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTgzNTA1MywiZXhwIjoxNjc1ODM1OTUzfQ.793exIRuZT59RVKwYxcpr9YW4moLQj_v7UU6N7cL3lE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTg2MzEwNiwiZXhwIjoxNjc1ODY0MDA2fQ.PuIie4sGqfFeI-7mxQWhpfhf1tB7QuL6Xcv_6A4FXU4
 Content-Type: application/json
 
 {
@@ -216,3 +216,12 @@ Content-Type: application/json
 ###
 GET http://localhost:5000/student/get/thesis
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTYyMTQxNCwiZXhwIjoxNjc1NjIyMzE0fQ.JGAGGTLqlc0KWPfoTanEPGCQur-t2Kz6ITxfinRkKfI
+
+###
+GET http://localhost:5000/student/update/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTYyMTQxNCwiZXhwIjoxNjc1NjIyMzE0fQ.JGAGGTLqlc0KWPfoTanEPGCQur-t2Kz6ITxfinRkKfI
+Content-Type: application/json
+
+{
+    "signature" : "sign student"
+}

@@ -1,3 +1,4 @@
+const { request } = require('express');
 const express = require('express');
 const student_update_router = express.Router();
 const db = require('../../db/connectDB');
@@ -138,6 +139,28 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                 const results = await executeQuery(res, query,queryParams);
                 res.send(results);
                 }
+            }
+            else res.status(405).send("You are not allowed to access, You are not student")
+        }
+        else res.status(404).send("No user with that username");
+
+    } catch (error) {
+            console.log(error.message);
+            res.status(404).send("You got an error " + error.message);
+        }
+        
+    })
+student_update_router.put('/account', verifyTokenStudent, async (req, res) =>{
+    try {
+        var role = req.role;
+        var signature = (req.body.signature === null || req.body.signature === undefined) ? null : req.body.signature;
+        if(req.username) {
+            if(role && req.userId){
+                studentId = req.userId;
+                const updateAccountQuery = "UPDATE students SET signature = ? WHERE student_id  = ?";
+                const updateAccountParams = [signature, studentId];
+                const updateAccountResults = await executeQuery(res, updateAccountQuery, updateAccountParams);
+                res.send(updateAccountResults);
             }
             else res.status(405).send("You are not allowed to access, You are not student")
         }
