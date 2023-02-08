@@ -17,6 +17,16 @@ Content-Type: application/json
     "username" : "romein",
     "password" : "20489"
 }
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "mikadang",
+    "password" : "22323"
+}
 ###
 
 POST http://localhost:4000/login
@@ -52,13 +62,13 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg3NzAzMiwiZXhwIjoxNjc1ODc3OTMyfQ.HzvpkJv2VX364P1K4DICGXGdjpdQ4elnDMuqamq2444
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg4MTUwNSwiZXhwIjoxNjc1ODgyNDA1fQ.k8r73687hz2vh97gt44uXO4C-DB9tdLLcDUW5BjaVTo
 Content-Type: application/json
 
 {
     "thesisTopic" : "",
     "thesisField" : "",
-    "lecturer2Title" : "Prof. Philandros Björn",
+    "lecturer2Title" : "Dr.",
     "step" : "",
     "slot" : "",
     "slotMaximum" : "",
@@ -68,7 +78,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer2/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg2MjIyOSwiZXhwIjoxNjc1ODYzMTI5fQ.AGiMa0XEEyqfN62J6ZEZExaieSCvmRRqpb7OlLz8pPc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjc1ODc3ODIyLCJleHAiOjE2NzU4Nzg3MjJ9.3LrCrwdcVEUpq6zuJOpoFCmlkOstOjpZRf_Vx838zfA
 Content-Type: application/json
 
 {
