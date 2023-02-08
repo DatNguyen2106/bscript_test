@@ -14,6 +14,7 @@ lecturer2_get_router.post('/theses', getThesesLecturer2, async (req, res) =>{
             var thesisTopic = (req.body.thesisTopic === undefined || req.body.thesisTopic === null || req.body.thesisTopic === "") ? '%' : ('%' + req.body.thesisTopic + '%');
             var thesisField = (req.body.thesisField === undefined || req.body.thesisField === null || req.body.thesisField === "") ? '%' : ('%' + req.body.thesisField + '%');
             var lecturer1Id = (req.body.lecturer1Id === undefined || req.body.lecturer1Id === null || req.body.lecturer1Id === "") ? null : ('%' + req.body.lecturer1Id + '%');
+            var lecturer1Title = (req.body.lecturer1Title === undefined || req.body.lecturer1Title === null || req.body.lecturer1Title === "") ? null : ('%' + req.body.lecturer1Title + '%');
             var step = (req.body.step === undefined || req.body.step === null || req.body.step === "") ? '%' : ('%' + req.body.step + '%');
             var slot = (req.body.slot === undefined || req.body.slot === null || req.body.slot === "") ? '%' : ('%' + req.body.slot + '%');
             var slotMaximum = (req.body.slotMaximum === undefined || req.body.slotMaximum === null || req.body.slotMaximum === "") ? '%' : ('%' + req.body.slotMaximum + '%');
@@ -23,15 +24,13 @@ lecturer2_get_router.post('/theses', getThesesLecturer2, async (req, res) =>{
                 if(role){
                     console.log("thesisTopic" + thesisTopic);
                     console.log("thesisField" +thesisField);
-                    console.log("lecturer1ID"+ lecturer1Id);
                     console.log("step" +step);
                     console.log("slot" +slot);
                     console.log("slotMaximum" +slotMaximum);
                     console.log("confirmSUp2" + confirmSup2);
-                    const query = "call getThesesByLecturer2(?,?,?,?,?,?,?,?,?);"
-                    const queryParams = [thesisTopic, thesisField, step, slot, slotMaximum, lecturer1Id, confirmSup2, req.userId, wasDefended];
+                    const query = "call getThesesByLecturer2ByTitle(?,?,?,?,?,?,?,?,?);"
+                    const queryParams = [thesisTopic, thesisField, step, slot, slotMaximum, lecturer1Title, confirmSup2, req.userId, wasDefended];
                     const results = await executeQuery(res, query, queryParams);
-                    console.log(results[0][0].proposed_date);
 
                     if(page > results[0].chunk(chunkForPage).length){
                         res.send({

@@ -52,17 +52,17 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg2MjIyOSwiZXhwIjoxNjc1ODYzMTI5fQ.AGiMa0XEEyqfN62J6ZEZExaieSCvmRRqpb7OlLz8pPc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg3NzAzMiwiZXhwIjoxNjc1ODc3OTMyfQ.HzvpkJv2VX364P1K4DICGXGdjpdQ4elnDMuqamq2444
 Content-Type: application/json
 
 {
     "thesisTopic" : "",
     "thesisField" : "",
-    "lecturer2Id" : "",
+    "lecturer2Title" : "Prof. Philandros Björn",
     "step" : "",
     "slot" : "",
     "slotMaximum" : "",
-    "wasDefended" : false,
+    "wasDefended" : true,
     "page" : 1
 }
 
@@ -74,7 +74,7 @@ Content-Type: application/json
 {
     "thesisTopic" : "",
     "thesisField" : "",
-    "lecturer1Id" : "",
+    "lecturer1Title" : "",
     "step" : "",
     "slot" : "",
     "slotMaximum" : "",
@@ -258,7 +258,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZ
 
 ###
 PUT http://localhost:5000/lecturer1/update/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTgzNDAzOCwiZXhwIjoxNjc1ODM0OTM4fQ.kmV5MIFVZ-QIWAqu7bZdAAZtBf50jqpwF1f7yeRRzEo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg2NTY0NSwiZXhwIjoxNjc1ODY2NTQ1fQ.eudyBcZujAvI6v3p9I0rS7gCKaP9VdJq2JGfMv2tYgs
 Content-Type: application/json
 
 {

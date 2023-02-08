@@ -13,6 +13,7 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) =>{
             var thesisTopic = (req.body.thesisTopic === undefined || req.body.thesisTopic === null || req.body.thesisTopic === "") ? '%' : ('%' + req.body.thesisTopic + '%');
             var thesisField = (req.body.thesisField === undefined || req.body.thesisField === null || req.body.thesisField === "") ? '%' : ('%' + req.body.thesisTopic + '%');
             var lecturer2Id = (req.body.lecturer2Id === undefined || req.body.lecturer2Id === null || req.body.lecturer2Id === "") ? null : ('%' + req.body.lecturer2Id + '%');
+            var lecturer2Title = (req.body.lecturer2Title === undefined || req.body.lecturer2Title === null || req.body.lecturer2Title === "") ? null : ('%' + req.body.lecturer2Title + '%');
             var step = (req.body.step === undefined || req.body.step === null || req.body.step == "") ? '%' : ('%' + req.body.step + '%');
             var slot = (req.body.slot === undefined || req.body.slot === null || req.body.slot == "") ? '%' : ('%' + req.body.slot + '%');
             var slotMaximum = (req.body.slotMaximum === undefined || req.body.slotMaximum === null || req.body.slotMaximum == "") ? '%' : ('%' + req.body.slotMaximum + '%');
@@ -27,8 +28,8 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) =>{
                     console.log("step" +step);
                     console.log("slot" +slot);
                     console.log("slotMaximum" +slotMaximum);
-                    const query = "call getThesesByLecturer1(?,?,?,?,?,?,?,?);"
-                    const queryParams = [thesisTopic, thesisField, lecturer2Id, step, slot, slotMaximum, req.userId, wasDefended];
+                    const query = "call getThesesByLecturer1ByTitle(?,?,?,?,?,?,?,?);"
+                    const queryParams = [thesisTopic, thesisField, lecturer2Title, step, slot, slotMaximum, req.userId, wasDefended];
                     const results = await executeQuery(res, query, queryParams);
                     console.log("results" + results)
                     if(page > results[0].chunk(chunkForPage).length){
