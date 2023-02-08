@@ -4,7 +4,7 @@ const db = require('../../db/connectDB');
 const getThesesLecturer2 = require('../../middleware/getThesesLecturer2');
 const verifyTokenLecturer = require('../../middleware/verifyTokenLecturer');
 const verifyTokenLecturer2 = require('../../middleware/verifyTokenLecturer2');
-
+const moment = require('moment');
 lecturer2_get_router.post('/theses', getThesesLecturer2, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         try {
@@ -18,6 +18,7 @@ lecturer2_get_router.post('/theses', getThesesLecturer2, async (req, res) =>{
             var slot = (req.body.slot === undefined || req.body.slot === null || req.body.slot === "") ? '%' : ('%' + req.body.slot + '%');
             var slotMaximum = (req.body.slotMaximum === undefined || req.body.slotMaximum === null || req.body.slotMaximum === "") ? '%' : ('%' + req.body.slotMaximum + '%');
             var confirmSup2 = (req.body.confirmSup2 === undefined || req.body.confirmSup2 === null || req.body.confirmSup2 === "") ? null : ('%' + req.body.confirmSup2 + '%');
+            var wasDefended = (req.body.wasDefended === undefined || req.body.wasDefended === null || typeof(req.body.wasDefended) != 'boolean') ? false : req.body.wasDefended;
             if(req.username && req.userId) {
                 if(role){
                     console.log("thesisTopic" + thesisTopic);
@@ -27,10 +28,11 @@ lecturer2_get_router.post('/theses', getThesesLecturer2, async (req, res) =>{
                     console.log("slot" +slot);
                     console.log("slotMaximum" +slotMaximum);
                     console.log("confirmSUp2" + confirmSup2);
-                    const query = "call getThesesByLecturer2(?,?,?,?,?,?,?,?);"
-                    const queryParams = [thesisTopic, thesisField, step, slot, slotMaximum, lecturer1Id, confirmSup2, req.userId];
+                    const query = "call getThesesByLecturer2(?,?,?,?,?,?,?,?,?);"
+                    const queryParams = [thesisTopic, thesisField, step, slot, slotMaximum, lecturer1Id, confirmSup2, req.userId, wasDefended];
                     const results = await executeQuery(res, query, queryParams);
-                    console.log(results[0])
+                    console.log(results[0][0].proposed_date);
+
                     if(page > results[0].chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results[0].chunk(chunkForPage).length,
@@ -106,7 +108,34 @@ lecturer2_get_router.get('/thesis/:id', verifyTokenLecturer2, async (req, res) =
         
     })
     
-
+lecturer2_get_router.get('/account', verifyTokenLecturer2, async (req, res) =>{
+        // because of unique id value, so this api just returns 1 or no value.
+                try {
+                    var role = req.role;
+                    var thesisId;
+                    if(req.username) {
+                        if(role){
+                            if(req.userId === undefined || req.userId === ""){
+                                res.status(404).send("Invalid username with that id")
+                            } else {
+                            var lecturerId = req.userId;
+                            const query = "call getAccountByLecturer(?);"
+                            const queryParams = [lecturerId];
+                            const results = await executeQuery(res, query, queryParams);
+                            if(results){
+                                res.send(results[0]);
+                            }
+                            }
+                        }
+                        else res.status(405).send("You are not allowed to access, You are not lecturer1")
+                    }
+                    else res.status(404).send("No user with that username");    
+                } catch (error) {
+                    console.log(error.message);
+                    res.status(404).send("You got an error" + error.message);
+                }
+                
+})
 const executeQuery = (res, query, queryParams) => {
     const results =  new Promise((resolve) => {
         db.query(query, queryParams, (err, result) => {

@@ -92,7 +92,7 @@ Content-Type: application/json
 ###
 
 PUT http://localhost:5000/student/assessmentOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY2OTAyOTY4OSwiZXhwIjoxNjY5MDMwNTg5fQ.Y1rKXD_EDATZzIsOjlrhav7Sw_ABjv98B2F2BILIF4c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTc5NTg4MywiZXhwIjoxNjc1Nzk2NzgzfQ.4Q2jE6384iYlFnHkcKw9qRl-X_1diaOF3xNKWskevqM
 Content-Type: application/json
 
 {
@@ -117,7 +117,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/student/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTY0ODcyOCwiZXhwIjoxNjcxNjQ5NjI4fQ.ltWhrpIB1deeA8hmd22U4x1E1FXVHlF0RyXhNfC7Rqw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTgzNTA1MywiZXhwIjoxNjc1ODM1OTUzfQ.793exIRuZT59RVKwYxcpr9YW4moLQj_v7UU6N7cL3lE
 Content-Type: application/json
 
 {
@@ -132,7 +132,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/student/get/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTY1MTA1MCwiZXhwIjoxNjcxNjUxOTUwfQ.iWTIOloO9iACzHchZZeqlg_1MBAG5kpLyt85GZioa7Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTgzNDk1OCwiZXhwIjoxNjc1ODM1ODU4fQ.VDnbuvA0LcqaiQOYqR2vyLg0Njk8e2s0W-0diZpOT38
 
 
 ###
@@ -193,7 +193,7 @@ Content-Type: application/json
 ###
 
 PUT http://localhost:5000/student/update/registrationOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTU5MTkzOSwiZXhwIjoxNjc1NTkyODM5fQ.5f9EghvRoz9xWDxdWoi0WMb7jey5ndI1tRKFUo_AJo4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTg1ODI3NywiZXhwIjoxNjc1ODU5MTc3fQ.Q5qJ9_O21hEapIAjgaAQqpfvjPu8dMBfSoaViJiLU98
 Content-Type: application/json
 
 {
@@ -204,7 +204,7 @@ Content-Type: application/json
     "supervisor2_title" : "Master Huynh Nguyen", 
     "spectatorsPresent" : 1,
     "weekDate" : "3", 
-    "proposedDate" : "2022-12-29", 
+    "proposedDate" : "2023-03-29", 
     "proposedTime" : "07:00:00", 
     "room" : "A2392.3", 
     "concernedAgreed" : 1, 
@@ -215,4 +215,4 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/student/get/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTYzNzk3NywiZXhwIjoxNjcxNjM4ODc3fQ.-m0bSrVck2lWo0xO9zh0OJSYIzXoGJ2IDBzsAW7I5l0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTYyMTQxNCwiZXhwIjoxNjc1NjIyMzE0fQ.JGAGGTLqlc0KWPfoTanEPGCQur-t2Kz6ITxfinRkKfI

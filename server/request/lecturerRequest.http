@@ -23,10 +23,18 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "romein",
-    "password" : "20489"
+    "username" : "longle",
+    "password" : "21933"
 }
+###
 
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "alexnguyen",
+    "password" : "21029"
+}
 ###
 GET http://localhost:5000/lecturer1/get/theses
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzA4NTg0NDIsImV4cCI6MTY3MDg1OTM0Mn0.2Y-85x-yhoZezZHoyWBc3TmTObjnjyVwE-hTWpxDCB8
@@ -44,7 +52,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMzMTU4OSwiZXhwIjoxNjcyMzMyNDg5fQ.UXMAIlG2twFJZeE-G9VZh-q2HetuyVhkx-0y0qkyicA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg1ODY5MiwiZXhwIjoxNjc1ODU5NTkyfQ.Bz1wCmePUDMSl9onUK79xtdWyWLN6jDcxWEfGTI8FHs
 Content-Type: application/json
 
 {
@@ -53,7 +61,8 @@ Content-Type: application/json
     "lecturer2Id" : "",
     "step" : "",
     "slot" : "",
-    "slotMaximum" : "2",
+    "slotMaximum" : "",
+    "wasDefended" : true,
     "page" : 1
 }
 
@@ -70,6 +79,7 @@ Content-Type: application/json
     "slot" : "",
     "slotMaximum" : "",
     "confirmSup2" : "",
+    "wasDefended" : true,
     "page" : 1
 }
 
@@ -144,7 +154,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentBachelor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTU5NDAzMSwiZXhwIjoxNjc1NTk0OTMxfQ.PRQ6z1bzUGcv38_xZOYIMKkK_f50j9dVX_Yr8ACuV-U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTgzNDA5OSwiZXhwIjoxNjc1ODM0OTk5fQ.8gsINhaEx2FRcsNVf1LtOkCb-pdah9KZsS7FVLR-ncI
 Content-Type: application/json
 
 {
@@ -152,6 +162,7 @@ Content-Type: application/json
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen1",
     "foreName" : "long1",
+    "thesisTitle" : "title 12486 update lecturer1",
     "thesisType" : "1",
     "furtherParticipants" : "",
     "supervisor1_title" : "Prof. Huynh Trung Hieu of lecturer1 ",
@@ -166,7 +177,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTU5NDAzMSwiZXhwIjoxNjc1NTk0OTMxfQ.PRQ6z1bzUGcv38_xZOYIMKkK_f50j9dVX_Yr8ACuV-U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTgzNDA5OSwiZXhwIjoxNjc1ODM0OTk5fQ.8gsINhaEx2FRcsNVf1LtOkCb-pdah9KZsS7FVLR-ncI
 Content-Type: application/json
 
 {
@@ -191,7 +202,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer2/update/assessmentBachelor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTU5NDAwMywiZXhwIjoxNjc1NTk0OTAzfQ._Ff9SABvJiD-bKa-1Op7EHJTHKMSsJCfBSc14-y3jvg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTgzNDAzOCwiZXhwIjoxNjc1ODM0OTM4fQ.kmV5MIFVZ-QIWAqu7bZdAAZtBf50jqpwF1f7yeRRzEo
 Content-Type: application/json
 
 {
@@ -199,12 +210,13 @@ Content-Type: application/json
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen12",
     "foreName" : "long",
+    "thesisTitle" : "thesis title 2",
     "thesisType" : "1",
     "furtherParticipants" : "",
     "supervisor1_title" : "Prof. Huynh Trung Hieu 2",
-    "supervisor1_grade" : 1.5,
+    "supervisor1_grade" : 1.1,
     "supervisor2_title" : "Master Huynh Nguyen 2",
-    "supervisor2_grade" : 1.2,
+    "supervisor2_grade" : 1.1,
     "assessmentThesis" : "This is assessment Thesis test for lecturer2",
     "assessmentDate" : "2022-12-29",
     "supervisor1_signature" : "",
@@ -213,7 +225,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer2/update/assessmentOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTU5NDAwMywiZXhwIjoxNjc1NTk0OTAzfQ._Ff9SABvJiD-bKa-1Op7EHJTHKMSsJCfBSc14-y3jvg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTgzNDAzOCwiZXhwIjoxNjc1ODM0OTM4fQ.kmV5MIFVZ-QIWAqu7bZdAAZtBf50jqpwF1f7yeRRzEo
 Content-Type: application/json
 
 {
@@ -227,11 +239,19 @@ Content-Type: application/json
     "finishDate" : "2023-03-19",
     "stateOfHealth" : 1,
     "supervisor1_title" : "Prof Huynh Trung Hieu 2",
-    "supervisor1_grade" : 1.1,
+    "supervisor1_grade" : 1.2,
     "supervisor2_title" : "Master Huynh Nguyen 2", 
-    "supervisor2_grade" : 1.3,
+    "supervisor2_grade" : 1.2,
     "record" : "This is record 2",
     "assessmentDate" : "2023-03-19",
     "supervisor1_signature" : "",
     "supervisor2_signature" : ""
 }
+
+###
+GET http://localhost:5000/lecturer1/get/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTgzNTY0NiwiZXhwIjoxNjc1ODM2NTQ2fQ.c8udrhXzroy2XH15DYBmimgM29LyTiU5PHV84yfeklE
+
+###
+GET http://localhost:5000/lecturer2/get/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTgzNTg2MCwiZXhwIjoxNjc1ODM2NzYwfQ.86SSu4cZDZ93Mbyl-uhMpGz2jFCZfWY6Il6ZoToK_Gs

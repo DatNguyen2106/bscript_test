@@ -4,7 +4,7 @@ const lecturer1_get_router = express.Router();
 const db = require('../../db/connectDB');
 const getThesesLecturer1 = require('../../middleware/getThesesLecturer1');
 const verifyTokenLecturer1 = require('../../middleware/verifyTokenLecturer1');
-
+const moment = require('moment');
 lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         try {
@@ -16,7 +16,9 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) =>{
             var step = (req.body.step === undefined || req.body.step === null || req.body.step == "") ? '%' : ('%' + req.body.step + '%');
             var slot = (req.body.slot === undefined || req.body.slot === null || req.body.slot == "") ? '%' : ('%' + req.body.slot + '%');
             var slotMaximum = (req.body.slotMaximum === undefined || req.body.slotMaximum === null || req.body.slotMaximum == "") ? '%' : ('%' + req.body.slotMaximum + '%');
+            var wasDefended = (req.body.wasDefended === undefined || req.body.wasDefended === null || typeof(req.body.wasDefended) != 'boolean') ? false : req.body.wasDefended;
             var page = (req.body.page === "" || req.body.page === undefined) ?  1 : req.body.page;
+            console.log(wasDefended)
             if(req.username && req.userId) {
                 if(role){
                     console.log("thesisTopic" + thesisTopic);
@@ -25,11 +27,10 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) =>{
                     console.log("step" +step);
                     console.log("slot" +slot);
                     console.log("slotMaximum" +slotMaximum);
-                    const query = "call getThesesByLecturer1(?,?,?,?,?,?,?);"
-                    const queryParams = [thesisTopic, thesisField, lecturer2Id, step, slot, slotMaximum, req.userId];
+                    const query = "call getThesesByLecturer1(?,?,?,?,?,?,?,?);"
+                    const queryParams = [thesisTopic, thesisField, lecturer2Id, step, slot, slotMaximum, req.userId, wasDefended];
                     const results = await executeQuery(res, query, queryParams);
                     console.log("results" + results)
-
                     if(page > results[0].chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results[0].chunk(chunkForPage).length,
@@ -106,6 +107,34 @@ lecturer1_get_router.get('/thesis/:id', verifyTokenLecturer1, async (req, res) =
         }
         
     })
+lecturer1_get_router.get('/account', verifyTokenLecturer1, async (req, res) =>{
+    // because of unique id value, so this api just returns 1 or no value.
+            try {
+                var role = req.role;
+                var thesisId;
+                if(req.username) {
+                    if(role){
+                        if(req.userId === undefined || req.userId === ""){
+                            res.status(404).send("Invalid username with that id")
+                        } else {
+                        var lecturerId = req.userId;
+                        const query = "call getAccountByLecturer(?);"
+                        const queryParams = [lecturerId];
+                        const results = await executeQuery(res, query, queryParams);
+                        if(results){
+                            res.send(results[0]);
+                        }
+                        }
+                    }
+                    else res.status(405).send("You are not allowed to access, You are not lecturer1")
+                }
+                else res.status(404).send("No user with that username");    
+            } catch (error) {
+                console.log(error.message);
+                res.status(404).send("You got an error" + error.message);
+            }
+            
+        })
 const executeQuery = (res, query, queryParams) => {
     const results =  new Promise((resolve) => {
         db.query(query, queryParams, (err, result) => {

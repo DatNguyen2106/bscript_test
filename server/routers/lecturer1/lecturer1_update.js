@@ -11,10 +11,11 @@ lecturer1_update_router.put('/assessmentBachelor', verifyTokenLecturer1, async (
             var matriculationNumber = req.body.matriculationNumber;
             var surName = (req.body.surName === "" || req.body.surName === undefined) ?  null : req.body.surName;    
             var foreName = (req.body.foreName === "" || req.body.foreName === undefined) ? null : req.body.foreName;
+            var thesisTitle = (req.body.thesisTitle === "" || req.body.thesisTitle === undefined) ? null : req.body.thesisTitle;
             var thesisType = (req.body.thesisType === "" || req.body.thesisType === undefined) ?  null : req.body.thesisType;
             var furtherParticipants = (req.body.furtherParticipants === "" || req.body.furtherParticipants === undefined) ?  null : req.body.furtherParticipants;
-            var supervisor1_title = (req.body.supervisor1_title === "" || req.body.supervisor1_grade === undefined) ?  null : req.body.supervisor1_title;
-            var supervisor1_grade = (req.body.supervisor1_grade === "" || req.body.supervisor1_signature === undefined) ?  null : req.body.supervisor1_grade;
+            var supervisor1_title = (req.body.supervisor1_title === "" || req.body.supervisor1_title === undefined) ?  null : req.body.supervisor1_title;
+            var supervisor1_grade = (req.body.supervisor1_grade === "" || req.body.supervisor1_grade === undefined) ?  null : req.body.supervisor1_grade;
             var supervisor2_title = (req.body.supervisor2_title === "" ||req.body.supervisor2_title === undefined) ?  null : req.body.supervisor2_title;
             var supervisor2_grade = (req.body.supervisor2_grade === "" || req.body.supervisor2_grade === undefined) ?  null : req.body.supervisor2_grade;
             var assessmentThesis = (req.body.assessmentThesis === "" || req.body.assessmentThesis === undefined)  ?  null : req.body.assessmentThesis;
@@ -34,8 +35,8 @@ lecturer1_update_router.put('/assessmentBachelor', verifyTokenLecturer1, async (
                             res.send("not found")
                         }
                         else if(getBeforeAssessmentBachelorThesisResults[0].step === 0) {
-                            const updateAssessmentBachelorThesisQuery = "UPDATE assessment_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
-                            const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature, 1, studentId];
+                            const updateAssessmentBachelorThesisQuery = "UPDATE assessment_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, thesis_title = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
+                            const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName, thesisTitle, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature, 1, studentId];
                             const updateAssessmentBachelorThesisResults = await executeQuery(res, updateAssessmentBachelorThesisQuery, updateAssessmentBachelorThesisParams);
                             console.log("step 1");
                             console.log(updateAssessmentBachelorThesisParams)
@@ -91,11 +92,14 @@ lecturer1_update_router.put('/assessmentOralDefense', verifyTokenLecturer1, asyn
                                 const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, 1, studentId];
                                 const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
                                 console.log("step 1");
+                                res.send(updateAssessmentOralDefenseResults);
                             } else if(getBeforeAssessmentOralDefenseResults[0].step === 2){
                                 const updateAssessmentOralDefenseQuery = "UPDATE assessment_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
                                 const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, 3, studentId];
                                 const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
+                                res.send(updateAssessmentOralDefenseResults);
                             }
+    
                     }
                     else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
                 }
