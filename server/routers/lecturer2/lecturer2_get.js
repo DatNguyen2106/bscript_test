@@ -13,7 +13,6 @@ lecturer2_get_router.post('/theses', getThesesLecturer2, async (req, res) =>{
             var page = (req.body.page === "" || req.body.page === undefined) ?  1 : req.body.page;
             var thesisTopic = (req.body.thesisTopic === undefined || req.body.thesisTopic === null || req.body.thesisTopic === "") ? '%' : ('%' + req.body.thesisTopic + '%');
             var thesisField = (req.body.thesisField === undefined || req.body.thesisField === null || req.body.thesisField === "") ? '%' : ('%' + req.body.thesisField + '%');
-            var lecturer1Id = (req.body.lecturer1Id === undefined || req.body.lecturer1Id === null || req.body.lecturer1Id === "") ? null : ('%' + req.body.lecturer1Id + '%');
             var lecturer1Title = (req.body.lecturer1Title === undefined || req.body.lecturer1Title === null || req.body.lecturer1Title === "") ? null : ('%' + req.body.lecturer1Title + '%');
             var step = (req.body.step === undefined || req.body.step === null || req.body.step === "") ? '%' : ('%' + req.body.step + '%');
             var slot = (req.body.slot === undefined || req.body.slot === null || req.body.slot === "") ? '%' : ('%' + req.body.slot + '%');

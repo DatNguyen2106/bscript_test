@@ -62,34 +62,35 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg4MTUwNSwiZXhwIjoxNjc1ODgyNDA1fQ.k8r73687hz2vh97gt44uXO4C-DB9tdLLcDUW5BjaVTo
-Content-Type: application/json
-
-{
-    "thesisTopic" : "",
-    "thesisField" : "",
-    "lecturer2Title" : "Dr.",
-    "step" : "",
-    "slot" : "",
-    "slotMaximum" : "",
-    "wasDefended" : true,
-    "page" : 1
-}
-
-###
-POST http://localhost:5000/lecturer2/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjc1ODc3ODIyLCJleHAiOjE2NzU4Nzg3MjJ9.3LrCrwdcVEUpq6zuJOpoFCmlkOstOjpZRf_Vx838zfA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTkxNjU4MiwiZXhwIjoxNjc1OTE3NDgyfQ.j3E5jwuiRIrduWeXR5smIyrOD7zHHgd2DyTrn6GiiLA
 Content-Type: application/json
 
 {
     "thesisTopic" : "",
     "thesisField" : "",
     "lecturer1Title" : "",
+    "lecturer2Title" : "",
+    "step" : "",
+    "slot" : "",
+    "slotMaximum" : "",
+    "wasDefended" : false,
+    "page" : 1
+}
+
+###
+POST http://localhost:5000/lecturer2/get/theses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NTkxODAwNywiZXhwIjoxNjc1OTE4OTA3fQ.lEOpFvEwH6iSyh_sAXNpzwYLFsQhE1hB_Z8LnPEV-bY
+Content-Type: application/json
+
+{
+    "thesisTopic" : "",
+    "thesisField" : "",
+    "lecturer1Title" : "e",
     "step" : "",
     "slot" : "",
     "slotMaximum" : "",
     "confirmSup2" : "",
-    "wasDefended" : true,
+    "wasDefended" : false,
     "page" : 1
 }
 
