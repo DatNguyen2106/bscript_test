@@ -117,22 +117,21 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/student/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTg2MzEwNiwiZXhwIjoxNjc1ODY0MDA2fQ.PuIie4sGqfFeI-7mxQWhpfhf1tB7QuL6Xcv_6A4FXU4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NjA1MTg4NywiZXhwIjoxNjc2MDUyNzg3fQ.i1oCnIBAE_5hOJxnBvSS6lDD5B8Q8APjysIBTl4qwSI
 Content-Type: application/json
 
 {
     "lecturerId" : "",
     "lecturerTitle" : "",
-    "lecturerFullName" : "",
     "email" : "",
-    "supervisor" : "",
+    "supervisor" : "lecturer1.1",
     "isAvailable" : true,
     "page" : 2
 }
 
 ###
 GET http://localhost:5000/student/get/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTgzNDk1OCwiZXhwIjoxNjc1ODM1ODU4fQ.VDnbuvA0LcqaiQOYqR2vyLg0Njk8e2s0W-0diZpOT38
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NjA0NDQ5NiwiZXhwIjoxNjc2MDQ1Mzk2fQ.2AsqsQIz9fFXdvYApflYWgrRHSE9HArUPEHQNC8Cykk
 
 
 ###

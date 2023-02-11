@@ -11,10 +11,9 @@ student_get_router.post('/lecturers', verifyTokenStudent, async (req, res) =>{
             var chunkForPage = 5;
             var lecturerId  = (req.body.lecturerId === null || req.body.lecturerId === undefined || req.body.lecturerId === "") ?  '%' : ('%' + req.body.lecturerId +'%');
             var lecturerTitle = (req.body.lecturerTitle === "" || req.body.lecturerTitle === undefined || req.body.lecturerTitle === "") ?  '%' : req.body.lecturerTitle;
-            var lecturerFullName = (req.body.lecturerFullName === "" || req.body.lecturerFullName === undefined || req.body.lecturerFullName === null)  ?  '%' : req.body.lecturerFullName;
             var email = (req.body.email === "" || req.body.email === undefined || req.body.email === null) ? '%' : ('%' + req.body.email + '%');
-            var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined || req.body.supervisor === null) ? '%' : ('%' + req.body.supervisor +  '%')
-            var isAvailable = (req.body.isAvailable === "" || req.body.isAvailable === undefined || req.body.isAvailable === null || req.body.isAvailable === true) ? req.body.isAvailable : false ;
+            var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined || req.body.supervisor === null) ? '%' : ('%' + req.body.supervisor +  '%');
+            var isAvailable = (req.body.isAvailable === "" || req.body.isAvailable === undefined || req.body.isAvailable === null || req.body.isAvailable === true) ? req.body.isAvailable : false;
             var page = (req.body.page === "" || req.body.page === undefined) ?  1 : req.body.page;
             console.log(isAvailable);
             var role = req.role;
@@ -24,8 +23,8 @@ student_get_router.post('/lecturers', verifyTokenStudent, async (req, res) =>{
                     console.log(isAvailable);
                     if(isAvailable === true) {
                         console.log(isAvailable);
-                        var query = "SELECT * FROM lecturers WHERE lecturer_id LIKE ? AND fullname LIKE ? AND title LIKE ?  AND email LIKE ? AND supervisor LIKE ? AND number_of_theses < maximum_of_theses"
-                        var queryParams = [lecturerId, lecturerTitle, lecturerFullName, email, supervisor]
+                        var query = "SELECT * FROM lecturers WHERE lecturer_id LIKE ? AND title LIKE ?  AND email LIKE ? AND supervisor LIKE ? AND number_of_theses < maximum_of_theses"
+                        var queryParams = [lecturerId, lecturerTitle, email, supervisor]
                         results =  await executeQuery(res, query, queryParams);
                         console.log(results);
                         if(page > results.chunk(chunkForPage).length){
@@ -41,8 +40,8 @@ student_get_router.post('/lecturers', verifyTokenStudent, async (req, res) =>{
                     }
                     else if (isAvailable === false) {
                         console.log(isAvailable);
-                        var query = "SELECT * FROM lecturers WHERE lecturer_id LIKE ? AND fullname LIKE ? AND title LIKE ?  AND email LIKE ? AND supervisor LIKE ? AND number_of_theses = maximum_of_theses"
-                        var queryParams = [lecturerId, lecturerTitle, lecturerFullName, email, supervisor]
+                        var query = "SELECT * FROM lecturers WHERE lecturer_id LIKE ? AND title LIKE ?  AND email LIKE ? AND supervisor LIKE ? AND number_of_theses = maximum_of_theses"
+                        var queryParams = [lecturerId, lecturerTitle, email, supervisor]
                         results = await executeQuery(res, query, queryParams);
                         console.log(results);
                         if(page > results.chunk(chunkForPage).length){

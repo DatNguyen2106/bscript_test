@@ -13,7 +13,9 @@ lecturer1_add_router.post('/thesis', addThesisLecturer11, async (req, res) =>{
             var slotMaximum = (req.body.slotMaximum === "" || req.body.slotMaximum === undefined || req.body.slotMaximum === null) ? null : req.body.slotMaximum;
             if(req.username && req.userId) {
                 if(role){                
-                        thesisId = currentTimeValue * req.userId;
+                        var thesisId = `${currentTimeValue}${req.userId}`;
+                        thesisId = parseInt(thesisId); 
+                        console.log(thesisId);                       
                         const getLecturerInfoQuery = "SELECT * FROM lecturers WHERE lecturer_id = ?";
                         const getLecturerInfoQueryParams = [req.userId]
                         const getLecturerInfoResults = await executeQuery(res, getLecturerInfoQuery, getLecturerInfoQueryParams);

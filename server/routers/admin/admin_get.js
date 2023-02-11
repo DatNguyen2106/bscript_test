@@ -62,14 +62,14 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
         var id  = (req.body.id === "" || req.body.id === undefined) ?  '%' : ('%' +req.body.id +'%');
         var title = (req.body.title === "" || req.body.title === undefined) ? '%' : ('%' + req.body.title + '%');
         var userName = (req.body.username === "" || req.body.username === undefined) ?  '%' : ('%' + req.body.username  + '%');
-        var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  '%' :  ('%' + req.body.fullname  + '%');
         var email;
         var maximumTheses = (req.body.maximumTheses === "" || req.body.maximumTheses === undefined) ? '%' : ('%' + req.body.maximumTheses + '%');
         console.log(emailFormat);
         if(req.body.email === "" || req.body.email === undefined){
              email =  '%';
         }
-        else { email = ('%' +req.body.email +'%')}
+        else { email = (
+            '%' +req.body.email +'%')}
         console.log(email);
         var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ?  '%' : req.body.supervisor;
         var role = req.role;
@@ -77,10 +77,9 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
             if(role){
                 {   console.log(id);
                     console.log("userName = " + userName);
-                    console.log("fullName = " + fullName);
-                    var filterQuery = "SELECT * FROM lecturers where lecturer_id LIKE ? AND lecturer_user_name LIKE ? AND fullname LIKE ? AND title LIKE ? AND email LIKE ? AND supervisor LIKE ? AND maximum_of_theses LIKE ?;";
+                    var filterQuery = "SELECT * FROM lecturers where lecturer_id LIKE ? AND lecturer_user_name LIKE ? AND title LIKE ? AND email LIKE ? AND supervisor LIKE ? AND maximum_of_theses LIKE ?;";
                     const results = await new Promise((resolve) => {
-                        db.query(filterQuery, [id, userName, fullName, title, email, supervisor, maximumTheses], (err, result) => {
+                        db.query(filterQuery, [id, userName, title, email, supervisor, maximumTheses], (err, result) => {
                             if(err) {res.send(err);}
                           else
                           {  
@@ -140,13 +139,13 @@ admin_get_router.get('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                             res.send({
                                 "id" : results[0].lecturer_id,
                                 "userName" : results[0].lecturer_user_name,
-                                "fullName" : results[0].fullname,
                                 "email" : results[0].email,
                                 "supervisor" : results[0].supervisor,
                                 "title" : results[0].title,
                                 "signature" : results[0].signature,
                                 "numberOFTheses" : results[0].number_of_theses,
-                                "maximumOfTheses" : results[0].maximum_of_theses
+                                "maximumOfTheses" : results[0].maximum_of_theses,
+                                "bio" : results[0].bio
                                 })
                             }
                         }

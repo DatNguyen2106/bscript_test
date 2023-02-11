@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4NzQxMTksImV4cCI6MTY2OTg3NTAxOX0.-kVUiUdyn3lhhFUWCqj95IHdrbOtGKRn0gxzHK6DQJw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzYwOTg1ODQsImV4cCI6MTY3NjA5OTQ4NH0.WXVeHhxYRqW6wAxhQo5vBq80Gq05siKnc61UQYPtW2g
 Content-Type: application/json
 
 {
@@ -19,14 +19,16 @@ Content-Type: application/json
     "thesisField" : "",
     "availableDay" : "",
     "defenseDay" : "",
+    "lecturer1_title" : "",
+    "lecturer2_title" : "Pro",
     "slot" : "",
-    "slotMaximum" : "1",
-    "page" : "2"
+    "slotMaximum" : "",
+    "page" : "1"
 }
 
 ###
 GET http://localhost:5000/admin/get/thesis/123122
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk4NzQwNTcsImV4cCI6MTY2OTg3NDk1N30.oByox5sDLSOQRNkSuW4D2Kf-0NgDqy-7XmlaItJzGWE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzYwOTk0OTksImV4cCI6MTY3NjEwMDM5OX0.soK4oQbvrWd_LHn4oSKfBOFgzZe-bMwwnNeML9wTT6E
 
 
 ###

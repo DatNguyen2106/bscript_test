@@ -11,7 +11,7 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     var emailFormat = /^([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$/;
     var paramId;
     var userName = req.body.username;
-    var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null : req.body.fullname;
+    var bio = (req.body.bio === "" || req.body.bio === bio) ?  null : req.body.bio;
     var title = (req.body.title === "" || req.body.title === undefined) ?  null : req.body.title;
     var signature = (req.body.signature === "" || req.body.signature === undefined) ?  null : req.body.signature;
     var email;
@@ -29,6 +29,7 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                     console.log(paramId);
                     console.log(req)
                     console.log(userName);
+                    console.log(bio);
                     if(userName === null || userName === undefined || userName === ""){
                         res.status(404).send("need a valid user name");
                     } 
@@ -37,8 +38,8 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                             res.status(404).send("unvalid email with that");
                         }
                         else{
-                        const updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , fullname = ? , title = ?, email = ? , supervisor = ?, signature = ?, maximum_of_theses = ? WHERE  lecturer_id = ?";                       
-                        const queryParams = [userName, fullName, title, email, supervisor, signature, maximumTheses, paramId]
+                        const updateQuery = "UPDATE lecturers SET lecturer_user_name = ? , title = ?, email = ? , supervisor = ?, signature = ?, maximum_of_theses = ?, bio = ? WHERE  lecturer_id = ?";                       
+                        const queryParams = [userName, title, email, supervisor, signature, maximumTheses, bio, paramId]
                         const results = await executeQuery(res, updateQuery, queryParams);
                         const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update lecturer successfully"];

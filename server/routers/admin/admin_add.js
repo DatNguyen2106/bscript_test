@@ -15,12 +15,12 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
         var title = (req.body.title === "" || req.body.title === undefined) ?  null : req.body.title;
         var signature = (req.body.signature === "" || req.body.signature === undefined) ?  null : req.body.signature;
         var userName = req.body.username;
-        var fullName = (req.body.fullname === "" || req.body.fullname === undefined) ?  null : req.body.fullname;
         var email;
         console.log(req.body.email);
         email = checkTypeToAdd(req.body.email, emailFormat);
         var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ?  null : req.body.supervisor;
         var maximumTheses = (req.body.maximumTheses === "" || req.body.maximumTheses === undefined) ?  0 : req.body.maximumTheses;
+        var bio = (req.body.bio === "" || req.body.bio === undefined) ?  0 : req.body.bio;
         console.log(supervisor);
         if(req.username) {
             if(role){
@@ -39,8 +39,8 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
                         }
                         else {
                         
-                            const addQuery = "INSERT INTO lecturers (lecturer_id, lecturer_user_name, fullname, title, email, supervisor, signature, maximum_of_theses) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";                   
-                            const addQueryParams = [lecturerId, userName, fullName, title, email, supervisor, signature, maximumTheses];
+                            const addQuery = "INSERT INTO lecturers (lecturer_id, lecturer_user_name, title, email, supervisor, signature, maximum_of_theses, bio) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";                   
+                            const addQueryParams = [lecturerId, userName, title, email, supervisor, signature, maximumTheses, bio];
                             const addQueryResults = await executeQuery(res, addQuery, addQueryParams);
                             console.log(addQueryResults);
                             if(addQueryResults){
@@ -171,7 +171,9 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
         console.log(currentTimeValue);
         if(req.username) {
             if(role && req.userId){
-                var thesisId = currentTimeValue * lecturer1_id;
+                var thesisId = `${currentTimeValue}${lecturer1_id}`;
+                thesisId = parseInt(thesisId);
+                console.log(typeof(thesisId))
                 const insertThesesQuery = "call addNewThesis(?, ?, ?, ?, ?, ?)";
                 const queryParams = [thesisId, thesisTopic, thesisField, lecturer1_id, lecturer2_id, slotMaximum];
                 const results = await executeQuery(res, insertThesesQuery, queryParams);
