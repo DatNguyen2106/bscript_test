@@ -32,8 +32,13 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) =>{
                     const query = "call getThesesByLecturer1ByTitle(?,?,?,?,?,?,?,?,?);"
                     const queryParams = [thesisTopic, thesisField, lecturer1Title, lecturer2Title, step, slot, slotMaximum, req.userId, wasDefended];
                     const results = await executeQuery(res, query, queryParams);
-                    var totalResults = results[0].filter((u) => u.lecturer1_id_thesis == req.userId);
-                    var filteredResults = results[0].filter((u) => u.lecturer1_id_thesis == req.userId && u.slot == u.slot_maximum);
+                   
+                    const getLecturer1Query = "CALL getLecturer1(?)";
+                    const getLecturer1Params = [req.userId];
+                    const getLecturer1Results = await executeQuery(res, getLecturer1Query, getLecturer1Params);
+                    console.log(getLecturer1Results);
+                    var totalResults = getLecturer1Results[0].filter((u) => u.lecturer_id == req.userId);
+                    var filteredResults = getLecturer1Results[0].filter((u) => u.lecturer_id == req.userId && u.slot == u.slot_maximum);
                     var nonFilteredValue = totalResults.length - filteredResults.length;
                     console.log("filtered Results"  , filteredResults);
                     if(page > results[0].chunk(chunkForPage).length){
