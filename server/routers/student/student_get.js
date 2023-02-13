@@ -83,7 +83,7 @@ student_get_router.get('/lecturer/:id', verifyTokenStudent, async (req, res) =>{
                         const queryParams = [lecturerId];
                         const results = await executeQuery(res, query, queryParams);
                         console.log("results" + results[0].length);
-                        var filteredResults = results[0].filter((u) => u.lecturer1_id_thesis == req.userId && u.slot == u.slot_maximum);
+                        var filteredResults = results[0].filter((u) => u.lecturer_id == lecturerId && u.slot == u.slot_maximum);
                         var nonFilteredValue = results[0].length - filteredResults.length;
                         console.log("filtered Results"  , filteredResults);
                         res.send({
