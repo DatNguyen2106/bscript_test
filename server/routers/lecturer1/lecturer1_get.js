@@ -32,17 +32,26 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) =>{
                     const query = "call getThesesByLecturer1ByTitle(?,?,?,?,?,?,?,?,?);"
                     const queryParams = [thesisTopic, thesisField, lecturer1Title, lecturer2Title, step, slot, slotMaximum, req.userId, wasDefended];
                     const results = await executeQuery(res, query, queryParams);
-                    console.log("results" + results)
+                    console.log("results" + results[0].length);
+                    var filteredResults = results[0].filter((u) => u.lecturer1_id_thesis == req.userId && u.slot == u.slot_maximum);
+                    var nonFilteredValue = results[0].length - filteredResults.length;
+                    console.log("filtered Results"  , filteredResults);
                     if(page > results[0].chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results[0].chunk(chunkForPage).length,
                             "lecturer_id" : req.userId,
+                            "filterTheses" : filteredResults.length,
+                            "totalTheses" : results[0].length,
+                            "nonFilteredValue" : nonFilteredValue,
                             "list" : []
                         })
                     }
                     else {res.send({
                         "totalPage" : results[0].chunk(chunkForPage).length,
                         "lecturer_id" : req.userId,
+                        "filterTheses" : filteredResults.length,
+                        "totalTheses" : results[0].length,
+                        "nonFilteredValue" : nonFilteredValue,
                         "list" : results[0].chunk(chunkForPage)[page-1]
                     })}
                 }
