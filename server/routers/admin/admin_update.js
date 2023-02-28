@@ -4,7 +4,6 @@ const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const verifyToken = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
 const io = require('../.././socketServer');
-const { reset } = require('nodemon');
 admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
     var role = req.role;
@@ -42,7 +41,7 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                         const queryParams = [userName, title, email, supervisor, signature, maximumTheses, bio, paramId]
                         const results = await executeQuery(res, updateQuery, queryParams);
                         const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                        const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update lecturer successfully"];
+                        const sendParams = [`Admin update lecturer` , req.userId, req.params.id, "Admin has updated your account's information"];
                         const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                         const notificationSent = await getNotificationSent(res, req.userId);
                         const notificationReceived = await getNotificationReceived(res, req.userId);
@@ -53,7 +52,7 @@ admin_update_router.put('/lecturer/:id', verifyTokenAdmin, async (req, res) =>{
                         if(socketId === null || socketId === undefined){
                             console.log("no socketId from database");
                         }
-                        else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                        else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                         res.send(results);
                     }
                     }
@@ -106,7 +105,7 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
                             })
                             })
                             const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                            const sendParams = [`Update from ${req.userId} to ${req.params.id}` , req.userId, req.params.id, "update student " + req.params.id + " successfully"];
+                            const sendParams = [`Admin update student` , req.userId, req.params.id, "An admin has updated your account's information"];
                             const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                             const notificationSent = await getNotificationSent(res, req.userId);
                             const notificationReceived = await getNotificationReceived(res, req.userId);
@@ -114,7 +113,7 @@ admin_update_router.put('/student/:id', verifyTokenAdmin, async (req, res) =>{
                             const socketId = socket[0].socket_id;
                             if(socketId === null || socketId === undefined){
                             }
-                            else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                            else { io.to(socketId).emit("notificationReceived", (notificationSent))};
                         res.send(results);
                         }
                     }
@@ -146,10 +145,12 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                 res.status(404).send("Need a number Parameter Id");
             } else {
                     paramId = req.params.thesisId;
-
+                    console.log(submissionDeadline)
                     const getThesisInfoQuery = "call getThesisInfoById(?)";
                     const getThesisInfoQueryParams = [paramId];
                     const getThesisInfoQueryResults = await executeQuery(res, getThesisInfoQuery, getThesisInfoQueryParams);
+                    console.log(typeof(getThesisInfoQueryResults));
+                    if(getThesisInfoQueryResults){
                     if((getThesisInfoQueryResults[0][0].submissionDeadline === null || getThesisInfoQueryResults[0][0].submissionDeadline === undefined) && submissionDeadline !== null){
                         // set step thesis = 4
                         const updateThesisQuery = "UPDATE theses SET thesis_topic = ?, thesis_field = ?, activate_registration = ?, activate_defense = ?, number_hard_copies = ?, print_requirements = ?, template_files = ?, submission_deadline = ?, step = ? where thesis_id = ?"
@@ -158,7 +159,7 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                     }
                     // submissionDeadline = null, we do later.
                     else {
-
+                        console.log("error ");
                     }
 
                     if(getThesisInfoQueryResults[0][0].activate_registration === 0 && activateRegistration === true) {
@@ -184,7 +185,53 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                             else {
 
                         }
+                        console.log(getThesisInfoQueryResults[0][0].lecturer2_id);
+                        console.log("sup1 " + getThesisInfoQueryResults[0][0].lecturer1_id) 
+                        for (var i = 0; i < getThesisInfoQueryResults[0].length; i++) {
+                            if(getThesisInfoQueryResults[0][i].lecturer1_id !== null){
+                                if(getThesisInfoQueryResults[0][i].student_id !== null){
+                                console.log(getThesisInfoQueryResults[0][i].lecturer1_id);
+                                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                const sendParams = [`Admin update thesis` , req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has updated the information of your thesis "${thesisTopic}" with the student id "${getThesisInfoQueryResults[0][i].student_id}"`];
+                                const notification = await sendNotification(res, sendNotificationQuery, sendParams);  
+                                } else {
+                                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                const sendParams = [`Admin update thesis` , req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has updated the information of your thesis "${thesisTopic}" with no student`];
+                                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                            }
+                            }                           
+                            else {console.log("no sup 1")}
+                            console.log(i + " " + getThesisInfoQueryResults[0][i].lecturer2_id);
+                            if(getThesisInfoQueryResults[0][i].lecturer2_id !== null){
+                                if(getThesisInfoQueryResults[0][i].student_id !== null){
+                                    const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                    const sendParams = [`Admin update thesis` , req.userId, getThesisInfoQueryResults[0][i].lecturer2_id, `An admin has updated the information of your thesis "${thesisTopic}" with the student id "${getThesisInfoQueryResults[0][i].student_id}"`];
+                                    const notification = await sendNotification(res, sendNotificationQuery, sendParams);  
+                                    console.log("Case1");
+                                } else {
+                                    const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                    const sendParams = [`Admin update thesis` , req.userId, getThesisInfoQueryResults[0][i].lecturer2_id, `An admin has updated the information of your thesis "${thesisTopic}" with no student`];
+                                    const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                                    console.log("case2");
+                                }
+                            } else {console.log("no sup 2")};
+                            if(getThesisInfoQueryResults[0][i].student_id !== null){
+                                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                const sendParams = [`Admin update thesis` , req.userId, getThesisInfoQueryResults[0][i].student_id, `An admin has updated the information of your thesis`];
+                                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                            }
+                        }
+                        
+                    const notificationSent = await getNotificationSent(res, req.userId);
+                    const notificationReceived = await getNotificationReceived(res, req.userId);
+                    console.log(notificationReceived);
+                            const socket = await getSocketById(res, req.userId);
+                            const socketId = socket[0].socket_id;
+                            if(socketId === null || socketId === undefined){
+                            }
+                            else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                     res.send({"result" : "done"});
+                } else { console.log("invalid thesis id")}
             }
             
         }
@@ -246,7 +293,7 @@ admin_update_router.put('/student/:id/registrationBachelorThesis', verifyTokenAd
                 if(socketId === null || socketId === undefined){
                     console.log("no socketId from database");
                 }
-                else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                 res.send(dbResults);  
                 }
                 // }
@@ -299,7 +346,7 @@ admin_update_router.put('/student/:id/registrationOralDefense', verifyTokenAdmin
                 if(socketId === null || socketId === undefined){
                     console.log("no socketId from database");
                 }
-                else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                 res.send(dbResults);  
                 }
             }
@@ -352,7 +399,7 @@ admin_update_router.put('/student/:id/assessmentBachelorThesis', verifyTokenAdmi
                 if(socketId === null || socketId === undefined){
                     console.log("no socketId from database");
                 }
-                else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                 res.send(dbResults);  
                 }
             }
@@ -409,7 +456,7 @@ admin_update_router.put('/student/:id/assessmentOralDefense', verifyTokenAdmin, 
                 if(socketId === null || socketId === undefined){
                     console.log("no socketId from database");
                 }
-                else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                 res.send(dbResults);  
                 }
             }

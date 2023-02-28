@@ -62,7 +62,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NjMwNDU5OSwiZXhwIjoxNjc2MzA1NDk5fQ.Ld-g6WL6dDlqhnk0aUUuFWnN5gtDVt1RimvYEIbxjek
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjE5MzMsInVzZXJuYW1lIjoibG9uZ2xlIiwicm9sZSI6IltcImxlY3R1cmVyMS4yXCJdIiwiaWF0IjoxNjc2MzA0ODAyLCJleHAiOjE2NzYzMDU3MDJ9.qBZQfKr7mHlIoiG-69VzgQhIRdK8iUIg6QCkRMPnA_8
 Content-Type: application/json
 
 {

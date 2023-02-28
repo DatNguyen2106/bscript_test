@@ -33,7 +33,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/admin/add/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzYxMDA0NTksImV4cCI6MTY3NjEwMTM1OX0.1WTEi0rhV6-oUHPzDtuj8AL6dlOl6b_fZLMO-ligUx8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1ODI1ODgsImV4cCI6MTY3NzU4MzQ4OH0.SF59s8RAI8626v3afmKNTDA9-H0vTLXQGWhv3lIYRCw
 Content-Type: application/json
 
 {
@@ -46,8 +46,8 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:5000/admin/update/thesis/123124
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzUzNDEzOTIsImV4cCI6MTY3NTM0MjI5Mn0.Ou8UidtKdSN3gNZAQUlg60GOIkIPgPAP1sHY6-jHlvA
+PUT http://localhost:5000/admin/update/thesis/123342
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1ODg4ODYsImV4cCI6MTY3NzU4OTc4Nn0.WRJW62CP2I_0WG8QJMcwAjuCfFBaGL6N2-tRdYPIMjg
 Content-Type: application/json
 
 {
@@ -63,7 +63,7 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5000/admin/delete/thesis/123122
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njg0NDU0OTYsImV4cCI6MTY2ODQ0NjM5Nn0.EGOoUkpirTJ_H_OwGc8CnvexIXdZ5DWK0vzeILP2W9k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1ODc0NjgsImV4cCI6MTY3NzU4ODM2OH0.99KlXOAi_tv1WUVX1dZcQYNR0O1RxFfk5cHbjyksS8E
 
 ###
 POST http://localhost:5000/admin/assign/lecturerToThesis

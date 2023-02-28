@@ -178,7 +178,7 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
                 const queryParams = [thesisId, thesisTopic, thesisField, lecturer1_id, lecturer2_id, slotMaximum];
                 const results = await executeQuery(res, insertThesesQuery, queryParams);
                 const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                const sendParams = [`Admin ${req.userId} add new thesis ${thesisId} for this lecturer ${lecturer1_id}` , req.userId, req.userId, "add new thesis successfully"];
+                const sendParams = [`admin add thesis` , req.userId, lecturer1_id, `The Thesis "${thesisTopic}" has been added to your list`];
                 const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                 const notificationSent = await getNotificationSent(res, req.userId);
                 const notificationReceived = await getNotificationReceived(res, req.userId);
@@ -187,7 +187,7 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
                 if(socketId === null || socketId === undefined){
                     console.log("no socketId from database");
                 }
-                else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                else { io.to(socketId).emit("notificationSent", (notificationReceived))};
                 res.send(results);
             }
             else res.status(405).send("You are not allowed to access, You are not admin")

@@ -37,7 +37,7 @@ admin_assign_router.post('/lecturerToThesis', verifyTokenAdmin, async (req,res) 
                     if(socketId === null || socketId === undefined){
                         console.log("no socketId from database");
                     }
-                    else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                    else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                 }
             }
 
@@ -75,7 +75,7 @@ admin_assign_router.post('/studentToThesis', verifyTokenAdmin, async (req,res) =
                     if(socketId === null || socketId === undefined){
                         console.log("no socketId from database");
                     }
-                    else { io.to(socketId).emit("notificationSent", (notificationSent))};
+                    else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                 }
             }
             res.send(dbResults);
