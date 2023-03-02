@@ -75,7 +75,7 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) =>{
                                 if(socketId === null || socketId === undefined){
                                       console.log("no socketId from database");
                                   }
-                                  else { io.to(socketId).emit("notificationSent", (notificationSent))}     
+                                  else { io.to(socketId).emit("notificationReceived", (notificationReceived))}     
                             } else {console.log("error")};
                             
                         }
@@ -149,7 +149,7 @@ admin_add_router.post('/student', verifyTokenAdmin, async (req, res) =>{
                                     if(socketId === null || socketId === undefined){
                                         console.log("no socketId from database");
                                     }
-                                    else { io.to(socketId).emit("notificationSent", (notificationSent))}     
+                                    else { io.to(socketId).emit("notificationReceived", (notificationReceived))}     
                             } else {console.log("error")};
                         }
                     }
@@ -187,7 +187,7 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
                 if(socketId === null || socketId === undefined){
                     console.log("no socketId from database");
                 }
-                else { io.to(socketId).emit("notificationSent", (notificationReceived))};
+                else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                 res.send(results);
             }
             else res.status(405).send("You are not allowed to access, You are not admin")

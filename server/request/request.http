@@ -92,11 +92,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/admin/add/lecturer
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzYwNDA1MTUsImV4cCI6MTY3NjA0MTQxNX0.D9zm7591dfGk7087FjwjtP_90ovFf2gyJ3E9fOAfoNg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1OTA4NTYsImV4cCI6MTY3NzU5MTc1Nn0.xeiaYmNe2qS2jd0JgeUhwDiydQU8vLbpl6oEA_2eGic
 Content-Type: application/json
 
 {
-    "id" : 21457,
+    "id" : 21933,
     "username" : "haotran12",
     "email" : "haotran@gmail.com",
     "title" : "Dr. Hao Tran",
@@ -107,8 +107,8 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5000/admin/update/lecturer/21457
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzYwNDEwMTQsImV4cCI6MTY3NjA0MTkxNH0.D2CDI9cfBIRmsxiaMdqCT3fByv6A8o-bv_oomYfT-Ck
+PUT http://localhost:5000/admin/update/lecturer/21933
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1OTA4NTYsImV4cCI6MTY3NzU5MTc1Nn0.xeiaYmNe2qS2jd0JgeUhwDiydQU8vLbpl6oEA_2eGic
 Content-Type: application/json
 
 {

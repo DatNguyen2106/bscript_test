@@ -4,10 +4,26 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "dnoakes1",
-    "password" : "12486"
+    "username" : "dpamplin5",
+    "password" : "11475"
 }
 
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "abezzant6",
+    "password" : "13444"
+}
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "tuannguyen",
+    "password" : "12323"
+}
 ###
 GET http://localhost:5000/student/get/12486
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NjI5MDk3MSwiZXhwIjoxNjc2MjkxODcxfQ.cdgvUDF1lSu6OP_CRkrFrNNF7UEbSR_mr4SRuhtU5x0
@@ -144,16 +160,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZ
 
 ###
 POST http://localhost:5000/student/add/confirmSup1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM0NDQsInVzZXJuYW1lIjoiYWJlenphbnQ2Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2NzA1MDc4NjYsImV4cCI6MTY3MDUwODc2Nn0.XsU5TQmsztBuk3XFiyEq57WXW-HD6ixgZv92Ejl2sKk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM0NDQsInVzZXJuYW1lIjoiYWJlenphbnQ2Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzc2MDg1MTUsImV4cCI6MTY3NzYwOTQxNX0.tlrhmkEAONbo45Iw4b2mEQn3X5JpScX5ZuMcYKe4Qyw
 Content-Type: application/json
 
 {
-    "thesisId" : "123122"
+    "thesisId" : "123554"
 }
 
 ###
 PUT http://localhost:5000/student/update/confirmSup2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTcxODI2NSwiZXhwIjoxNjcxNzE5MTY1fQ.bZDb-P4iHysRvfGe8Lh0i8ceOhFaLRO_hd9JqTvtRdc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE0NzUsInVzZXJuYW1lIjoiZHBhbXBsaW41Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzc2NzYyMjYsImV4cCI6MTY3NzY3NzEyNn0.dKgVej9H4FHguV8iDh_CaqOmrabru8DGgO6pFjwHjIg
 Content-Type: application/json
 
 {

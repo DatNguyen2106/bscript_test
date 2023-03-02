@@ -1,6 +1,8 @@
 const express = require('express');
 const student_add_router = express.Router();
 const db = require('../../db/connectDB');
+const io = require('../.././socketServer');
+
 const verifyTokenStudent = require('../../middleware/verifyTokenStudent');
 student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) =>{
     try {
@@ -15,9 +17,36 @@ student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) =>{
                 } 
                 else {
                 studentId = req.userId;
-                const query = "INSERT INTO students_theses VALUES (?,?,?)";
+                console.log(studentId);
+
+                const query = "INSERT INTO students_theses(student_id, thesis_id, confirm_sup1) VALUES (?,?,?)";
                 const queryParams = [studentId, thesisId, 0];
                 const results = await executeQuery(res, query, queryParams);
+                
+                const getThesisInfoById = "call getThesisInfoById(?)";
+                const getThesisInfoByIdParams = [thesisId];
+                const getThesisInfoByIdResults = await executeQuery(res, getThesisInfoById, getThesisInfoByIdParams);
+
+                console.log(getThesisInfoByIdResults[0]);
+                if(getThesisInfoByIdResults){
+                for (var i = 0; i < getThesisInfoByIdResults[0].length; i++) {
+                    if(getThesisInfoByIdResults[0][i].lecturer1_id !== null){
+                        if(studentId === getThesisInfoByIdResults[0][i].student_id){
+                        const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                        const sendParams = [`Student apply thesis` , req.userId, getThesisInfoByIdResults[0][i].lecturer1_id, `A Student ${studentId} applied to your thesis "${getThesisInfoByIdResults[0][i].thesis_topic}"`];
+                        const notification = await sendNotification(res, sendNotificationQuery, sendParams);  
+                            } 
+                        }   
+                    }
+                }
+                const notificationSent = await getNotificationSent(res, req.userId);
+                const notificationReceived = await getNotificationReceived(res, req.userId);
+                console.log(notificationReceived);
+                const socket = await getSocketById(res, req.userId);
+                const socketId = socket[0].socket_id;
+                if(socketId === null || socketId === undefined){
+                }
+                else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                 res.send(results);
                 }
             }
@@ -259,5 +288,51 @@ const executeQuery = (res, query, queryParams) => {
         })
         })
     return results;
+}
+const getSocketById = (res, id) => {
+    const query = "select socket_id from tbl_user where id = ?"
+    const queryParams = [id];
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getNotificationSent = (res, id) => {
+const query = "select * from notifications where sender = ?"
+const queryParams = [id];
+const results =  new Promise((resolve) => {
+    db.query(query, queryParams, (err, result) => {
+        if(err) {res.status(500).send(err.message)}
+        else
+        {  resolve(JSON.parse(JSON.stringify(result)))}
+    })
+    })
+return results;
+}
+var sendNotification = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getNotificationReceived = (res, id) => {
+const query = "select * from notifications where receiver = ?"
+const queryParams = [id];
+const results =  new Promise((resolve) => {
+    db.query(query, queryParams, (err, result) => {
+        if(err) {res.status(500).send(err.message)}
+        else
+        {  resolve(JSON.parse(JSON.stringify(result)))}
+    })
+    })
+return results;
 }
 module.exports = student_add_router;

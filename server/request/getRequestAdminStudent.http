@@ -66,7 +66,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/admin/update/student/19363
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzI2Mzk5MzEsImV4cCI6MTY3MjY0MDgzMX0.rmJYwERNmnEmvd0btcScLStcFBwfzVu1xxR_0P_IRb0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1OTA2MDQsImV4cCI6MTY3NzU5MTUwNH0.bLZn5t8zMvfySCZ89lOpZ4gjDf7WifJdXzcnvbVKmxs
 Content-Type: application/json
 
 {

@@ -201,18 +201,15 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                             }
                             }                           
                             else {console.log("no sup 1")}
-                            console.log(i + " " + getThesisInfoQueryResults[0][i].lecturer2_id);
                             if(getThesisInfoQueryResults[0][i].lecturer2_id !== null){
                                 if(getThesisInfoQueryResults[0][i].student_id !== null){
                                     const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                                     const sendParams = [`Admin update thesis` , req.userId, getThesisInfoQueryResults[0][i].lecturer2_id, `An admin has updated the information of your thesis "${thesisTopic}" with the student id "${getThesisInfoQueryResults[0][i].student_id}"`];
                                     const notification = await sendNotification(res, sendNotificationQuery, sendParams);  
-                                    console.log("Case1");
                                 } else {
                                     const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                                     const sendParams = [`Admin update thesis` , req.userId, getThesisInfoQueryResults[0][i].lecturer2_id, `An admin has updated the information of your thesis "${thesisTopic}" with no student`];
                                     const notification = await sendNotification(res, sendNotificationQuery, sendParams);
-                                    console.log("case2");
                                 }
                             } else {console.log("no sup 2")};
                             if(getThesisInfoQueryResults[0][i].student_id !== null){

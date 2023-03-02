@@ -46,8 +46,8 @@ Content-Type: application/json
 
 
 ###
-PUT http://localhost:5000/admin/update/thesis/123342
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1ODg4ODYsImV4cCI6MTY3NzU4OTc4Nn0.WRJW62CP2I_0WG8QJMcwAjuCfFBaGL6N2-tRdYPIMjg
+PUT http://localhost:5000/admin/update/thesis/210292
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1ODk4NTIsImV4cCI6MTY3NzU5MDc1Mn0.hgN9UZGXqxY-SOxYo5UFYWXeeQlLA4LecVGOHyqpO3I
 Content-Type: application/json
 
 {
