@@ -13,16 +13,16 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "abezzant6",
-    "password" : "13444"
+    "username" : "datnguyen",
+    "password" : "12345"
 }
 ###
 POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "tuannguyen",
-    "password" : "12323"
+    "username" : "longphan",
+    "password" : "12211"
 }
 ###
 GET http://localhost:5000/student/get/12486
@@ -160,7 +160,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZ
 
 ###
 POST http://localhost:5000/student/add/confirmSup1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM0NDQsInVzZXJuYW1lIjoiYWJlenphbnQ2Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzc2MDg1MTUsImV4cCI6MTY3NzYwOTQxNX0.tlrhmkEAONbo45Iw4b2mEQn3X5JpScX5ZuMcYKe4Qyw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIyMTEsInVzZXJuYW1lIjoibG9uZ3BoYW4iLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NzkwOTgzNywiZXhwIjoxNjc3OTEwNzM3fQ._H_oJtrGCAHfN9VNumTvOB1j1lGNeS8eLhDD1Q7szYM
 Content-Type: application/json
 
 {
@@ -169,16 +169,16 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/student/update/confirmSup2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE0NzUsInVzZXJuYW1lIjoiZHBhbXBsaW41Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzc2NzYyMjYsImV4cCI6MTY3NzY3NzEyNn0.dKgVej9H4FHguV8iDh_CaqOmrabru8DGgO6pFjwHjIg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzc2Nzg5MTIsImV4cCI6MTY3NzY3OTgxMn0.Gth2Ulsc_VKP3KwrgT2UgL-FgIFLWeSb-JmkTL4xJaw
 Content-Type: application/json
 
 {
-    "lecturer2_id" : "25489"
+    "lecturer2_id" : "20489"
 }
 
 ###
 PUT http://localhost:5000/student/update/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTU4OTAyOSwiZXhwIjoxNjc1NTg5OTI5fQ.QHhBZ4v29HNWa0L7U91r67J3iH4PpQOWC14UTmt9CaI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkzNjMsInVzZXJuYW1lIjoiYXJpY2tlbGwzIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzc3NTY1OTMsImV4cCI6MTY3Nzc1NzQ5M30.fjjmqrH6eVLMu2SVBVZstMB2iImKMNh0npziU6VC2S4
 Content-Type: application/json
 
 {
@@ -208,7 +208,7 @@ Content-Type: application/json
 ###
 
 PUT http://localhost:5000/student/update/registrationOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTg1ODI3NywiZXhwIjoxNjc1ODU5MTc3fQ.Q5qJ9_O21hEapIAjgaAQqpfvjPu8dMBfSoaViJiLU98
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkzNjMsInVzZXJuYW1lIjoiYXJpY2tlbGwzIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzc3NTY5MjQsImV4cCI6MTY3Nzc1NzgyNH0.8JeK6htLGM-e_7v2uTaFgQnhnLNYfSVhlbt8lsrtISQ
 Content-Type: application/json
 
 {

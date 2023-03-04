@@ -2,6 +2,7 @@ const express = require('express');
 const lecturer1_confirm_router = express.Router();
 const db = require('../../db/connectDB');
 const verifyTokenLecturer1 = require('../../middleware/verifyTokenLecturer1');
+const io = require('../.././socketServer');
 
 
 lecturer1_confirm_router.post('/confirmStudent', verifyTokenLecturer1, async (req, res) =>{
@@ -29,14 +30,44 @@ lecturer1_confirm_router.post('/confirmStudent', verifyTokenLecturer1, async (re
                         const changeStepQuery = "UPDATE theses SET step = ? WHERE thesis_id = ?";
                         const changeStepQueryParams = [1, thesisId];
                         const changeStepResults = await executeQuery(res, changeStepQuery, changeStepQueryParams);
+        
+                        
+                        const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
+                        const getExactThesisFromStudentIdParams = [studentId];
+                        const getExactThesisFromStudentIdResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentIdParams);
+                        if(getExactThesisFromStudentIdResults){
+                        const sendNotificationSup1Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                        const sendNotificationSup1Params = [`Lecturer1 confirm student` , req.userId, studentId, `You have been accepted to join "${getExactThesisFromStudentIdResults[0][0].thesis_topic}"`];
+                        const sendNotificationSup1 = await sendNotification(res, sendNotificationSup1Query, sendNotificationSup1Params);      
+                        } else console.log("no thesis");
                         res.send(changeStepResults);
                     }
                     else if (confirmStudent === false){
                         queryParams = [false, studentId];
                         const results = await executeQuery(res, query, queryParams);
+
+                        const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
+                        const getExactThesisFromStudentIdParams = [studentId];
+                        const getExactThesisFromStudentIdResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentIdParams);
+
+                        if(getExactThesisFromStudentIdResults){
+                        const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                        const sendNotificationParams = [`Lecturer1 reject student` , req.userId, studentId, `You have been rejected to join thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}"`];
+                        const sendNotification = await sendNotification(res, sendNotificationQuery, sendNotificationParams);      
+                        } else console.log("no thesis");
+
                         const deleteStudentsThesesQuery = "DELETE FROM students_theses WHERE student_id = ?";
                         const deleteStudentsThesesQueryParams = [studentId];
                         const deleteStudentsThesesResults = await executeQuery(res, deleteStudentsThesesQuery, deleteStudentsThesesQueryParams);
+                        
+                        const notificationSent = await getNotificationSent(res, req.userId);
+                        const notificationReceived = await getNotificationReceived(res, req.userId);
+                        console.log(notificationReceived);
+                        const socket = await getSocketById(res, req.userId);
+                        const socketId = socket[0].socket_id;
+                        if(socketId === null || socketId === undefined){
+                        }
+                        else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                         res.send(deleteStudentsThesesResults);
                     }
                 }
@@ -87,6 +118,52 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
         
     })
 const executeQuery = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+var sendNotification = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getSocketById = (res, id) => {
+        const query = "select socket_id from tbl_user where id = ?"
+        const queryParams = [id];
+        const results =  new Promise((resolve) => {
+            db.query(query, queryParams, (err, result) => {
+                if(err) {res.status(500).send(err.message)}
+                else
+                {  resolve(JSON.parse(JSON.stringify(result)))}
+            })
+            })
+        return results;
+}
+const getNotificationSent = (res, id) => {
+    const query = "select * from notifications where sender = ?"
+    const queryParams = [id];
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getNotificationReceived = (res, id) => {
+    const query = "select * from notifications where receiver = ?"
+    const queryParams = [id];
     const results =  new Promise((resolve) => {
         db.query(query, queryParams, (err, result) => {
             if(err) {res.status(500).send(err.message)}
