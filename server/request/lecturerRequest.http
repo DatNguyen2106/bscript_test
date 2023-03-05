@@ -115,7 +115,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer2/confirm/confirmThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NzkxMjg2MywiZXhwIjoxNjc3OTEzNzYzfQ.-MuX8QHVkL8lBULxPnUIrpcCCX-3uwMayJwKy5u4hM8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3NzkxMzgwNywiZXhwIjoxNjc3OTE0NzA3fQ.lckbLQMOmgntuiiTmrplF4mfjoeu4l2f8PV0FdF04lU
 Content-Type: application/json
 
 {
@@ -134,27 +134,27 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesisAsSup1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMxMjU1MCwiZXhwIjoxNjcyMzEzNDUwfQ.li54BHpN1eKakY6jvu5K9Ysi7wj4UwHIt3Lif95eZ7M
-Content-Type: application/json
-
-{
-    "studentId" : 12486,
-    "confirmSignature" : true
-}
-###
-POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesisAsSup2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3MjMxMjUxMiwiZXhwIjoxNjcyMzEzNDEyfQ.JJoKeSupwsqfFUFCOkthyg4FgDRfikrJQO-1PSF9qOE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3Nzk5NzE3MCwiZXhwIjoxNjc3OTk4MDcwfQ.Oi81iIs-65YbovHu3X0zEG2w7Dl82tQ57nZTnbOjZhg
 Content-Type: application/json
 
 {
     "studentId" : 19363,
     "confirmSignature" : true
 }
+###
+POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesisAsSup2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3Nzk5Nzc1OCwiZXhwIjoxNjc3OTk4NjU4fQ.4u4oap4ZvrUu2Ew1ixFCWWB8KDM3wwzi7UxuNmnxdsE
+Content-Type: application/json
+
+{
+    "studentId" : 18593,
+    "confirmSignature" : true
+}
 
 
 ###
 POST http://localhost:5000/lecturer2/signIn/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3MjMxMjY4OCwiZXhwIjoxNjcyMzEzNTg4fQ.Nsl3UGqQlI8UAhTIkMMOwsTo9wn3hA3NEGBnYatg1Q4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3Nzk5ODEyMiwiZXhwIjoxNjc3OTk5MDIyfQ.LgXiDpURybBwsmgzQbXpQ05iewn4xRIKdPwgAoj77o8
 Content-Type: application/json
 
 {
@@ -165,11 +165,11 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentBachelor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTgzNDA5OSwiZXhwIjoxNjc1ODM0OTk5fQ.8gsINhaEx2FRcsNVf1LtOkCb-pdah9KZsS7FVLR-ncI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3Nzk5ODk3MywiZXhwIjoxNjc3OTk5ODczfQ.du9cVI9IGODxL8I1Rg6mO6oKObiz5eyBrKmkTHJQKag
 Content-Type: application/json
 
 {
-    "studentId" : 12486,
+    "studentId" : 12323,
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen1",
     "foreName" : "long1",

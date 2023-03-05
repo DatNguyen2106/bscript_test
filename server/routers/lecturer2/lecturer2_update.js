@@ -32,14 +32,41 @@ lecturer2_update_router.put('/assessmentBachelor', verifyTokenLecturer2, async (
                         console.log(studentId);
                         console.log(matriculationNumber);
                         if(getBeforeAssessmentBachelorThesisResults === null || getBeforeAssessmentBachelorThesisResults === undefined){
-                            res.send("not found")
+                            res.send("not found bachelor thesis results");
                         }
                         else {
                             const updateAssessmentBachelorThesisQuery = "UPDATE assessment_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, thesis_title = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
                             const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName,  thesisTitle, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature, 2, studentId];
                             const updateAssessmentBachelorThesisResults = await executeQuery(res, updateAssessmentBachelorThesisQuery, updateAssessmentBachelorThesisParams);
-                            res.send(updateAssessmentBachelorThesisResults);
                         }
+
+                        const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
+                        const getBasicInfoLecturerByLecturerIdParams = [req.userId];
+                        const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
+                        const lecturerTitle = basicInfoLecturerResults[0][0].title;
+
+                        const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
+                        const getExactThesisFromStudentParams = [studentId];
+                        const getExactThesisFromStudentResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentParams);
+
+                        if(getExactThesisFromStudentResults[0]){
+                            if(getExactThesisFromStudentResults[0].studentId !== null && getExactThesisFromStudentResults[0][0].lecturer1_id !== null){
+                            const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationAnotherSupParams = [`Lecturer1 update assessment bachelor` , req.userId, getExactThesisFromStudentResults[0][0].lecturer1_id, `${lecturerTitle} has completed assessment bachelor thesis form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
+                            const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);      
+                            }
+                        }
+                        
+                        const notificationSent = await getNotificationSent(res, req.userId);
+                        const notificationReceived = await getNotificationReceived(res, req.userId);
+                        console.log(notificationReceived);
+                    
+                        const socket = await getSocketById(res, req.userId);
+                        const socketId = socket[0].socket_id;
+                        if(socketId === null || socketId === undefined){
+                        }
+                        else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
+                        res.send({"result" : "done"});
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
             }
@@ -99,6 +126,52 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
             
         })
 const executeQuery = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+var sendNotification = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getSocketById = (res, id) => {
+        const query = "select socket_id from tbl_user where id = ?"
+        const queryParams = [id];
+        const results =  new Promise((resolve) => {
+            db.query(query, queryParams, (err, result) => {
+                if(err) {res.status(500).send(err.message)}
+                else
+                {  resolve(JSON.parse(JSON.stringify(result)))}
+            })
+            })
+        return results;
+}
+const getNotificationSent = (res, id) => {
+    const query = "select * from notifications where sender = ?"
+    const queryParams = [id];
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getNotificationReceived = (res, id) => {
+    const query = "select * from notifications where receiver = ?"
+    const queryParams = [id];
     const results =  new Promise((resolve) => {
         db.query(query, queryParams, (err, result) => {
             if(err) {res.status(500).send(err.message)}

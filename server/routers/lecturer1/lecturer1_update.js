@@ -45,6 +45,33 @@ lecturer1_update_router.put('/assessmentBachelor', verifyTokenLecturer1, async (
                             const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature, 3, studentId];
                             const updateAssessmentBachelorThesisResults = await executeQuery(res, updateAssessmentBachelorThesisQuery, updateAssessmentBachelorThesisParams);
                         }
+                        const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
+                        const getBasicInfoLecturerByLecturerIdParams = [req.userId];
+                        const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
+                        const lecturerTitle = basicInfoLecturerResults[0][0].title;
+
+                        const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
+                        const getExactThesisFromStudentParams = [studentId];
+                        const getExactThesisFromStudentResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentParams);
+
+                        if(getExactThesisFromStudentResults[0]){
+                            if(getExactThesisFromStudentResults[0].studentId !== null && getExactThesisFromStudentResults[0][0].lecturer2_id !== null){
+                            const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationAnotherSupParams = [`Lecturer1 update assessment bachelor` , req.userId, getExactThesisFromStudentResults[0][0].lecturer2_id, `${lecturerTitle} has completed assessment bachelor thesis form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
+                            const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);      
+                            }
+                        }
+                        
+                        const notificationSent = await getNotificationSent(res, req.userId);
+                        const notificationReceived = await getNotificationReceived(res, req.userId);
+                        console.log(notificationReceived);
+                    
+                        const socket = await getSocketById(res, req.userId);
+                        const socketId = socket[0].socket_id;
+                        if(socketId === null || socketId === undefined){
+                        }
+                        else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
+                        res.send({"result" : "done"});
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
             }
@@ -91,16 +118,39 @@ lecturer1_update_router.put('/assessmentOralDefense', verifyTokenLecturer1, asyn
                                 const updateAssessmentOralDefenseQuery = "UPDATE assessment_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
                                 const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, 1, studentId];
                                 const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
-                                console.log("step 1");
-                                res.send(updateAssessmentOralDefenseResults);
                             } else if(getBeforeAssessmentOralDefenseResults[0].step === 2){
                                 const updateAssessmentOralDefenseQuery = "UPDATE assessment_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
                                 const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, 3, studentId];
                                 const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
-                                res.send(updateAssessmentOralDefenseResults);
                             }
+                            const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
+                            const getBasicInfoLecturerByLecturerIdParams = [req.userId];
+                            const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
+                            const lecturerTitle = basicInfoLecturerResults[0][0].title;
     
-                    }
+                            const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
+                            const getExactThesisFromStudentParams = [studentId];
+                            const getExactThesisFromStudentResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentParams);
+    
+                            if(getExactThesisFromStudentResults[0]){
+                                if(getExactThesisFromStudentResults[0].studentId !== null && getExactThesisFromStudentResults[0][0].lecturer2_id !== null){
+                                const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                const sendNotificationAnotherSupParams = [`Lecturer1 update assessment oral defense` , req.userId, getExactThesisFromStudentResults[0][0].lecturer2_id, `${lecturerTitle} has completed assessment oral defense form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
+                                const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);      
+                                }
+                            }
+                            
+                            const notificationSent = await getNotificationSent(res, req.userId);
+                            const notificationReceived = await getNotificationReceived(res, req.userId);
+                            console.log(notificationReceived);
+                        
+                            const socket = await getSocketById(res, req.userId);
+                            const socketId = socket[0].socket_id;
+                            if(socketId === null || socketId === undefined){
+                            }
+                            else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
+                            res.send({"results" : "done"})
+                    } 
                     else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
                 }
                 else res.status(404).send("No user with that username");    
@@ -139,6 +189,52 @@ lecturer1_update_router.put('/account', verifyTokenLecturer1, async (req, res) =
             
         })
 const executeQuery = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+var sendNotification = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getSocketById = (res, id) => {
+        const query = "select socket_id from tbl_user where id = ?"
+        const queryParams = [id];
+        const results =  new Promise((resolve) => {
+            db.query(query, queryParams, (err, result) => {
+                if(err) {res.status(500).send(err.message)}
+                else
+                {  resolve(JSON.parse(JSON.stringify(result)))}
+            })
+            })
+        return results;
+}
+const getNotificationSent = (res, id) => {
+    const query = "select * from notifications where sender = ?"
+    const queryParams = [id];
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
+}
+const getNotificationReceived = (res, id) => {
+    const query = "select * from notifications where receiver = ?"
+    const queryParams = [id];
     const results =  new Promise((resolve) => {
         db.query(query, queryParams, (err, result) => {
             if(err) {res.status(500).send(err.message)}
