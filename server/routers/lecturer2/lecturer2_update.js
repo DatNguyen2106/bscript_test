@@ -116,6 +116,31 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
                                 res.send(updateAssessmentOralDefenseResults);
                             }
                     }
+                    const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
+                    const getBasicInfoLecturerByLecturerIdParams = [req.userId];
+                    const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
+                    const lecturerTitle = basicInfoLecturerResults[0][0].title;
+
+                    const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
+                    const getExactThesisFromStudentParams = [studentId];
+                    const getExactThesisFromStudentResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentParams);
+
+                    if(getExactThesisFromStudentResults[0]){
+                        if(getExactThesisFromStudentResults[0].studentId !== null && getExactThesisFromStudentResults[0][0].lecturer1_id !== null){
+                        const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                        const sendNotificationAnotherSupParams = [`Lecturer2 update assessment oral defense` , req.userId, getExactThesisFromStudentResults[0][0].lecturer1_id, `${lecturerTitle} has completed assessment oral defense form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
+                        const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);      
+                        }
+                    }
+                    
+                    const notificationSent = await getNotificationSent(res, req.userId);
+                    const notificationReceived = await getNotificationReceived(res, req.userId);
+                    console.log(notificationReceived);
+                
+                    const socket = await getSocketById(res, req.userId);
+                    const socketId = socket[0].socket_id;
+                    if(socketId === null || socketId === undefined){
+                    }
                     else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
                 }
                 else res.status(404).send("No user with that username");    
