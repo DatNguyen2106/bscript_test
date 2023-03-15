@@ -107,14 +107,14 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:5000/admin/update/lecturer/21933
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1OTA4NTYsImV4cCI6MTY3NzU5MTc1Nn0.xeiaYmNe2qS2jd0JgeUhwDiydQU8vLbpl6oEA_2eGic
+PUT http://localhost:5000/admin/update/lecturer/21029
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg4NzQyMDIsImV4cCI6MTY3ODg3NTEwMn0.2KPK9afBcu3VVJyPLFZOumBesNutnFpgO_KszU613j8
 Content-Type: application/json
 
 {
-    "username" : "linh",
-    "fullname" : "linhkhanhtran_updated",
-    "title" : "Dr. Linh",
+    "username" : "alexnguyen",
+    "fullname" : "linhkhanhtran_updateee",
+    "title" : "Dr. Linh Ngoc",
     "email" : "linh1@gmail.com",
     "supervisor" : "lecturer1.1",
     "signature" : "signature",
@@ -132,7 +132,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwid
 
 ###
 GET http://localhost:5000/admin/get/testForm
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzE4NjAxODMsImV4cCI6MTY3MTg2MTA4M30.mlPTH2X7uxhRQU80b94vtzxg0VyP9cOlm5j7xjRJquI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg3ODM1ODYsImV4cCI6MTY3ODc4NDQ4Nn0.bbq7sgrKwXE6p03SUwmriEHsFiAGbmFrqs20lgAZHBI
+
 ###
 DELETE http://localhost:4000/logout
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJqYW1lczEwMyIsInJvbGUiOiJbXCJhZG1pblwiLFwibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjY2NTk2MTU5LCJleHAiOjE2NjY1OTYxODl9.hP6UbWaj7PPOMh9HIB4KlCUzCK1xR6qt-GhFp9CY_Ok

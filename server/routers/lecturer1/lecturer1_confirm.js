@@ -30,7 +30,6 @@ lecturer1_confirm_router.post('/confirmStudent', verifyTokenLecturer1, async (re
                         const changeStepQuery = "UPDATE theses SET step = ? WHERE thesis_id = ?";
                         const changeStepQueryParams = [1, thesisId];
                         const changeStepResults = await executeQuery(res, changeStepQuery, changeStepQueryParams);
-        
                         
                         const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
                         const getExactThesisFromStudentIdParams = [studentId];
@@ -173,4 +172,5 @@ const getNotificationReceived = (res, id) => {
         })
     return results;
 }
+
 module.exports = lecturer1_confirm_router;

@@ -174,20 +174,19 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) =>{
                 var thesisId = `${currentTimeValue}${lecturer1_id}`;
                 thesisId = parseInt(thesisId);
                 console.log(typeof(thesisId))
-                const insertThesesQuery = "call addNewThesis(?, ?, ?, ?, ?, ?)";
-                const queryParams = [thesisId, thesisTopic, thesisField, lecturer1_id, lecturer2_id, slotMaximum];
+                const insertThesesQuery = "call addNewThesis(?, ?, ?, ?, ?)";
+                const queryParams = [thesisId, thesisTopic, thesisField, lecturer1_id, slotMaximum];
                 const results = await executeQuery(res, insertThesesQuery, queryParams);
                 const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                 const sendParams = [`admin add thesis` , req.userId, lecturer1_id, `The Thesis "${thesisTopic}" has been added to your list`];
                 const notification = await sendNotification(res, sendNotificationQuery, sendParams);
-                const notificationSent = await getNotificationSent(res, req.userId);
-                const notificationReceived = await getNotificationReceived(res, req.userId);
-                const socket = await getSocketById(res, req.userId);
-                const socketId = socket[0].socket_id;
-                if(socketId === null || socketId === undefined){
+                const notificationReceived = await getNotificationReceived(res, lecturer1_id);
+                const socket = await getSocketById(res, lecturer1_id);
+                const socketReceiverId = socket[0].socket_id;
+                if(socketReceiverId === null || socketReceiverId === undefined){
                     console.log("no socketId from database");
                 }
-                else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
+                else { io.to(socketReceiverId).emit("notificationReceived", (notificationReceived))};
                 res.send(results);
             }
             else res.status(405).send("You are not allowed to access, You are not admin")

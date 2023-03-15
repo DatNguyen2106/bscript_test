@@ -28,25 +28,31 @@ student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) =>{
                 const getThesisInfoByIdResults = await executeQuery(res, getThesisInfoById, getThesisInfoByIdParams);
 
                 console.log(getThesisInfoByIdResults[0]);
+                var notificationReceived;
+                var socketReceiver1;
                 if(getThesisInfoByIdResults){
                 for (var i = 0; i < getThesisInfoByIdResults[0].length; i++) {
                     if(getThesisInfoByIdResults[0][i].lecturer1_id !== null){
+                        socketReceiver1 = getThesisInfoByIdResults[0][i].lecturer1_id;
                         if(studentId === getThesisInfoByIdResults[0][i].student_id){
                         const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendParams = [`Student apply thesis` , req.userId, getThesisInfoByIdResults[0][i].lecturer1_id, `A Student ${studentId} applied to your thesis "${getThesisInfoByIdResults[0][i].thesis_topic}"`];
                         const notification = await sendNotification(res, sendNotificationQuery, sendParams);  
+                        const notificationReceived = await getNotificationReceived(res, getThesisInfoByIdResults[0][i].lecturer1_id);
+                        const socketReceiver1 = await getSocketById(res, getThesisInfoByIdResults[0][i].lecturer1_id);
+                        console.log("socket ID " + socketReceiver1[0]);
+                        console.log("socket ID 1 " + socketReceiver1[0].socket_id);
+
+                        if(socketReceiver1 === null || socketReceiver1 === undefined){
+                        }
+                        else {
+                            console.log("socket ID 2 : " + socketReceiver1[0].socket_id);
+                            io.to(socketReceiver1[0].socket_id).emit("notificationReceived", (notificationReceived))};    
                             } 
                         }   
                     }
                 }
-                const notificationSent = await getNotificationSent(res, req.userId);
-                const notificationReceived = await getNotificationReceived(res, req.userId);
-                console.log(notificationReceived);
-                const socket = await getSocketById(res, req.userId);
-                const socketId = socket[0].socket_id;
-                if(socketId === null || socketId === undefined){
-                }
-                else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
+                
                 res.send(results);
                 }
             }
@@ -322,6 +328,18 @@ var sendNotification = (res, query, queryParams) => {
         })
         })
     return results;
+}
+const findSocketIdByLecturerId = (res, id) => {
+    const query = "select socket_id from tbl_user where id = ?"
+    const queryParams = [id];
+    const results =  new Promise((resolve) => {
+    db.query(query, queryParams, (err, result) => {
+        if(err) {res.status(500).send(err.message)}
+        else
+        {  resolve(JSON.parse(JSON.stringify(result)))}
+    })
+    })
+return results;
 }
 const getNotificationReceived = (res, id) => {
 const query = "select * from notifications where receiver = ?"

@@ -21,8 +21,8 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "longphan",
-    "password" : "12211"
+    "username" : "abezzant6",
+    "password" : "13444"
 }
 ###
 GET http://localhost:5000/student/get/12486
@@ -160,7 +160,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZ
 
 ###
 POST http://localhost:5000/student/add/confirmSup1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIyMTEsInVzZXJuYW1lIjoibG9uZ3BoYW4iLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NzkwOTgzNywiZXhwIjoxNjc3OTEwNzM3fQ._H_oJtrGCAHfN9VNumTvOB1j1lGNeS8eLhDD1Q7szYM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM0NDQsInVzZXJuYW1lIjoiYWJlenphbnQ2Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzg3ODE0NjgsImV4cCI6MTY3ODc4MjM2OH0.JwDul5mb_-NweGiGD-zNrHfPESZySyhCHOrjcViQNjM
 Content-Type: application/json
 
 {

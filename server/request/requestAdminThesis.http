@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzYxMDAwMDYsImV4cCI6MTY3NjEwMDkwNn0.jcIwC0ptux_nLWRI1H9ViaUwEfrJ_ahh63xYIcAs9Sc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg4NTU2ODMsImV4cCI6MTY3ODg1NjU4M30.DD4ucmxfsQ1LtkH9214V1cvMVr_hjGUgDXD35Ry4KEg
 Content-Type: application/json
 
 {
@@ -20,7 +20,7 @@ Content-Type: application/json
     "availableDay" : "",
     "defenseDay" : "",
     "lecturer1_title" : "",
-    "lecturer2_title" : "Pro",
+    "lecturer2_title" : "",
     "slot" : "",
     "slotMaximum" : "",
     "page" : "1"
@@ -33,21 +33,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/admin/add/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1ODI1ODgsImV4cCI6MTY3NzU4MzQ4OH0.SF59s8RAI8626v3afmKNTDA9-H0vTLXQGWhv3lIYRCw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg4NjkxOTUsImV4cCI6MTY3ODg3MDA5NX0.8IO-Mg_s36JZeF2U799NdamcaWAx76S6ussO_9_xPLc
 Content-Type: application/json
 
 {
-    "thesisTopic" : "Data For Everything",
+    "thesisTopic" : "Data For Everything 1",
     "thesisField" : "Data Testing",
-    "lecturer1_id" : "23483",
-    "lecturer2_id" : "22323",
+    "lecturer1_id" : "21029",
     "slotMaximum" : 2
 }
 
 
 ###
 PUT http://localhost:5000/admin/update/thesis/210292
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1ODk4NTIsImV4cCI6MTY3NzU5MDc1Mn0.hgN9UZGXqxY-SOxYo5UFYWXeeQlLA4LecVGOHyqpO3I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg4NzA2MTEsImV4cCI6MTY3ODg3MTUxMX0.XGN9KN5mAbZkAtq7LgPdbZ7efXYXqpCAa-qEVen7XZ4
 Content-Type: application/json
 
 {
