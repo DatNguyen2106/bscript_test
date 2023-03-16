@@ -38,7 +38,15 @@ lecturer1_confirm_router.post('/confirmStudent', verifyTokenLecturer1, async (re
                         const sendNotificationSup1Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendNotificationSup1Params = [`Lecturer1 confirm student` , req.userId, studentId, `You have been accepted to join "${getExactThesisFromStudentIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup1 = await sendNotification(res, sendNotificationSup1Query, sendNotificationSup1Params);      
-                        } else console.log("no thesis");
+                     
+                        const notificationReceived = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].student_id);
+
+                        const socket1 = await getSocketById(res, getExactThesisFromStudentIdResults[0][0].student_id);
+                        const socketReceiver1 = socket1[0].socket_id;
+                        if(socket1 === null || socket1 === undefined){
+                        }
+                        else { io.to(socketReceiver1).emit("notificationReceived", (notificationReceived))};    
+                    } else console.log("no thesis");
                         res.send(changeStepResults);
                     }
                     else if (confirmStudent === false){
@@ -52,21 +60,21 @@ lecturer1_confirm_router.post('/confirmStudent', verifyTokenLecturer1, async (re
                         if(getExactThesisFromStudentIdResults){
                         const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendNotificationParams = [`Lecturer1 reject student` , req.userId, studentId, `You have been rejected to join thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}"`];
-                        const sendNotification = await sendNotification(res, sendNotificationQuery, sendNotificationParams);      
+                        const Notification = await sendNotification(res, sendNotificationQuery, sendNotificationParams);      
+                        const notificationReceived = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].student_id);
+
+                        const socket1 = await getSocketById(res, getExactThesisFromStudentIdResults[0][0].student_id);
+                        const socketReceiver1 = socket1[0].socket_id;
+                        if(socket1 === null || socket1 === undefined){
+                        }
+                        else { io.to(socketReceiver1).emit("notificationReceived", (notificationReceived))};   
                         } else console.log("no thesis");
 
                         const deleteStudentsThesesQuery = "DELETE FROM students_theses WHERE student_id = ?";
                         const deleteStudentsThesesQueryParams = [studentId];
                         const deleteStudentsThesesResults = await executeQuery(res, deleteStudentsThesesQuery, deleteStudentsThesesQueryParams);
                         
-                        const notificationSent = await getNotificationSent(res, req.userId);
-                        const notificationReceived = await getNotificationReceived(res, req.userId);
-                        console.log(notificationReceived);
-                        const socket = await getSocketById(res, req.userId);
-                        const socketId = socket[0].socket_id;
-                        if(socketId === null || socketId === undefined){
-                        }
-                        else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
+
                         res.send(deleteStudentsThesesResults);
                     }
                 }

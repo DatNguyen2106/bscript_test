@@ -64,7 +64,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2Vyb
 
 ###
 POST http://localhost:5000/admin/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzYwOTg0OTUsImV4cCI6MTY3NjA5OTM5NX0.i9owolputX_3YOH6aDzpTmzepKL4mlDt3J9XDv3OktI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg5NTAwNTUsImV4cCI6MTY3ODk1MDk1NX0.b8xfCfILkUcT9Uq0DybL6RLMYpxQfcRgpczpxG_tWY8
 Content-Type: application/json
 
 {
@@ -73,7 +73,7 @@ Content-Type: application/json
     "title" : "",
     "email" : "",
     "supervisor" : "",
-    "maximumTheses" : "2",
+    "maximumTheses" : "",
     "page" : "1"
 }
 ###
@@ -132,7 +132,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwid
 
 ###
 GET http://localhost:5000/admin/get/testForm
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg3ODM1ODYsImV4cCI6MTY3ODc4NDQ4Nn0.bbq7sgrKwXE6p03SUwmriEHsFiAGbmFrqs20lgAZHBI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg5NTY2NjMsImV4cCI6MTY3ODk1NzU2M30.z-jvWMpTzvp81-wX0ucUbEMyjP1qW1iEoLjzCnGaI9c
 
 ###
 DELETE http://localhost:4000/logout

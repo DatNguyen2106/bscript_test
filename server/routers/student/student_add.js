@@ -28,8 +28,7 @@ student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) =>{
                 const getThesisInfoByIdResults = await executeQuery(res, getThesisInfoById, getThesisInfoByIdParams);
 
                 console.log(getThesisInfoByIdResults[0]);
-                var notificationReceived;
-                var socketReceiver1;
+  
                 if(getThesisInfoByIdResults){
                 for (var i = 0; i < getThesisInfoByIdResults[0].length; i++) {
                     if(getThesisInfoByIdResults[0][i].lecturer1_id !== null){
