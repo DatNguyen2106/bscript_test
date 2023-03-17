@@ -3,6 +3,8 @@ const lecturer2_update_router = express.Router();
 const db = require('../../db/connectDB');
 const verifyTokenLecturer2 = require('../../middleware/verifyTokenLecturer2');
 const moment = require('moment');
+const io = require('../.././socketServer');
+
 lecturer2_update_router.put('/assessmentBachelor', verifyTokenLecturer2, async (req, res) =>{
     // because of unique id value, so this api just returns 1 or no value.
         try {
@@ -52,20 +54,19 @@ lecturer2_update_router.put('/assessmentBachelor', verifyTokenLecturer2, async (
                         if(getExactThesisFromStudentResults[0]){
                             if(getExactThesisFromStudentResults[0].studentId !== null && getExactThesisFromStudentResults[0][0].lecturer1_id !== null){
                             const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                            const sendNotificationAnotherSupParams = [`Lecturer1 update assessment bachelor` , req.userId, getExactThesisFromStudentResults[0][0].lecturer1_id, `${lecturerTitle} has completed assessment bachelor thesis form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
+                            const sendNotificationAnotherSupParams = [`Lecturer2 update assessment bachelor` , req.userId, getExactThesisFromStudentResults[0][0].lecturer1_id, `${lecturerTitle} has completed assessment bachelor thesis form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
                             const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);      
+                            const notificationReceived = await getNotificationReceived(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
+                            console.log(notificationReceived);
+                        
+                            const socket = await getSocketById(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
+                            const socketId = socket[0].socket_id;
+                            if(socketId === null || socketId === undefined){
+                            }
+                            else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                             }
                         }
                         
-                        const notificationSent = await getNotificationSent(res, req.userId);
-                        const notificationReceived = await getNotificationReceived(res, req.userId);
-                        console.log(notificationReceived);
-                    
-                        const socket = await getSocketById(res, req.userId);
-                        const socketId = socket[0].socket_id;
-                        if(socketId === null || socketId === undefined){
-                        }
-                        else { io.to(socketId).emit("notificationReceived", (notificationReceived))};
                         res.send({"result" : "done"});
                 }
                 else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
@@ -107,15 +108,14 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
                             const getBeforeAssessmentOralDefenseResults = await executeQuery(res, getBeforeAssessmentOralDefenseQuery, getBeforeAssessmentOralDefenseParams);
                             console.log(studentId);
                             if(getBeforeAssessmentOralDefenseResults === null || getBeforeAssessmentOralDefenseResults === undefined){
-                                res.send("not found")
+                                console.log("not found")
                             }
                             else {
                                 const updateAssessmentOralDefenseQuery = "UPDATE assessment_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
                                 const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, 2, studentId];
                                 const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
-                                res.send(updateAssessmentOralDefenseResults);
+                                console.log(updateAssessmentOralDefenseResults);
                             }
-                    }
                     const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
                     const getBasicInfoLecturerByLecturerIdParams = [req.userId];
                     const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
@@ -130,17 +130,18 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
                         const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendNotificationAnotherSupParams = [`Lecturer2 update assessment oral defense` , req.userId, getExactThesisFromStudentResults[0][0].lecturer1_id, `${lecturerTitle} has completed assessment oral defense form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
                         const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);      
+                        const notificationReceivedAnotherSup = await getNotificationReceived(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
+                        console.log(notificationReceivedAnotherSup);
+                        const socketSup = await getSocketById(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
+                        const socketSupId = socketSup[0].socket_id;
+                        if(socketSup === null || socketSup === undefined){
+                        }
+                        else { io.to(socketSupId).emit("notificationReceived", (notificationReceivedAnotherSup))};    
                         }
                     }
-                    
-                    const notificationSent = await getNotificationSent(res, req.userId);
-                    const notificationReceived = await getNotificationReceived(res, req.userId);
-                    console.log(notificationReceived);
-                
-                    const socket = await getSocketById(res, req.userId);
-                    const socketId = socket[0].socket_id;
-                    if(socketId === null || socketId === undefined){
-                    }
+                    res.send({"result" : "done"});
+
+                }
                     else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
                 }
                 else res.status(404).send("No user with that username");    

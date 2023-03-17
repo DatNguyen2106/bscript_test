@@ -60,7 +60,7 @@ lecturer1_confirm_router.post('/confirmStudent', verifyTokenLecturer1, async (re
                         if(getExactThesisFromStudentIdResults){
                         const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendNotificationParams = [`Lecturer1 reject student` , req.userId, studentId, `You have been rejected to join thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}"`];
-                        const Notification = await sendNotification(res, sendNotificationQuery, sendNotificationParams);      
+                        const yNotification = await sendNotification(res, sendNotificationQuery, sendNotificationParams);      
                         const notificationReceived = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].student_id);
 
                         const socket1 = await getSocketById(res, getExactThesisFromStudentIdResults[0][0].student_id);
@@ -101,6 +101,44 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                     if(confirmThesis === true) {
                         queryParams = [true, thesisId];
                         const results = await executeQuery(res, query, queryParams);
+
+                        const getThesesByThesisIdQuery = "call getThesesByThesisId(?)";
+                        const getThesesByThesisIdParams = [thesisId];
+                        const getThesesByThesisIdResults = await executeQuery(res, getThesesByThesisIdQuery, getThesesByThesisIdParams);
+                        console.log(getThesesByThesisIdResults[0]);
+                        if(getThesesByThesisIdResults[0][0].lecturer1_id != null){
+                            const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationSup2Params = [`Lecturer1 accept confirm thesis` , req.userId, getThesesByThesisIdResults[0][0].lecturer2_id, `You has been accepted to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
+                            const sendNotificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);   
+                            const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer_id);
+                            console.log(notificationSup1Received);
+                            const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer1_id);
+                            const socketReceiver1Id = socket1[0].socket_id;
+                            if(socket1 === null || socket1 === undefined){
+                             }
+                            else { io.to(socketReceiver1Id).emit("notificationReceived", (notificationSup1Received))};
+                        }
+                        if(getThesesByThesisIdResults){
+                            for(var i = 0; i < getThesesByThesisIdResults[0].length; i++){
+                                if(getThesesByThesisIdResults[0][i].lecturer1_id !== null){
+                                if(getThesesByThesisIdResults[0][i].student_id !== null){
+                                    const sendNotificationStudentQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                    const sendNotificationStudentParams = [`Lecturer1 accept confirm thesis` , req.userId, getThesesByThesisIdResults[0][i].student_id, `${getThesesByThesisIdResults[0][i].lecturer2_title} has been accepted to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
+                                    const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);      
+                                    
+                                    const notificationStudentReceived = await getNotificationReceived(res, getThesesByThesisIdResults[0][i].student_id);
+                                    const socketStudent = await getSocketById(res, getThesesByThesisIdResults[0][i].student_id);
+                                    const socketStudentId = socketStudent[0].socket_id;
+                                    if(socketStudent === null || socketStudent === undefined){
+                                     }
+                                    else { io.to(socketStudentId).emit("notificationReceived", (notificationStudentReceived))};                               
+                                } 
+                                else {
+                                    console.log("no student for thesis");
+                                }
+                            }
+                        }
+                        } else console.log("no thesis");
                         const changeStepQuery = "UPDATE theses SET step = ? where thesis_id = ?";
                         const changeStepQueryParams = [2, thesisId];
                         const changeStepResult = await executeQuery(res, changeStepQuery, changeStepQueryParams);
@@ -109,9 +147,48 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                     else if (confirmThesis === false){
                         queryParams = [false, thesisId];
                         const results = await executeQuery(res, query, queryParams);
+                        const getThesesByThesisIdQuery = "call getThesesByThesisId(?)";
+                        const getThesesByThesisIdParams = [thesisId];
+                        const getThesesByThesisIdResults = await executeQuery(res, getThesesByThesisIdQuery, getThesesByThesisIdParams);
+
+                        console.log(getThesesByThesisIdResults[0])
+                        if(getThesesByThesisIdResults[0][0].lecturer1_id !== null) {
+                            const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationSup2Params = [`Lecturer1 reject  confirm thesis` , req.userId, getThesesByThesisIdResults[0][0].lecturer2_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has been rejected to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
+                            const sendNotificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params); 
+                            const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer2_id);
+                            console.log(notificationSup1Received);
+                            const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer2_id);
+                            const socketReceiver1Id = socket1[0].socket_id;
+                            if(socket1 === null || socket1 === undefined){
+                             }
+                            else { io.to(socketReceiver1Id).emit("notificationReceived", (notificationSup1Received))};
+                        }
+                        if(getThesesByThesisIdResults){
+                            for(var i = 0; i < getThesesByThesisIdResults[0].length; i++){
+                            if(getThesesByThesisIdResults[0][i].lecturer1_id){  
+                                if(getThesesByThesisIdResults[0][i].student_id !== null){
+                                    const sendNotificationStudentQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                    const sendNotificationStudentParams = [`Lecturer1 reject confirm thesis` , req.userId, getThesesByThesisIdResults[0][i].student_id, `You has been rejected to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
+                                    const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);      
+                                    const notificationStudentReceived = await getNotificationReceived(res, getThesesByThesisIdResults[0][i].student_id);
+                                    const socketStudent = await getSocketById(res, getThesesByThesisIdResults[0][i].student_id);
+                                    const socketStudentId = socketStudent[0].socket_id;
+                                    if(socketStudent === null || socketStudent === undefined){
+                                     }
+                                    else { io.to(socketStudentId).emit("notificationReceived", (notificationStudentReceived))};       
+                                } else {
+                                    console.log("no student for thesis");
+                                }
+                            }
+                        }
+                        } else console.log("no thesis");
                         const setNullLecturer2Query = "UPDATE lecturers_theses SET lecturer2 = NULL where thesis_id = ?";
                         const setNullLecturer2QueryParams = [thesisId];
                         const setNullLecturer2Results = await executeQuery(res, setNullLecturer2Query, setNullLecturer2QueryParams);
+                        const changeStepQuery = "UPDATE theses SET step = ? where thesis_id = ?";
+                        const changeStepQueryParams = [2, thesisId];
+                        const changeStepResult = await executeQuery(res, changeStepQuery, changeStepQueryParams);
                         res.send(setNullLecturer2Results);
                     }
                 }

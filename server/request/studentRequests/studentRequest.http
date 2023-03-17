@@ -66,7 +66,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZ
 Content-Type: application/json
 
 {
-    "studentId" : 12486,
+    "studentId" : 11475,
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen",
     "foreName" : "long",
@@ -169,7 +169,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/student/update/confirmSup2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzc2Nzg5MTIsImV4cCI6MTY3NzY3OTgxMn0.Gth2Ulsc_VKP3KwrgT2UgL-FgIFLWeSb-JmkTL4xJaw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2NzkwMzg1NDIsImV4cCI6MTY3OTAzOTQ0Mn0.6ZrKBY3htFqSCjLcge6vsKli7ZfVsyiVcQhW5ld6ycQ
 Content-Type: application/json
 
 {
@@ -230,7 +230,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/student/get/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NTYyMTQxNCwiZXhwIjoxNjc1NjIyMzE0fQ.JGAGGTLqlc0KWPfoTanEPGCQur-t2Kz6ITxfinRkKfI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzg5NTAyOTUsImV4cCI6MTY3ODk1MTE5NX0.W25mNvhClOIFrvQN7JGES07GFEYmBpGn6v0pOs6Qfrk
 
 ###
 GET http://localhost:5000/student/update/account
@@ -240,3 +240,6 @@ Content-Type: application/json
 {
     "signature" : "sign student"
 }
+###
+GET http://localhost:5000/student/get/testForm
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE0NzUsInVzZXJuYW1lIjoiZHBhbXBsaW41Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzg5ODgwMjYsImV4cCI6MTY3ODk4ODkyNn0.fEjzi0OvU02nT-LVc8LhVLvAPlESZGjzpieIjM8gIGE

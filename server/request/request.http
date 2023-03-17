@@ -131,8 +131,8 @@ DELETE http://localhost:5000/admin/delete/lecturer/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNDY4OSwiZXhwIjoxNjY3MDM0NzE5fQ.jWem9asn3mJG01BiqgTelT8GqfBT96MkfTPwFv364k0
 
 ###
-GET http://localhost:5000/admin/get/testForm
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg5NTY2NjMsImV4cCI6MTY3ODk1NzU2M30.z-jvWMpTzvp81-wX0ucUbEMyjP1qW1iEoLjzCnGaI9c
+GET http://localhost:5000/admin/get/testForm/12486
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg5NzUwMjUsImV4cCI6MTY3ODk3NTkyNX0.8eVgfpbqXe3p058XTLW3WN_sATvz-_myXhQoucTy7EU
 
 ###
 DELETE http://localhost:4000/logout

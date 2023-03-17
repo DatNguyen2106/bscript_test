@@ -212,7 +212,7 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                                 
                             if(req.userId !== thesisResultsAfter[0][i].student_id && thesisResultsAfter[0][i].student_id !== null){
                                 const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                                const sendParams = [`Student add sup2` , req.userId, thesisResultsAfter[0][i].lecturer1_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2"`];
+                                const sendParams = [`Student add sup2` , req.userId, thesisResultsAfter[0][i].lecturer1_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2 with student ${thesisResultsAfter[0][i].student_id}"`];
                                 const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                                 const notificationReceived1 = await getNotificationReceived(res, thesisResultsAfter[0][i].lecturer1_id);
                                 console.log(notificationReceived1);
@@ -224,7 +224,7 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                                 else { io.to(socketReceiver1Id).emit("notificationReceived", (notificationReceived1))};
                                
                                 const sendNotificationForStudentQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                                const sendNotificationForStudentParams = [`Student add sup2` , req.userId, thesisResultsAfter[0][i].student_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2"`];
+                                const sendNotificationForStudentParams = [`Student add sup2` , req.userId, thesisResultsAfter[0][i].student_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2 "`];
                                 const sendNotificationForStudentNoti = await sendNotification(res, sendNotificationForStudentQuery, sendNotificationForStudentParams);
                                 const notificationReceived2 = await getNotificationReceived(res, thesisResultsAfter[0][i].student_id);
                                 const socket2 = await getSocketById(res, thesisResultsAfter[0][i].student_id);
@@ -232,12 +232,51 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                                 if(socketReceiver2Id === null || socketReceiver2Id === undefined){
                                     }
                                 else { io.to(socketReceiver2Id).emit("notificationReceived", (notificationReceived2))}; 
+                                
+                                const sendNotificationForSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                const sendNotificationForSup2Params = [`Student add sup2` , req.userId, lecturer2_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2 "`];
+                                const sendNotificationForSup2Noti = await sendNotification(res, sendNotificationForSup2Query, sendNotificationForSup2Params);
+                                const notificationReceived3 = await getNotificationReceived(res, lecturer2_id);
+                                console.log(notificationReceived3);
+                                
+                                const socket3 = await getSocketById(res, lecturer2_id);
+                                const socketReceiver3Id = socket3[0].socket_id;
+                                if(socket3 === null || socket3 === undefined){
+                                    }
+                                else { io.to(socketReceiver3Id).emit("notificationReceived", (notificationReceived3))};   
+                                
+                            }
+                            else if(req.userId === thesisResultsAfter[0][i].student_id && thesisResultsAfter[0][i].student_id !== null){
+                                const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                const sendParams = [`Student add sup2` , req.userId, thesisResultsAfter[0][i].lecturer1_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2"`];
+                                const notification = await sendNotification(res, sendNotificationQuery, sendParams);
+                                const notificationReceived1 = await getNotificationReceived(res, thesisResultsAfter[0][i].lecturer1_id);
+                                console.log(notificationReceived1);
+                                
+                                const socket1 = await getSocketById(res, thesisResultsAfter[0][i].lecturer1_id);
+                                const socketReceiver1Id = socket1[0].socket_id;
+                                if(socket1 === null || socket1 === undefined){
+                                    }
+                                else { io.to(socketReceiver1Id).emit("notificationReceived", (notificationReceived1))};
+                               
+                                const notificationReceived2 = await getNotificationReceived(res, lecturer2_id);
+                                console.log(notificationReceived2);
+                                const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+
+                                const sendNotificationSup2Params = [`Student add sup2` , req.userId, lecturer2_id, `You was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2"`];
+                                const notificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
+                                const notificationSup2Received = await getNotificationReceived(res, lecturer2_id);
+                                const socket2 = await getSocketById(res, lecturer2_id);
+                                const socketReceiver2Id = socket2[0].socket_id;
+                                if(socket2 === null || socket2 === undefined){
+                                    }
+                                else { io.to(socketReceiver2Id).emit("notificationReceived", (notificationSup2Received))};   
+                               
                             }
                             } else console.log("no sup 2")
                         }
                    }
                 }
-                const notificationSent = await getNotificationSent(res, req.userId);
                 res.send(results);
                 }
             }
