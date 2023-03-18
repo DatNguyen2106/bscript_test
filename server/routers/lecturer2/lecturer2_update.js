@@ -151,6 +151,27 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
             }
             
         })
+lecturer2_update_router.put('/signature', verifyTokenLecturer2, async (req, res) =>{
+            // because of unique id value, so this api just returns 1 or no value.
+                var role = req.role;
+                var signature = req.body.signature;
+                if(req.username) {
+                    if(role){
+                        if(req.userId === undefined  || req.userId === ''){
+                            res.status(500).send("Undefined id for add");
+                        } 
+                        else {
+                            console.log(signature)
+                            const updateSignatureQuery = "UPDATE lecturers SET signature = ? WHERE lecturer_id = ?";
+                            const updateSignatureQueryParams = [signature, req.userId];
+                            const results = await executeQuery(res, updateSignatureQuery, updateSignatureQueryParams);
+                            res.send(results);
+                        }
+                    }
+                    else res.status(405).send("You are not allowed to access, You are not admin")
+                }
+                else res.status(404).send("No user with that username");
+    });
 const executeQuery = (res, query, queryParams) => {
     const results =  new Promise((resolve) => {
         db.query(query, queryParams, (err, result) => {
