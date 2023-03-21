@@ -289,7 +289,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer2/update/signature
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3OTEyNzIwNSwiZXhwIjoxNjc5MTI4MTA1fQ.YNFUSGQw0UC_5DethxKXaaK0A9SipEwQCZKdnNRlAyM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3OTEyNzMwOCwiZXhwIjoxNjc5MTI4MjA4fQ.cJfQ-0WJKgtByBVwuL5ce1QVZTZZOYV-E7YeG4nCJ6o
 Content-Type: application/json
 
 {
