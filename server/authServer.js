@@ -8,8 +8,12 @@ const app = express();
 const verifyToken = require('./middleware/auth');
 const jwt = require('jsonwebtoken');
 const { application } = require('express');
+const bodyParser = require('body-parser');
+
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 var users = [];
 
 app.post('/signup', async (req , res) => {

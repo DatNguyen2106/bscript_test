@@ -8,10 +8,13 @@ const { verify } = require('crypto');
 const jwt = require('jsonwebtoken');
 const db = require('./db/connectDB')
 const app = express();
+const bodyParser = require('body-parser');
+
 app.use(cors());
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 const io = require("socket.io")(httpServer,{
     cors: {
         origin: "http://localhost:3000/", 
