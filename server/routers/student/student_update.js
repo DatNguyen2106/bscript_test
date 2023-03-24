@@ -20,10 +20,8 @@ student_update_router.put('/registrationBachelorThesis', verifyTokenStudent, asy
         var thesisType = (req.body.thesisType === "" || req.body.thesisType === undefined) ?  null : req.body.thesisType;
         var furtherParticipants = (req.body.furtherParticipants === "" || req.body.furtherParticipants === undefined) ?  null : req.body.furtherParticipants;
         var supervisor1_title = (req.body.supervisor1_title === "" || req.body.supervisor1_title === undefined) ?  null : req.body.supervisor1_title;
-        var supervisor1_signature = (req.body.supervisor1_signature === "" || req.body.supervisor1_signature === undefined) ?  null : req.body.signature;
         var supervisor1_date = (req.body.supervisor1_date === "" || req.body.supervisor1_date === undefined) ?  null : req.body.supervisor1_date;
         var supervisor2_title = (req.body.supervisor2_title === "" ||req.body.supervisor2_title === undefined) ?  null : req.body.supervisor2_title;
-        var supervisor2_signature = (req.body.supervisor2_signature === "" || req.body.supervisor2_signature === undefined) ?  null : req.body.supervisor2_signature;
         var supervisor2_date = (req.body.supervisor2_date === "" || req.body.supervisor2_date === undefined) ?  null : req.body.supervisor2_date;
         var issued = (req.body.issued === "" || req.body.issued === undefined) ?  null : req.body.issued;
         var deadlineCopy = (req.body.deadlineCopy === "" || req.body.deadlineCopy === undefined) ?  null : req.body.deadlineCopy;
@@ -44,10 +42,15 @@ student_update_router.put('/registrationBachelorThesis', verifyTokenStudent, asy
                 }
                 else {
                 studentId = req.userId;
-                const query = "UPDATE registrations_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, date_of_birth = ?, place_of_birth = ?, signature = ?, student_date = ?, title_bachelor_thesis = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_signature = ?, supervisor1_date = ?, supervisor2_title = ?, supervisor2_signature = ?, supervisor2_date = ?, issued = ?, deadline_copy = ?, extension_granted = ?, chairman_of_examination = ?, date_of_issue = ?, step = ? where student_id = ?";
-                const queryParams = [matriculationNumber, surName, foreName, dateOfBirth, placeOfBirth, signature, student_date, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue, 1, studentId]
+                const getStudentInfo = 'call getAccountByStudentId(?)';
+                const getStudentInfoParams = [studentId];
+                const getStudentInfoResults = await executeQuery(res, getStudentInfo, getStudentInfoParams);
+                console.log(getStudentInfoResults[0][0].signature);
+                console.log(dateOfIssue)
+                const query = "UPDATE registrations_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, date_of_birth = ?, place_of_birth = ?, signature = ?, student_date = ?, title_bachelor_thesis = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_date = ?, supervisor2_title = ?, supervisor2_date = ?, issued = ?, deadline_copy = ?, extension_granted = ?, chairman_of_examination = ?, date_of_issue = ?, step = ? where student_id = ?";
+                const queryParams = [matriculationNumber, surName, foreName, dateOfBirth, placeOfBirth, getStudentInfoResults[0][0].signature, student_date, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_date, supervisor2_title, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue, 1, studentId]
                 const dbResults = await executeQuery(res, query, queryParams);
-                
+               
                 const getThesisQuery = "call getExactThesisFromStudentId(?)";
                 const getThesisParams = [studentId];
                 const getThesisResults = await executeQuery(res, getThesisQuery, getThesisParams);

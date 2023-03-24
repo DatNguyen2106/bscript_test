@@ -22,7 +22,10 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup1', verifyTokenLec
                         const query = "UPDATE registrations_for_bachelor_thesis SET step = ? WHERE student_id = ?";
                         const queryParams = [2, studentId];
                         const result = await executeQuery(res, query, queryParams);
-                        
+                        console.log(basicInfoLecturerResults[0][0].signature);
+                        const insertSignatureToRegistrationBachelor = 'UPDATE registrations_for_bachelor_thesis SET supervisor1_signature = ? WHERE student_id = ?';
+                        const insertSignatureToRegistrationBachelorParams = [basicInfoLecturerResults[0][0].signature, studentId];
+                        const insertSignatureToRegistrationBachelorResults = await executeQuery(res, insertSignatureToRegistrationBachelor, insertSignatureToRegistrationBachelorParams);
                         const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
                         const getExactThesisFromStudentIdParams = [studentId];
                         const getExactThesisFromStudentIdResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentIdParams);
@@ -92,7 +95,7 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup2', verifyTokenLec
                     const changeStepRegistrationBachelorThesisQuery = "Update registrations_for_bachelor_thesis SET step = ? where student_id = ?";
                     const changeStepRegistrationBachelorThesisQueryParams = [3, studentId];
                     const changeStepRegistrationBachelorThesisResults = await executeQuery(res, changeStepRegistrationBachelorThesisQuery, changeStepRegistrationBachelorThesisQueryParams);
-
+                    
                     const getThesisIdByStudentIdQuery = " call getThesisIdByStudentId(?)";
                     const getThesisIdByStudentIdQueryParams = [studentId];
                     const getThesisIdByStudentIdResults = await executeQuery(res, getThesisIdByStudentIdQuery, getThesisIdByStudentIdQueryParams);
@@ -102,7 +105,10 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup2', verifyTokenLec
                     const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
                     const getExactThesisFromStudentIdParams = [studentId];
                     const getExactThesisFromStudentIdResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentIdParams);
-
+                  
+                    const insertSignatureToRegistrationBachelor = 'UPDATE registrations_for_bachelor_thesis SET supervisor2_signature = ? WHERE student_id = ?';
+                    const insertSignatureToRegistrationBachelorParams = [basicInfoLecturerResults[0][0].signature, studentId];
+                    const insertSignatureToRegistrationBachelorResults = await executeQuery(res, insertSignatureToRegistrationBachelor, insertSignatureToRegistrationBachelorParams);
                     if(getExactThesisFromStudentIdResults[0]){
                         if(getExactThesisFromStudentIdResults[0][0].studentId !== null && getExactThesisFromStudentIdResults[0][0].lecturer1_title !== null){
                         const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";

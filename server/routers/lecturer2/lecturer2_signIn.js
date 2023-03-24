@@ -29,7 +29,10 @@ lecturer2_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer2
                     const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
                     const getExactThesisFromStudentIdParams = [studentId];
                     const getExactThesisFromStudentIdResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentIdParams);
-
+                   
+                    const insertSignatureToRegistrationBachelor = 'UPDATE registrations_for_bachelor_thesis SET supervisor2_signature = ? WHERE student_id = ?';
+                    const insertSignatureToRegistrationBachelorParams = [basicInfoLecturerResults[0][0].signature, studentId];
+                    const insertSignatureToRegistrationBachelorResults = await executeQuery(res, insertSignatureToRegistrationBachelor, insertSignatureToRegistrationBachelorParams);
                     if(getExactThesisFromStudentIdResults[0]){
                         if(getExactThesisFromStudentIdResults[0][0].studentId !== null && getExactThesisFromStudentIdResults[0][0].lecturer1_title !== null){
                         const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";

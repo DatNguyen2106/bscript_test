@@ -22,8 +22,6 @@ lecturer2_update_router.put('/assessmentBachelor', verifyTokenLecturer2, async (
             var supervisor2_grade = (req.body.supervisor2_grade === "" || req.body.supervisor2_grade === undefined) ?  null : req.body.supervisor2_grade;
             var assessmentThesis = (req.body.assessmentThesis === "" || req.body.assessmentThesis === undefined)  ?  null : req.body.assessmentThesis;
             var assessmentDate = (req.body.assessmentDate === "" || req.body.assessmentDate === undefined)  ?  null : req.body.assessmentDate;
-            var supervisor1_signature = (req.body.supervisor1_signature === "" ||req.body.supervisor1_signature === undefined) ?  null : req.body.supervisor1_signature;
-            var supervisor2_signature = (req.body.supervisor2_signature === "" || req.body.supervisor2_signature === undefined) ?  null : req.body.supervisor2_signature;
 
             if(req.username && req.userId) {
                 if(role){                
@@ -33,18 +31,18 @@ lecturer2_update_router.put('/assessmentBachelor', verifyTokenLecturer2, async (
                         const getBeforeAssessmentBachelorThesisResults = await executeQuery(res, getBeforeAssessmentBachelorThesisQuery, getBeforeAssessmentBachelorThesisParams);
                         console.log(studentId);
                         console.log(matriculationNumber);
+                        const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
+                        const getBasicInfoLecturerByLecturerIdParams = [req.userId];
+                        const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
                         if(getBeforeAssessmentBachelorThesisResults === null || getBeforeAssessmentBachelorThesisResults === undefined){
                             res.send("not found bachelor thesis results");
                         }
                         else {
-                            const updateAssessmentBachelorThesisQuery = "UPDATE assessment_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, thesis_title = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
-                            const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName,  thesisTitle, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature, 2, studentId];
+                            const updateAssessmentBachelorThesisQuery = "UPDATE assessment_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, thesis_title = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
+                            const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName,  thesisTitle, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, basicInfoLecturerResults[0][0].lecturer_id, 2, studentId];
                             const updateAssessmentBachelorThesisResults = await executeQuery(res, updateAssessmentBachelorThesisQuery, updateAssessmentBachelorThesisParams);
                         }
 
-                        const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
-                        const getBasicInfoLecturerByLecturerIdParams = [req.userId];
-                        const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
                         const lecturerTitle = basicInfoLecturerResults[0][0].title;
 
                         const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
@@ -97,51 +95,50 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
                 var supervisor2_grade = (req.body.supervisor2_grade === "" || req.body.supervisor2_grade === undefined) ? null : req.body.supervisor2_grade;
                 var record = (req.body.record === "" || req.body.record === undefined) ? null : req.body.record;
                 var assessmentDate = (req.body.assessmentDate === "" || req.body.assessmentDate === undefined) ? null : req.body.assessmentDate;
-                var supervisor1_signature = (req.body.supervisor1_signature === "" || req.body.supervisor1_signature === undefined) ? null : req.body.supervisor1_signature;
-                var supervisor2_signature = (req.body.supervisor2_signature === "" || req.body.supervisor2_signature === undefined) ? null : req.body.supervisor1_signature;
-        
+
                 if(req.username && req.userId) {
                     if(role){                
-                            studentId = req.body.studentId;
-                            const getBeforeAssessmentOralDefenseQuery = "SELECT * FROM assessment_for_oral_defense where student_id = ?";
-                            const getBeforeAssessmentOralDefenseParams = [studentId];
-                            const getBeforeAssessmentOralDefenseResults = await executeQuery(res, getBeforeAssessmentOralDefenseQuery, getBeforeAssessmentOralDefenseParams);
-                            console.log(studentId);
-                            if(getBeforeAssessmentOralDefenseResults === null || getBeforeAssessmentOralDefenseResults === undefined){
-                                console.log("not found")
-                            }
-                            else {
-                                const updateAssessmentOralDefenseQuery = "UPDATE assessment_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
-                                const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, 2, studentId];
-                                const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
-                                console.log(updateAssessmentOralDefenseResults);
-                            }
-                    const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
-                    const getBasicInfoLecturerByLecturerIdParams = [req.userId];
-                    const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
-                    const lecturerTitle = basicInfoLecturerResults[0][0].title;
+                        studentId = req.body.studentId;
+                        const getBeforeAssessmentOralDefenseQuery = "SELECT * FROM assessment_for_oral_defense where student_id = ?";
+                        const getBeforeAssessmentOralDefenseParams = [studentId];
+                        const getBeforeAssessmentOralDefenseResults = await executeQuery(res, getBeforeAssessmentOralDefenseQuery, getBeforeAssessmentOralDefenseParams);
+                        console.log(studentId);
+                        const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
+                        const getBasicInfoLecturerByLecturerIdParams = [req.userId];
+                        const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
 
-                    const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
-                    const getExactThesisFromStudentParams = [studentId];
-                    const getExactThesisFromStudentResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentParams);
+                        if(getBeforeAssessmentOralDefenseResults === null || getBeforeAssessmentOralDefenseResults === undefined){
+                            console.log("not found")
+                        }
+                        else {
+                            const updateAssessmentOralDefenseQuery = "UPDATE assessment_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
+                            const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, basicInfoLecturerResults[0][0].signature, 2, studentId];
+                            const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
+                            console.log(updateAssessmentOralDefenseResults);
+                        }
 
-                    if(getExactThesisFromStudentResults[0]){
-                        if(getExactThesisFromStudentResults[0].studentId !== null && getExactThesisFromStudentResults[0][0].lecturer1_id !== null){
-                        const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                        const sendNotificationAnotherSupParams = [`Lecturer2 update assessment oral defense` , req.userId, getExactThesisFromStudentResults[0][0].lecturer1_id, `${lecturerTitle} has completed assessment oral defense form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
-                        const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);      
-                        const notificationReceivedAnotherSup = await getNotificationReceived(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
-                        console.log(notificationReceivedAnotherSup);
-                        const socketSup = await getSocketById(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
-                        const socketSupId = socketSup[0].socket_id;
-                        if(socketSup === null || socketSup === undefined){
+                        const lecturerTitle = basicInfoLecturerResults[0][0].title;
+
+                        const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
+                        const getExactThesisFromStudentParams = [studentId];
+                        const getExactThesisFromStudentResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentParams);
+
+                        if(getExactThesisFromStudentResults[0]){
+                            if(getExactThesisFromStudentResults[0].studentId !== null && getExactThesisFromStudentResults[0][0].lecturer1_id !== null){
+                            const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationAnotherSupParams = [`Lecturer2 update assessment oral defense` , req.userId, getExactThesisFromStudentResults[0][0].lecturer1_id, `${lecturerTitle} has completed assessment oral defense form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
+                            const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);      
+                            const notificationReceivedAnotherSup = await getNotificationReceived(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
+                            console.log(notificationReceivedAnotherSup);
+                            const socketSup = await getSocketById(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
+                            const socketSupId = socketSup[0].socket_id;
+                            if(socketSup === null || socketSup === undefined){
+                            }
+                            else { io.to(socketSupId).emit("notificationReceived", (notificationReceivedAnotherSup))};    
+                            }
                         }
-                        else { io.to(socketSupId).emit("notificationReceived", (notificationReceivedAnotherSup))};    
-                        }
+                        res.send({"result" : "done"});
                     }
-                    res.send({"result" : "done"});
-
-                }
                     else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
                 }
                 else res.status(404).send("No user with that username");    
