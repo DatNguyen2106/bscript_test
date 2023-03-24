@@ -186,7 +186,7 @@ lecturer1_update_router.put('/account', verifyTokenLecturer1, async (req, res) =
             }
             
         })
-lecturer1_update_router.post('/signature', verifyTokenLecturer1, async (req, res) =>{
+lecturer1_update_router.put('/signature', verifyTokenLecturer1, async (req, res) =>{
             // because of unique id value, so this api just returns 1 or no value.
                 var role = req.role;
                 var signature = req.body.signature;
