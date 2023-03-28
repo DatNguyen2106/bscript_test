@@ -117,7 +117,7 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                             if (getThesesByThesisIdResults[0][i].lecturer1_id !== null) {
                                 if (getThesesByThesisIdResults[0][i].student_id !== null) {
                                     const sendNotificationStudentQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                                    const sendNotificationStudentParams = [`Lecturer1 accept confirm thesis`, req.userId, getThesesByThesisIdResults[0][i].student_id, `${getThesesByThesisIdResults[0][i].lecturer2_title} has been accepted to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
+                                    const sendNotificationStudentParams = [`Lecturer1 accept confirm thesis`, req.userId, getThesesByThesisIdResults[0][i].student_id, `${getThesesByThesisIdResults[0][i].lecturer2_title} has accepted to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
                                     const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);
 
                                     const notificationStudentReceived = await getNotificationReceived(res, getThesesByThesisIdResults[0][i].student_id);

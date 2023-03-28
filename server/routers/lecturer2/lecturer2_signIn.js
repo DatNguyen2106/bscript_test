@@ -17,7 +17,7 @@ lecturer2_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer2
                 const lecturerTitle = basicInfoLecturerResults[0][0].title;
                 if (confirmSignature === true) {
                     const changeStepRegistrationBachelorThesisQuery = "Update registrations_for_bachelor_thesis SET step = ? where student_id = ?";
-                    const changeStepRegistrationBachelorThesisQueryParams = [3, studentId];
+                    const changeStepRegistrationBachelorThesisQueryParams = [2, studentId];
                     const changeStepRegistrationBachelorThesisResults = await executeQuery(res, changeStepRegistrationBachelorThesisQuery, changeStepRegistrationBachelorThesisQueryParams);
 
                     const getThesisIdByStudentIdQuery = " call getThesisIdByStudentId(?)";
@@ -30,6 +30,9 @@ lecturer2_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer2
                     const getExactThesisFromStudentIdParams = [studentId];
                     const getExactThesisFromStudentIdResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentIdParams);
 
+                    const insertSignatureToRegistrationBachelor = 'UPDATE registrations_for_bachelor_thesis SET supervisor2_signature = ? WHERE student_id = ?';
+                    const insertSignatureToRegistrationBachelorParams = [basicInfoLecturerResults[0][0].signature, studentId];
+                    const insertSignatureToRegistrationBachelorResults = await executeQuery(res, insertSignatureToRegistrationBachelor, insertSignatureToRegistrationBachelorParams);
                     if (getExactThesisFromStudentIdResults[0]) {
                         if (getExactThesisFromStudentIdResults[0][0].studentId !== null && getExactThesisFromStudentIdResults[0][0].lecturer1_title !== null) {
                             const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";

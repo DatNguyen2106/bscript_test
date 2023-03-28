@@ -32,7 +32,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZ
 
 ###
 POST http://localhost:5000/student/add/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MzUwOTc5MiwiZXhwIjoxNjczNTEwNjkyfQ.mKtqJ_-QyhbCqluCspGtNZG4ms2_Fh0LN1A4L4KnmoY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDAyMDAsImV4cCI6MTY4MDAwMTEwMH0.RVYAHZ0PAjZsZIE6w_gTzze3ZKiTgihdfA0DGspljKY
 Content-Type: application/json
 
 {
@@ -160,30 +160,30 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZ
 
 ###
 POST http://localhost:5000/student/add/confirmSup1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM0NDQsInVzZXJuYW1lIjoiYWJlenphbnQ2Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzg3ODE0NjgsImV4cCI6MTY3ODc4MjM2OH0.JwDul5mb_-NweGiGD-zNrHfPESZySyhCHOrjcViQNjM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDAyMDAsImV4cCI6MTY4MDAwMTEwMH0.RVYAHZ0PAjZsZIE6w_gTzze3ZKiTgihdfA0DGspljKY
 Content-Type: application/json
 
 {
-    "thesisId" : "123554"
+    "thesisId" : "210292"
 }
 
 ###
 PUT http://localhost:5000/student/update/confirmSup2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzk5OTUyOTAsImV4cCI6MTY3OTk5NjE5MH0.U-OFBc3ksuwTJAPoF7tQuryRpXbugkeoTUUFs42H7ac
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDEzODYsImV4cCI6MTY4MDAwMjI4Nn0.RaFfi2pdRqlRcgThfI2GPOxvFL0aQBH_sWWCVgjV-Ng
 Content-Type: application/json
 
 {
-    "lecturer2_id" : "22323"
+    "lecturer2Id" : "22323"
 }
 
 ###
 PUT http://localhost:5000/student/update/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkzNjMsInVzZXJuYW1lIjoiYXJpY2tlbGwzIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzk5MjIwNjAsImV4cCI6MTY3OTkyMjk2MH0.NXl17v64-rBvxWi36B3gFaNPU5bnCECwoNZu9xWg0cQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDAyMDAsImV4cCI6MTY4MDAwMTEwMH0.RVYAHZ0PAjZsZIE6w_gTzze3ZKiTgihdfA0DGspljKY
 Content-Type: application/json
 
 {
     "matriculationNumber" : 1232312,
-    "surName" : "phannguyen",
+    "surName" : "phannguyen test",
     "foreName" : "long",
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
