@@ -62,7 +62,7 @@ lecturer2_get_router.get('/thesis/:id', verifyTokenLecturer2, async (req, res) =
                     const query = "call getThesesByThesisId(?);"
                     const queryParams = [thesisId];
                     const results = await executeQuery(res, query, queryParams);
-                    
+
                     for (var i = 0; i < results[0].length; i++) {
                         studentId = results[0][i].student_id;
                         const registrationBachelorThesisQuery = "SELECT * FROM registrations_for_bachelor_thesis WHERE student_id  = ?";
@@ -87,7 +87,6 @@ lecturer2_get_router.get('/thesis/:id', verifyTokenLecturer2, async (req, res) =
                         results[0][i]['assessmentBachelorThesisResults'] = assessmentBachelorThesisResults;
                         results[0][i]['assessmentOralDefenseResults'] = assessmentOralDefenseResults;
                     }
-                    console.log(results);
                     results.id = req.userId;
                     res.send({ "lecturer_id": results.id, "list": results[0] });
                 }
@@ -133,8 +132,6 @@ lecturer2_get_router.get('/testForm/:id', verifyTokenLecturer2, async (req, res)
                     const queryParamsAssessmentOralDefense = [studentId]
                     const assessmentOralDefenseResults = await executeQuery(res, assessmentOralDefenseQuery, queryParamsAssessmentOralDefense);
                     results.pop();
-                    console.log(results[0]);
-                    console.log(results[0].length);
                     var studentList = [];
                     for (var i = 0; i < results[0].length; i++) {
                         // var studentList = {"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1}
@@ -146,7 +143,6 @@ lecturer2_get_router.get('/testForm/:id', verifyTokenLecturer2, async (req, res)
                         delete results[0][i]["student_id"];
                         delete results[0][i]["confirm_sup1"];
                     }
-                    console.log(results[0]["student_id"]);
 
                     results[0]["student_list"] = studentList;
                     res.send({ "student_id": studentId, "list": results[0], registrationBachelorThesisResults, registrationOralDefenseResults, assessmentBachelorThesisResults, assessmentOralDefenseResults });

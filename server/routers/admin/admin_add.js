@@ -16,12 +16,10 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) => {
     var signature = (req.body.signature === "" || req.body.signature === undefined) ? null : req.body.signature;
     var userName = req.body.username;
     var email;
-    console.log(req.body.email);
     email = checkTypeToAdd(req.body.email, emailFormat);
     var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ? null : req.body.supervisor;
     var maximumTheses = (req.body.maximumTheses === "" || req.body.maximumTheses === undefined) ? 0 : req.body.maximumTheses;
     var bio = (req.body.bio === "" || req.body.bio === undefined) ? 0 : req.body.bio;
-    console.log(supervisor);
     if (req.username) {
         if (role) {
             if (req.body.id === undefined || req.body.id === '') {
@@ -42,14 +40,12 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) => {
                         const addQuery = "INSERT INTO lecturers (lecturer_id, lecturer_user_name, title, email, supervisor, signature, maximum_of_theses, bio) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
                         const addQueryParams = [lecturerId, userName, title, email, supervisor, signature, maximumTheses, bio];
                         const addQueryResults = await executeQuery(res, addQuery, addQueryParams);
-                        console.log(addQueryResults);
                         if (addQueryResults) {
 
                             const role = req.role;
                             // default password = id of this user;
                             var password = JSON.stringify(lecturerId);
                             const roleOfUser = `["${supervisor}"]`;
-                            console.log(roleOfUser);
                             const insertUserQuery = "INSERT INTO tbl_user (id, username, password, salt, role) VALUES (?, ?, ?, ?, ?)";
                             bcrypt.genSalt(saltRounds, function (err, salt) {
                                 bcrypt.hash(password, salt, function (err, hash) {
@@ -72,7 +68,6 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) => {
                             const notificationReceived = await getNotificationReceived(res, req.userId);
                             const socket = await getSocketById(res, req.userId);
                             const socketId = socket[0].socket_id;
-                            console.log(notificationSent);
                             if (socketId === null || socketId === undefined) {
                                 console.log("no socketId from database");
                             }
@@ -119,7 +114,6 @@ admin_add_router.post('/student', verifyTokenAdmin, async (req, res) => {
                         const addQuery = "INSERT INTO students (student_id, student_user_name, fullname, intake, email, ects, signature) VALUES(?, ?, ?, ?, ?, ?, ?)";
                         const addQueryParams = [id, userName, fullName, intake, email, ects, signature];
                         const addQueryResults = await executeQuery(res, addQuery, addQueryParams);
-                        console.log(addQueryResults);
 
                         if (addQueryResults) {
                             // default password = id of this user;
@@ -143,11 +137,9 @@ admin_add_router.post('/student', verifyTokenAdmin, async (req, res) => {
                             const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                             const sendParams = [`Update from ${req.userId} to ${req.userId}`, req.userId, req.userId, `insert new student  ${id} successfully`];
                             const notification = await sendNotification(res, sendNotificationQuery, sendParams);
-                            const notificationSent = await getNotificationSent(res, req.userId);
                             const notificationReceived = await getNotificationReceived(res, req.userId);
                             const socket = await getSocketById(res, req.userId);
                             const socketId = socket[0].socket_id;
-                            console.log(notificationSent);
                             if (socketId === null || socketId === undefined) {
                                 console.log("no socketId from database");
                             }
@@ -170,12 +162,10 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) => {
     var lecturer2_id = (req.body.lecturer2_id === "" || req.body.lecturer2_id === undefined) ? null : req.body.lecturer2_id;
     var slotMaximum = (req.body.slotMaximum === "" || req.body.slotMaximum === undefined) ? null : req.body.slotMaximum;
     var currentTimeValue = moment().valueOf();
-    console.log(currentTimeValue);
     if (req.username) {
         if (role && req.userId) {
             var thesisId = `${currentTimeValue}${lecturer1_id}`;
             thesisId = parseInt(thesisId);
-            console.log(typeof (thesisId))
             const insertThesesQuery = "call addNewThesis(?, ?, ?, ?, ?)";
             const queryParams = [thesisId, thesisTopic, thesisField, lecturer1_id, slotMaximum];
             const results = await executeQuery(res, insertThesesQuery, queryParams);

@@ -162,7 +162,7 @@ lecturer1_update_router.put('/assessmentOralDefense', verifyTokenLecturer1, asyn
                         const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, basicInfoLecturerResults[0][0].signature, 3, studentId];
                         const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
                     }
-                    
+
                     const lecturerTitle = basicInfoLecturerResults[0][0].title;
                     const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
                     const getExactThesisFromStudentParams = [studentId];
@@ -174,7 +174,6 @@ lecturer1_update_router.put('/assessmentOralDefense', verifyTokenLecturer1, asyn
                             const sendNotificationAnotherSupParams = [`Lecturer1 update assessment oral defense`, req.userId, getExactThesisFromStudentResults[0][0].lecturer2_id, `${lecturerTitle} has completed assessment oral defense form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
                             const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);
                             const notificationReceivedAnotherSup = await getNotificationReceived(res, getExactThesisFromStudentResults[0][0].lecturer2_id);
-                            console.log(notificationReceivedAnotherSup);
                             const socketSup = await getSocketById(res, getExactThesisFromStudentResults[0][0].lecturer2_id);
                             const socketSupId = socketSup[0].socket_id;
                             if (socketSup === null || socketSup === undefined) {
@@ -193,7 +192,6 @@ lecturer1_update_router.put('/assessmentOralDefense', verifyTokenLecturer1, asyn
                         const updateAssessmentOralDefenseQuery = "UPDATE assessment_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
                         const updateAssessmentOralDefenseParams = [matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, basicInfoLecturerResults[0][0].signature, 2, studentId];
                         const updateAssessmentOralDefenseResults = await executeQuery(res, updateAssessmentOralDefenseQuery, updateAssessmentOralDefenseParams);
-                        console.log(updateAssessmentOralDefenseResults);
                     }
                     const lecturerTitle = basicInfoLecturerResults[0][0].title;
 
@@ -207,7 +205,6 @@ lecturer1_update_router.put('/assessmentOralDefense', verifyTokenLecturer1, asyn
                             const sendNotificationAnotherSupParams = [`Lecturer1 as supervisor2  update assessment oral defense`, req.userId, getExactThesisFromStudentResults[0][0].lecturer1_id, `${lecturerTitle} has completed assessment oral defense form for the thesis "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
                             const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);
                             const notificationReceivedAnotherSup = await getNotificationReceived(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
-                            console.log(notificationReceivedAnotherSup);
                             const socketSup = await getSocketById(res, getExactThesisFromStudentResults[0][0].lecturer1_id);
                             const socketSupId = socketSup[0].socket_id;
                             if (socketSup === null || socketSup === undefined) {
@@ -265,7 +262,6 @@ lecturer1_update_router.put('/signature', verifyTokenLecturer1, async (req, res)
                 res.status(500).send("Undefined id for add");
             }
             else {
-                console.log(signature)
                 const updateSignatureQuery = "UPDATE lecturers SET signature = ? WHERE lecturer_id = ?";
                 const updateSignatureQueryParams = [signature, req.userId];
                 const results = await executeQuery(res, updateSignatureQuery, updateSignatureQueryParams);

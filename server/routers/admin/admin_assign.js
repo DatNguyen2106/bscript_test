@@ -16,12 +16,11 @@ admin_assign_router.post('/lecturerToThesis', verifyTokenAdmin, async (req, res)
             const query = "INSERT INTO lecturers_theses (lecturer_id, thesis_id,lecturer2) VALUES (?,?,?)";
             const queryParams = [lecturerId, thesisId, lecturer2];
             const dbResults = await executeQuery(res, query, queryParams);
-            console.log(dbResults);
+
             const getThesisInfoQuery = "call getThesisInfoById(?)";
             const getThesisIdQueryParams = [thesisId];
             const getThesisInfoResults = await executeQuery(res, getThesisInfoQuery, getThesisIdQueryParams);
-            console.log(getThesisInfoResults[0][0].lecturer1_id);
-            console.log(lecturer2);
+
             var receiverArray = [req.userId, lecturerId, lecturer2, getThesisInfoResults[0][0].student_id];
             for (var i = 0; i < receiverArray.length; i++) {
                 if (receiverArray[i] !== null) {
@@ -32,8 +31,6 @@ admin_assign_router.post('/lecturerToThesis', verifyTokenAdmin, async (req, res)
                     const notificationReceived = await getNotificationReceived(res, req.userId);
                     const socket = await getSocketById(res, req.userId);
                     const socketId = socket[0].socket_id;
-                    console.log(notification);
-                    console.log(notificationSent);
                     if (socketId === null || socketId === undefined) {
                         console.log("no socketId from database");
                     }
@@ -60,19 +57,16 @@ admin_assign_router.post('/studentToThesis', verifyTokenAdmin, async (req, res) 
             const getThesisInfoQuery = "call getThesisInfoById(?)";
             const getThesisIdQueryParams = [thesisId];
             const getThesisInfoResults = await executeQuery(res, getThesisInfoQuery, getThesisIdQueryParams);
-            console.log(getThesisInfoResults[0][0].lecturer1_id);
+
             var receiverArray = [req.userId, getThesisInfoResults[0][0].lecturer1_id, getThesisInfoResults[0][0].lecturer2_id, studentId];
             for (var i = 0; i < receiverArray.length; i++) {
                 if (receiverArray[i] !== null) {
                     const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                     const sendParams = [`Update from ${req.userId} to ${receiverArray[i]} this API: studentToThesis`, req.userId, receiverArray[i], `assign student ${studentId} into thesis ${thesisId} successfully`];
                     const notification = await sendNotification(res, sendNotificationQuery, sendParams);
-                    const notificationSent = await getNotificationSent(res, req.userId);
                     const notificationReceived = await getNotificationReceived(res, req.userId);
                     const socket = await getSocketById(res, req.userId);
                     const socketId = socket[0].socket_id;
-                    console.log(notification);
-                    console.log(notificationSent);
                     if (socketId === null || socketId === undefined) {
                         console.log("no socketId from database");
                     }

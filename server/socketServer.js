@@ -31,7 +31,6 @@ const authenticateUser = async (reqToken, socketId) => {
         authenticatedUser.username = decoded.username;
         authenticatedUser.role = decoded.role;
         authenticatedUser.socketId = socketId;
-        console.log(authenticatedUser.role);
         return authenticatedUser;
       } catch (error) {
         console.log(error);
@@ -48,7 +47,6 @@ const removeUsers = async (username) => {
         }
       })
     })
-    console.log(results);
     return results;  
   }
 
@@ -76,10 +74,6 @@ const updateSocketStatus = (socketId, username) => {
     }
   })
 }
-const checkUser = (username, socketId) => {
-  console.log("username: " + username);
-  console.log("socketId: " + socketId);
-};
 
 io.on("connection", (socket) => {
   socket.on("connect_error", (err) => {

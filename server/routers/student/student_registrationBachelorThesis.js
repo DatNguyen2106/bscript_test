@@ -49,7 +49,7 @@ student_registrationBachelorThesis_router.post('/', verifyTokenStudent, async (r
                     var query = "INSERT INTO registrations_for_bachelor_thesis (student_id, matriculation_number, surname, forename, date_of_birth, place_of_birth , signature, title_bachelor_thesis, thesis_type, further_participants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued , deadline_copy, extension_granted, chairman_of_examination ,date_of_issue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
                     var queryParams = [studentId, matriculationNumber, surName, foreName, dateOfBirth, placeOfBirth, signature, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue]
                     var dbResults = await executeQuery(res, query, queryParams);
-                    console.log(dbResults);  
+                    res.send("done");
                     }
                 }
             }

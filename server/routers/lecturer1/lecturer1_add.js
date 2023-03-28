@@ -15,7 +15,6 @@ lecturer1_add_router.post('/thesis', addThesisLecturer11, async (req, res) => {
             if (role) {
                 var thesisId = `${currentTimeValue}${req.userId}`;
                 thesisId = parseInt(thesisId);
-                console.log(thesisId);
                 const getLecturerInfoQuery = "SELECT * FROM lecturers WHERE lecturer_id = ?";
                 const getLecturerInfoQueryParams = [req.userId]
                 const getLecturerInfoResults = await executeQuery(res, getLecturerInfoQuery, getLecturerInfoQueryParams);

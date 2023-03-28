@@ -185,14 +185,14 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3OTkyMTQzNSwiZXhwIjoxNjc5OTIyMzM1fQ.e2YxOg19Xmj2YEBwoaLhNYGk0etx6LPY27qTzHm30ts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3OTk4Mjk4MCwiZXhwIjoxNjc5OTgzODgwfQ.w1_WV-MxIN1FvDHxK8yyloQSLJzxU0fBVYGvcOluRPo
 Content-Type: application/json
 
 {
-    "studentId" : 19363,
+    "studentId" : 18593,
     "matriculationNumber" : 1238432,
-    "surName" : "phannguyen1",
-    "foreName" : "long1",
+    "surName" : "phannguyen1_test",
+    "foreName" : "long1_test",
     "dateDefense" : "2023-03-19",
     "placeDefense" : "HCM city",
     "startDate" : "2022-12-29",
@@ -212,7 +212,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZ
 Content-Type: application/json
 
 {
-    "studentId" : 19363,
+    "studentId" : 18593,
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen12",
     "foreName" : "long",

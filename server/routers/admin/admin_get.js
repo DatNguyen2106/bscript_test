@@ -329,7 +329,6 @@ admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
                         db.query(filterQuery, [thesisId, thesisTopic, lecturer1_id, lecturer2_id, slot, slotMaximum, lecturer1_title, lecturer2_title], (err, result) => {                            if(err) {res.send(err);}
                             else
                             {  
-                            console.log(filterQuery);
                             resolve(JSON.parse(JSON.stringify(result)))
                             }
                         })
@@ -361,7 +360,6 @@ admin_get_router.get('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
             if(req.username) {
                 if(role){
                     const thesisId  =  req.params.id;
-                    console.log(thesisId);
                     if(!thesisId || typeof(thesisId) === 'undefined') {
                         res.send("No thesis params");
                     } else {
@@ -374,9 +372,7 @@ admin_get_router.get('/thesis/:id', verifyTokenAdmin, async (req, res) =>{
                                     {  resolve(JSON.parse(JSON.stringify(result)))}
                                 })
                                 })
-                            console.log(results);
                             var dbResults = results.pop();
-                            console.log(dbResults);
                             res.send(results[0]);
                         }
                     }        
@@ -422,8 +418,6 @@ admin_get_router.get('/testForm/:id', verifyTokenAdmin, async (req, res) =>{
                     const queryParamsAssessmentOralDefense = [studentId]
                     const assessmentOralDefenseResults = await executeQuery(res, assessmentOralDefenseQuery,  queryParamsAssessmentOralDefense);  
                     results.pop();
-                    console.log(results[0]);
-                    console.log(results[0].length);
                     var studentList = [];
                     for(var i = 0; i < results[0].length; i++){
                         // var studentList = {"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1}
@@ -435,8 +429,6 @@ admin_get_router.get('/testForm/:id', verifyTokenAdmin, async (req, res) =>{
                         delete results[0][i]["student_id"];
                         delete results[0][i]["confirm_sup1"];
                     }
-                    console.log(results[0]["student_id"]);
-
                     results[0]["student_list"] = studentList;
                     res.send({"student_id" : studentId, "list" : results[0], registrationBachelorThesisResults, registrationOralDefenseResults, assessmentBachelorThesisResults, assessmentOralDefenseResults});
                 }               

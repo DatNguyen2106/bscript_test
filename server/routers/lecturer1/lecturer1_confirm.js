@@ -10,23 +10,20 @@ lecturer1_confirm_router.post('/confirmStudent', verifyTokenLecturer1, async (re
     try {
         var role = req.role;
         var studentId = (req.body.studentId === undefined || req.body.studentId === "" || req.body.studentId === null) ? null : req.body.studentId;
-        console.log("before " + req.body.confirmStudent)
         var confirmStudent = (req.body.confirmStudent === undefined || req.body.confirmStudent === null || req.body.confirmStudent === "") ? false : req.body.confirmStudent;
         if (req.username && req.userId) {
             if (role) {
                 const query = "UPDATE students_theses SET confirm_sup1 = ? WHERE student_id = ?";
                 var queryParams;
                 if (confirmStudent === true) {
-                    console.log(studentId);
                     queryParams = [true, studentId];
                     const results = await executeQuery(res, query, queryParams);
-                    console.log(query)
 
                     const getThesisIdByStudentIdQuery = "call getThesisIdByStudentId(?)";
                     const getThesisIdByStudentIdQueryParams = [studentId];
                     const thesisIdResult = await executeQuery(res, getThesisIdByStudentIdQuery, getThesisIdByStudentIdQueryParams);
                     var thesisId = thesisIdResult[0][0].thesis_id;
-                    console.log(thesisId);
+
                     const changeStepQuery = "UPDATE theses SET step = ? WHERE thesis_id = ?";
                     const changeStepQueryParams = [1, thesisId];
                     const changeStepResults = await executeQuery(res, changeStepQuery, changeStepQueryParams);
@@ -92,7 +89,6 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
     try {
         var role = req.role;
         var thesisId = (req.body.thesisId === undefined || req.body.thesisId === "" || req.body.thesisId === null) ? null : req.body.thesisId;
-        console.log("before " + req.body.confirmThesis)
         var confirmThesis = (req.body.confirmThesis === undefined || req.body.confirmThesis === null || req.body.confirmThesis === "") ? false : req.body.confirmThesis;
         if (req.username && req.userId) {
             if (role) {
@@ -105,13 +101,11 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                     const getThesesByThesisIdQuery = "call getThesesByThesisId(?)";
                     const getThesesByThesisIdParams = [thesisId];
                     const getThesesByThesisIdResults = await executeQuery(res, getThesesByThesisIdQuery, getThesesByThesisIdParams);
-                    console.log(getThesesByThesisIdResults[0]);
                     if (getThesesByThesisIdResults[0][0].lecturer1_id != null) {
                         const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendNotificationSup2Params = [`Lecturer1 accept confirm thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer2_id, `You has been accepted to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
                         const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer_id);
-                        console.log(notificationSup1Received);
                         const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer1_id);
                         const socketReceiver1Id = socket1[0].socket_id;
                         if (socket1 === null || socket1 === undefined) {
@@ -151,13 +145,11 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                     const getThesesByThesisIdParams = [thesisId];
                     const getThesesByThesisIdResults = await executeQuery(res, getThesesByThesisIdQuery, getThesesByThesisIdParams);
 
-                    console.log(getThesesByThesisIdResults[0])
                     if (getThesesByThesisIdResults[0][0].lecturer1_id !== null) {
                         const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendNotificationSup2Params = [`Lecturer1 reject  confirm thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer2_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has been rejected to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
                         const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer2_id);
-                        console.log(notificationSup1Received);
                         const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer2_id);
                         const socketReceiver1Id = socket1[0].socket_id;
                         if (socket1 === null || socket1 === undefined) {

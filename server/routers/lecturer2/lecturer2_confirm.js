@@ -9,7 +9,6 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
     try {
         var role = req.role;
         var thesisId = (req.body.thesisId === undefined || req.body.thesisId === "" || req.body.thesisId === null) ? null : req.body.thesisId;
-        console.log("before " + req.body.confirmThesis)
         var confirmThesis = (req.body.confirmThesis === undefined || req.body.confirmThesis === null || req.body.confirmThesis === "") ? false : req.body.confirmThesis;
         if (req.username && req.userId) {
             if (role) {
@@ -23,13 +22,11 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
                     const getThesesByThesisIdParams = [thesisId];
                     const getThesesByThesisIdResults = await executeQuery(res, getThesesByThesisIdQuery, getThesesByThesisIdParams);
 
-                    console.log(getThesesByThesisIdResults[0]);
                     if (getThesesByThesisIdResults[0][0].lecturer1_id != null) {
                         const sendNotificationSup1Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendNotificationSup1Params = [`Lecturer2 accept thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer1_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has been accepted to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup1 = await sendNotification(res, sendNotificationSup1Query, sendNotificationSup1Params);
                         const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer1_id);
-                        console.log(notificationSup1Received);
                         const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer1_id);
                         const socketReceiver1Id = socket1[0].socket_id;
                         if (socket1 === null || socket1 === undefined) {
@@ -70,13 +67,11 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
                     const getThesesByThesisIdParams = [thesisId];
                     const getThesesByThesisIdResults = await executeQuery(res, getThesesByThesisIdQuery, getThesesByThesisIdParams);
 
-                    console.log(getThesesByThesisIdResults[0])
                     if (getThesesByThesisIdResults[0][0].lecturer1_id !== null) {
                         const sendNotificationSup1Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                         const sendNotificationSup1Params = [`Lecturer2 reject thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer1_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has been rejected to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup1 = await sendNotification(res, sendNotificationSup1Query, sendNotificationSup1Params);
                         const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer1_id);
-                        console.log(notificationSup1Received);
                         const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer1_id);
                         const socketReceiver1Id = socket1[0].socket_id;
                         if (socket1 === null || socket1 === undefined) {
@@ -112,7 +107,6 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
 
                     const notificationSent = await getNotificationSent(res, req.userId);
                     const notificationReceived = await getNotificationReceived(res, req.userId);
-                    console.log(notificationReceived);
                     const socket = await getSocketById(res, req.userId);
                     const socketId = socket[0].socket_id;
                     if (socketId === null || socketId === undefined) {

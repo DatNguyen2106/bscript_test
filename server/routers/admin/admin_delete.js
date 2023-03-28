@@ -9,8 +9,6 @@ admin_delete_router.delete('/lecturer/:id', verifyTokenAdmin, async (req, res) =
     // because of unique id value, so this api just returns 1 or no value.
     var id;
     var role = req.role;
-    console.log(req.params.id);
-    console.log(typeof (req.params.id));
     if (req.username) {
         if (role) {
             if (req.params.id === undefined || req.params.id === '') {
@@ -41,8 +39,6 @@ admin_delete_router.delete('/student/:id', verifyTokenAdmin, async (req, res) =>
     // because of unique id value, so this api just returns 1 or no value.
     var id;
     var role = req.role;
-    console.log(req.params.id);
-    console.log(typeof (req.params.id));
     if (req.username) {
         if (role) {
             if (req.params.id === undefined || req.params.id === '') {
@@ -71,8 +67,6 @@ admin_delete_router.delete('/thesis/:id', verifyTokenAdmin, async (req, res) => 
     // because of unique id value, so this api just returns 1 or no value.
     var thesisId;
     var role = req.role;
-    console.log(req.params.id);
-    console.log(typeof (req.params.id));
     if (req.username) {
         if (role) {
             if (req.params.id === undefined || req.params.id === '') {
@@ -84,16 +78,13 @@ admin_delete_router.delete('/thesis/:id', verifyTokenAdmin, async (req, res) => 
                 const getThesisInfoQuery = "call getThesisInfoById(?)";
                 const getThesisInfoQueryParams = [thesisId];
                 const getThesisInfoQueryResults = await executeQuery(res, getThesisInfoQuery, getThesisInfoQueryParams);
-                console.log(getThesisInfoQueryResults[0]);
                 for (var i = 0; i < getThesisInfoQueryResults[0].length; i++) {
                     if (getThesisInfoQueryResults[0][i].lecturer1_id !== null) {
                         if (getThesisInfoQueryResults[0][i].student_id !== null) {
-                            console.log(getThesisInfoQueryResults[0][i].lecturer1_id);
                             const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                             const sendParams = [`Admin update thesis`, req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has updated the information of your thesis "${getThesisInfoQueryResults[0][i].thesis_topic}" with the student id "${getThesisInfoQueryResults[0][i].student_id}"`];
                             const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                             const notificationReceived = await getNotificationReceived(res, getThesisInfoQueryResults[0][i].lecturer1_id);
-                            console.log(notificationReceived);
                             const socket1 = await getSocketById(res, getThesisInfoQueryResults[0][i].lecturer1_id);
                             const socketReceiver1Id = socket1[0].socket_id;
                             if (socket1 === null || socket1 === undefined) {
@@ -104,7 +95,6 @@ admin_delete_router.delete('/thesis/:id', verifyTokenAdmin, async (req, res) => 
                             const sendParams = [`Admin update thesis`, req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has updated the information of your thesis "${getThesisInfoQueryResults[0][i].thesis_topic}" with no student`];
                             const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                             const notificationReceived = await getNotificationReceived(res, getThesisInfoQueryResults[0][i].lecturer1_id);
-                            console.log(notificationReceived);
                             const socket1 = await getSocketById(res, getThesisInfoQueryResults[0][i].lecturer1_id);
                             const socketReceiver1Id = socket1[0].socket_id;
                             if (socket1 === null || socket1 === undefined) {

@@ -9,7 +9,6 @@ const verifyTokenAdmin = (req,res,next) => {
         const decoded =jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         console.log(decoded);
         // req.role = JSON.parse(decoded.role);
-        console.log(decoded.role.indexOf("admin"));
         if(decoded.role.indexOf("admin") > -1){
             req.userId = decoded.id;
             req.username = decoded.username;

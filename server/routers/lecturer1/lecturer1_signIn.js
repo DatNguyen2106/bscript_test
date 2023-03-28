@@ -22,7 +22,7 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup1', verifyTokenLec
                     const query = "UPDATE registrations_for_bachelor_thesis SET step = ? WHERE student_id = ?";
                     const queryParams = [2, studentId];
                     const result = await executeQuery(res, query, queryParams);
-                    console.log(basicInfoLecturerResults[0][0].signature);
+
                     const insertSignatureToRegistrationBachelor = 'UPDATE registrations_for_bachelor_thesis SET supervisor1_signature = ? WHERE student_id = ?';
                     const insertSignatureToRegistrationBachelorParams = [basicInfoLecturerResults[0][0].signature, studentId];
                     const insertSignatureToRegistrationBachelorResults = await executeQuery(res, insertSignatureToRegistrationBachelor, insertSignatureToRegistrationBachelorParams);
@@ -37,7 +37,6 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup1', verifyTokenLec
                             const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);
 
                             const notificationReceivedAnotherSup = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].lecturer2_id);
-                            console.log(notificationReceivedAnotherSup);
                             const socketSup = await getSocketById(res, req.userId);
                             const socketSupId = socketSup[0].socket_id;
                             if (socketSup === null || socketSup === undefined) {
@@ -47,7 +46,6 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup1', verifyTokenLec
                             const sendNotificationStudentParams = [`Lecturer sign-in registration bachelor`, req.userId, getExactThesisFromStudentIdResults[0][0].student_id, `${lecturerTitle} has signed the registration bachelor thesis form for the thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}"`];
                             const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);
                             const notificationReceivedStudent = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].student_id);
-                            console.log(notificationReceivedAnotherSup);
                             const socketStudent = await getSocketById(res, getExactThesisFromStudentIdResults[0][0].student_id);
                             const socketStudentId = socketStudent[0].socket_id;
                             if (socketStudent === null || socketStudent === undefined) {
@@ -99,7 +97,6 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup2', verifyTokenLec
                     const getThesisIdByStudentIdQueryParams = [studentId];
                     const getThesisIdByStudentIdResults = await executeQuery(res, getThesisIdByStudentIdQuery, getThesisIdByStudentIdQueryParams);
                     const thesisId = getThesisIdByStudentIdResults[0][0].thesis_id;
-                    console.log(thesisId);
 
                     const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
                     const getExactThesisFromStudentIdParams = [studentId];
@@ -115,7 +112,6 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup2', verifyTokenLec
                             const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);
 
                             const notificationReceivedAnotherSup = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].lecturer1_id);
-                            console.log(notificationReceivedAnotherSup);
                             const socketSup = await getSocketById(res, getExactThesisFromStudentIdResults[0][0].lecturer1_id);
                             const socketSupId = socketSup[0].socket_id;
                             if (socketSup === null || socketSup === undefined) {
@@ -127,7 +123,6 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup2', verifyTokenLec
                             const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);
 
                             const notificationReceivedStudent = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].student_id);
-                            console.log(notificationReceivedAnotherSup);
                             const socketStudent = await getSocketById(res, getExactThesisFromStudentIdResults[0][0].student_id);
                             const socketStudentId = socketStudent[0].socket_id;
                             if (socketStudent === null || socketStudent === undefined) {

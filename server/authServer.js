@@ -92,7 +92,6 @@ app.post('/login',  async (req, res) => {
     // send jwt
     if(user && isValid){
         const tokens = generateTokens(user);
-        console.log(tokens.refreshToken)
         updateRefreshToken(user.username, tokens.refreshToken)
         console.log(users);
         res.json(tokens);
@@ -106,7 +105,6 @@ const generateTokens = payload => {
 // create to remove old refresh token from re-login
     const {id, username, role} = payload;
  /* create JWT token */
- console.log(process.env.ACCESS_TOKEN_SECRET + " and " + process.env.REFRESH_TOKEN_SECRET)
  const accessToken = jwt.sign({id,username,role}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '900s'})
  
  const refreshToken   = jwt.sign({id,username,role}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '3600s'})

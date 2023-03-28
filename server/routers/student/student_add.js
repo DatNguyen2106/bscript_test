@@ -155,7 +155,7 @@ student_add_router.post('/registrationOralDefense', verifyTokenStudent, async (r
                         var query = "INSERT INTO registrations_for_oral_defense (student_id, matriculation_number, surname, forename, supervisor1_title, supervisor2_title, spectators_present, weekdate, proposed_date, proposed_time, room, concerned_agreed, date_receive, date_submission) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
                         var queryParams = [studentId, matriculationNumber, surName, foreName, supervisor1_title, supervisor2_title, spectatorsPresent, weekDate, proposedDate, proposedTime, room, concernedAgreed, dateReceive, dateSubmission]
                         var dbResults = await executeQuery(res, query, queryParams);
-                        console.log(dbResults);
+                        res.send("done");
                     }
                 }
             }
@@ -211,7 +211,7 @@ student_add_router.post('/assessmentOralDefense', verifyTokenStudent, async (req
                         var query = "INSERT INTO assessment_for_oral_defense (student_id, matriculation_number, surname, forename, date_defense, place_defense, start_date, finish_date, state_of_health, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessment_date, supervisor1_signature, supervisor2_signature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
                         var queryParams = [studentId, matriculationNumber, surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature]
                         var dbResults = await executeQuery(res, query, queryParams);
-                        console.log(dbResults);
+                        res.send("done");
                     }
                 }
             }
@@ -263,7 +263,7 @@ student_add_router.post('/assessmentBachelorThesis', verifyTokenStudent, async (
                         var query = "INSERT INTO assessment_for_bachelor_thesis(student_id, matriculation_number, surname, forename, thesis_type, further_participants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessment_thesis, assessment_date, supervisor1_signature, supervisor2_signature) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
                         var queryParams = [studentId, matriculationNumber, surName, foreName, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature]
                         var dbResults = await executeQuery(res, query, queryParams);
-                        console.log(dbResults);
+                        res.send("done");
                     }
                 }
             }

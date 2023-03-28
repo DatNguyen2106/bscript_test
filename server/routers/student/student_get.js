@@ -15,18 +15,14 @@ student_get_router.post('/lecturers', verifyTokenStudent, async (req, res) => {
         var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined || req.body.supervisor === null) ? '%' : ('%' + req.body.supervisor + '%');
         var isAvailable = (req.body.isAvailable === "" || req.body.isAvailable === undefined || req.body.isAvailable === null || req.body.isAvailable === true) ? req.body.isAvailable : false;
         var page = (req.body.page === "" || req.body.page === undefined) ? 1 : req.body.page;
-        console.log(isAvailable);
         var role = req.role;
         if (req.username && req.userId) {
             if (role) {
                 var results;
-                console.log(isAvailable);
                 if (isAvailable === true) {
-                    console.log(isAvailable);
                     var query = "SELECT * FROM lecturers WHERE lecturer_id LIKE ? AND title LIKE ?  AND email LIKE ? AND supervisor LIKE ? AND number_of_theses < maximum_of_theses"
                     var queryParams = [lecturerId, lecturerTitle, email, supervisor]
                     results = await executeQuery(res, query, queryParams);
-                    console.log(results);
                     if (page > results.chunk(chunkForPage).length) {
                         res.send({
                             "totalPage": results.chunk(chunkForPage).length,
@@ -41,11 +37,9 @@ student_get_router.post('/lecturers', verifyTokenStudent, async (req, res) => {
                     }
                 }
                 else if (isAvailable === false) {
-                    console.log(isAvailable);
                     var query = "SELECT * FROM lecturers WHERE lecturer_id LIKE ? AND title LIKE ?  AND email LIKE ? AND supervisor LIKE ? AND number_of_theses = maximum_of_theses"
                     var queryParams = [lecturerId, lecturerTitle, email, supervisor]
                     results = await executeQuery(res, query, queryParams);
-                    console.log(results);
                     if (page > results.chunk(chunkForPage).length) {
                         res.send({
                             "totalPage": results.chunk(chunkForPage).length,
@@ -86,11 +80,9 @@ student_get_router.get('/lecturer/:id', verifyTokenStudent, async (req, res) => 
                     const query = "CALL getLecturer1(?)";
                     const queryParams = [lecturerId];
                     const results = await executeQuery(res, query, queryParams);
-                    console.log("results" + results[0].length);
                     var totalResults = results[0].filter((u) => u.lecturer_id == lecturerId);
                     var filteredResults = results[0].filter((u) => u.lecturer_id == lecturerId && u.slot == u.slot_maximum);
                     var nonFilteredValue = totalResults.length - filteredResults.length;
-                    console.log("filtered Results", filteredResults);
                     res.send({
                         "filterTheses": filteredResults.length,
                         "totalTheses": totalResults.length,
@@ -186,8 +178,6 @@ student_get_router.get('/thesis', verifyTokenStudent, async (req, res) => {
                     const queryParamsAssessmentOralDefense = [studentId]
                     const assessmentOralDefenseResults = await executeQuery(res, assessmentOralDefenseQuery, queryParamsAssessmentOralDefense);
                     results.pop();
-                    console.log(results[0]);
-                    console.log(results[0].length);
                     var studentList = [];
                     for (var i = 0; i < results[0].length; i++) {
                         // var studentList = {"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1}
@@ -199,7 +189,6 @@ student_get_router.get('/thesis', verifyTokenStudent, async (req, res) => {
                         delete results[0][i]["student_id"];
                         delete results[0][i]["confirm_sup1"];
                     }
-                    console.log(results[0]["student_id"]);
 
                     results[0]["student_list"] = studentList;
                     res.send({ "student_id": studentId, "list": results[0], registrationBachelorThesisResults, registrationOralDefenseResults, assessmentBachelorThesisResults, assessmentOralDefenseResults });
@@ -246,9 +235,8 @@ student_get_router.get('/testForm', verifyTokenStudent, async (req, res) => {
                     const queryParamsAssessmentOralDefense = [studentId]
                     const assessmentOralDefenseResults = await executeQuery(res, assessmentOralDefenseQuery, queryParamsAssessmentOralDefense);
                     results.pop();
-                    console.log(results[0]);
-                    console.log(results[0].length);
                     var studentList = [];
+
                     for (var i = 0; i < results[0].length; i++) {
                         // var studentList = {"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1}
                         studentList.push({ "student_id": results[0][i].student_id, "fullName": results[0][i].fullname, "intake": results[0][i].intake, "email": results[0][i].email, "confirmSup1": results[0][i].confirm_sup1 });
@@ -259,7 +247,6 @@ student_get_router.get('/testForm', verifyTokenStudent, async (req, res) => {
                         delete results[0][i]["student_id"];
                         delete results[0][i]["confirm_sup1"];
                     }
-                    console.log(results[0]["student_id"]);
 
                     results[0]["student_list"] = studentList;
                     res.send({ "student_id": studentId, "list": results[0], registrationBachelorThesisResults, registrationOralDefenseResults, assessmentBachelorThesisResults, assessmentOralDefenseResults });

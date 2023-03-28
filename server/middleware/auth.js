@@ -11,8 +11,6 @@ const verifyToken = (req,res,next) => {
         req.userId = decoded.id;
         req.username = decoded.username;
         req.role = decoded.role;
-        console.log(req.role);
-        console.log(typeof(req.role));
         next();
     } catch (error) {
         console.log(error);
