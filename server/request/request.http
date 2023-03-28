@@ -108,7 +108,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/admin/update/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg4NzQyMDIsImV4cCI6MTY3ODg3NTEwMn0.2KPK9afBcu3VVJyPLFZOumBesNutnFpgO_KszU613j8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzk5MjE0MTUsImV4cCI6MTY3OTkyMjMxNX0.mNS-OU5K8Mv5wqKMbO2ZvkdEcHatw27LCw701-26ANg
 Content-Type: application/json
 
 {
@@ -123,8 +123,8 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/admin/get/lecturer/21457
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzYwNDExNjYsImV4cCI6MTY3NjA0MjA2Nn0.lwoCeB3ceIwF3zsLmCUPAvmJYnvjJZiLR5z1MJcQw3M
+GET http://localhost:5000/admin/get/lecturer/21029
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzk5MjExMDQsImV4cCI6MTY3OTkyMjAwNH0.FWah9J9FducI2QLn_imM_wQfy2VotELzsmaab8pE4g8
 
 ###
 DELETE http://localhost:5000/admin/delete/lecturer/

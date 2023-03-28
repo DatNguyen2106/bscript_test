@@ -39,7 +39,7 @@ lecturer2_update_router.put('/assessmentBachelor', verifyTokenLecturer2, async (
                 }
                 else {
                     const updateAssessmentBachelorThesisQuery = "UPDATE assessment_for_bachelor_thesis SET matriculation_number = ?, surname = ?, forename = ?, thesis_title = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor2_signature = ?, step = ? WHERE student_id = ?"
-                    const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName, thesisTitle, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, basicInfoLecturerResults[0][0].lecturer_id, 2, studentId];
+                    const updateAssessmentBachelorThesisParams = [matriculationNumber, surName, foreName, thesisTitle, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, basicInfoLecturerResults[0][0].signature, 2, studentId];
                     const updateAssessmentBachelorThesisResults = await executeQuery(res, updateAssessmentBachelorThesisQuery, updateAssessmentBachelorThesisParams);
                 }
 
