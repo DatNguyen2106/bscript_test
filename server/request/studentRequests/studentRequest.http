@@ -13,16 +13,16 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "datnguyen",
-    "password" : "12345"
+    "username" : "longphannguyen",
+    "password" : "12357"
 }
 ###
 POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "abezzant6",
-    "password" : "13444"
+    "username" : "datnguyen",
+    "password" : "12345"
 }
 ###
 GET http://localhost:5000/student/get/12486
@@ -169,11 +169,11 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/student/update/confirmSup2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2NzkwMzg1NDIsImV4cCI6MTY3OTAzOTQ0Mn0.6ZrKBY3htFqSCjLcge6vsKli7ZfVsyiVcQhW5ld6ycQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzk5OTUyOTAsImV4cCI6MTY3OTk5NjE5MH0.U-OFBc3ksuwTJAPoF7tQuryRpXbugkeoTUUFs42H7ac
 Content-Type: application/json
 
 {
-    "lecturer2_id" : "20489"
+    "lecturer2_id" : "22323"
 }
 
 ###

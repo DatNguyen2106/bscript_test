@@ -24,7 +24,7 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
 
                     if (getThesesByThesisIdResults[0][0].lecturer1_id != null) {
                         const sendNotificationSup1Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                        const sendNotificationSup1Params = [`Lecturer2 accept thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer1_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has been accepted to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
+                        const sendNotificationSup1Params = [`Lecturer2 accept thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer1_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has accepted to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup1 = await sendNotification(res, sendNotificationSup1Query, sendNotificationSup1Params);
                         const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer1_id);
                         const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer1_id);
@@ -38,7 +38,7 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
                             if (getThesesByThesisIdResults[0][i].lecturer1_id !== null) {
                                 if (getThesesByThesisIdResults[0][i].student_id !== null) {
                                     const sendNotificationStudentQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                                    const sendNotificationStudentParams = [`Lecturer2 accept thesis`, req.userId, getThesesByThesisIdResults[0][i].student_id, `${getThesesByThesisIdResults[0][i].lecturer2_title} has been accepted to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
+                                    const sendNotificationStudentParams = [`Lecturer2 accept thesis`, req.userId, getThesesByThesisIdResults[0][i].student_id, `${getThesesByThesisIdResults[0][i].lecturer2_title} has accepted to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
                                     const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);
 
                                     const notificationStudentReceived = await getNotificationReceived(res, getThesesByThesisIdResults[0][i].student_id);
@@ -69,7 +69,7 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
 
                     if (getThesesByThesisIdResults[0][0].lecturer1_id !== null) {
                         const sendNotificationSup1Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                        const sendNotificationSup1Params = [`Lecturer2 reject thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer1_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has been rejected to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
+                        const sendNotificationSup1Params = [`Lecturer2 reject thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer1_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has rejected to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup1 = await sendNotification(res, sendNotificationSup1Query, sendNotificationSup1Params);
                         const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer1_id);
                         const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer1_id);
@@ -83,7 +83,7 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
                             if (getThesesByThesisIdResults[0][i].lecturer1_id) {
                                 if (getThesesByThesisIdResults[0][i].student_id !== null) {
                                     const sendNotificationStudentQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                                    const sendNotificationStudentParams = [`Lecturer2 reject thesis`, req.userId, getThesesByThesisIdResults[0][i].student_id, `${getThesesByThesisIdResults[0][i].lecturer2_title} has been rejected to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
+                                    const sendNotificationStudentParams = [`Lecturer2 reject thesis`, req.userId, getThesesByThesisIdResults[0][i].student_id, `${getThesesByThesisIdResults[0][i].lecturer2_title} has rejected to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
                                     const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);
                                     const notificationStudentReceived = await getNotificationReceived(res, getThesesByThesisIdResults[0][i].student_id);
                                     const socketStudent = await getSocketById(res, getThesesByThesisIdResults[0][i].student_id);

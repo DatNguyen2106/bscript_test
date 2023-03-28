@@ -103,7 +103,7 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                     const getThesesByThesisIdResults = await executeQuery(res, getThesesByThesisIdQuery, getThesesByThesisIdParams);
                     if (getThesesByThesisIdResults[0][0].lecturer1_id != null) {
                         const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                        const sendNotificationSup2Params = [`Lecturer1 accept confirm thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer2_id, `You has been accepted to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
+                        const sendNotificationSup2Params = [`Lecturer1 accept confirm thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer2_id, `You have accepted by ${getThesesByThesisIdResults[0][0].lecturer1_title} to join the thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
                         const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer_id);
                         const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer1_id);
@@ -147,7 +147,7 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
 
                     if (getThesesByThesisIdResults[0][0].lecturer1_id !== null) {
                         const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                        const sendNotificationSup2Params = [`Lecturer1 reject  confirm thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer2_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has been rejected to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
+                        const sendNotificationSup2Params = [`Lecturer1 reject  confirm thesis`, req.userId, getThesesByThesisIdResults[0][0].lecturer2_id, `${getThesesByThesisIdResults[0][0].lecturer2_title} has rejected to join your thesis "${getThesesByThesisIdResults[0][0].thesis_topic}"`];
                         const sendNotificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
                         const notificationSup1Received = await getNotificationReceived(res, getThesesByThesisIdResults[0][0].lecturer2_id);
                         const socket1 = await getSocketById(res, getThesesByThesisIdResults[0][0].lecturer2_id);
@@ -161,7 +161,7 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                             if (getThesesByThesisIdResults[0][i].lecturer1_id) {
                                 if (getThesesByThesisIdResults[0][i].student_id !== null) {
                                     const sendNotificationStudentQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                                    const sendNotificationStudentParams = [`Lecturer1 reject confirm thesis`, req.userId, getThesesByThesisIdResults[0][i].student_id, `You has been rejected to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
+                                    const sendNotificationStudentParams = [`Lecturer1 reject confirm thesis`, req.userId, getThesesByThesisIdResults[0][i].student_id, `You have rejected to join your thesis "${getThesesByThesisIdResults[0][i].thesis_topic}"`];
                                     const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);
                                     const notificationStudentReceived = await getNotificationReceived(res, getThesesByThesisIdResults[0][i].student_id);
                                     const socketStudent = await getSocketById(res, getThesesByThesisIdResults[0][i].student_id);
