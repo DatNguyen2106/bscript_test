@@ -1,5 +1,3 @@
-require('dotenv').config();
-require('./socket.js')
 const { appendFile } = require("fs");
 const httpServer = require("http").createServer();
 const express = require('express');
@@ -92,52 +90,26 @@ io.on("connection", (socket) => {
   authenticatedUser = await authenticateUser(reqToken, socket.id);
   if(authenticatedUser){
   let checkList = [];
+  let onlineUsers = [];
   updateSocketStatus(socket.id, authenticatedUser.username);
-  console.log(authenticatedUser.username);
-  console.log(authenticatedUser.socketId);
-  console.log(getOnlineUsers(authenticatedUser.username));
   checkList = await getOnlineUsers(authenticatedUser.username);
-  // checkList.push(await getOnlineUsers(authenticatedUser.username));
+  console.log(checkList);
   for (let i = 0; i < checkList.length; i++) {
       if(authenticatedUser.username === checkList[i].username && checkList[i].socketId){
         // if the user has the socket_id means that they have connection. So we log out this previous session.
         socket.disconnect(checkList[i].socket_id);
       }
     }
-    for (let i = 0; i < checkList.length; i++) {
-      if(checkList[i] && checkList[i] !== null && checkList[i] !== undefined && socket.id !== checkList[i].socket_id){
-        // online users
-        console.log(checkList[i].socket_id);
-        console.log(socket.id);
-        onlineUsers.push(checkList[i])
-      }
-    }
-    console.log("online users" , onlineUsers);
-    // console.log(userNames);
+    // for (let i = 0; i < checkList.length; i++) {
+    //   if(checkList[i] && checkList[i] !== null && checkList[i] !== undefined && socket.id !== checkList[i].socket_id){
+    //     // online users
+    //     onlineUsers.push(checkList[i])
+    //   }
+    // }
+    // console.log("online users" , onlineUsers);
     io.to(socket.id).emit("getText", authenticatedUser);    
   }
 })
-  // socket.on("disconnect", async () => {
-  //   console.log("online user 3" , onlineUsers);
-  //   console.log(onlineUsers[0], "+" , typeof(onlineUsers));
-  //   if(onlineUsers && onlineUsers !== null && onlineUsers !== undefined && authenticatedUser) {
-  //   onlineUsers = onlineUsers.filter((user) => user.socket_id !== socket.id);
-  //   console.log("online user 3" , onlineUsers);
-
-  //   await socket.disconnect(authenticatedUser.socket_id);
-  //   console.log("Disconnected");
-  //   console.log("online user 4" , onlineUsers);
-  //   }
-  //   else { console.log("error disconnect")}
-  // })
-  socket.on('addUser', async () => {
-    console.log("add User" + onlineUsers);
-    for (let i = 0; i < onlineUsers.length; i++) {
-      if(socket.id === onlineUsers[i].socket_id){
-        socket.disconnect(true);
-      }
-    }
-  })
 
 });
 

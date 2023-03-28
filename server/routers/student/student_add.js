@@ -9,7 +9,6 @@ student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) => 
         var role = req.role;
         var thesisId = (req.body.thesisId === null || req.body.thesisId === undefined) ? null : req.body.thesisId;
         var studentId;
-        console.log(role);
         if (req.username && req.userId) {
             if (role) {
                 if (req.userId === undefined || req.userId === '') {
@@ -17,7 +16,6 @@ student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) => 
                 }
                 else {
                     studentId = req.userId;
-                    console.log(studentId);
 
                     const query = "INSERT INTO students_theses(student_id, thesis_id, confirm_sup1) VALUES (?,?,?)";
                     const queryParams = [studentId, thesisId, 0];
@@ -26,8 +24,6 @@ student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) => 
                     const getThesisInfoById = "call getThesisInfoById(?)";
                     const getThesisInfoByIdParams = [thesisId];
                     const getThesisInfoByIdResults = await executeQuery(res, getThesisInfoById, getThesisInfoByIdParams);
-
-                    console.log(getThesisInfoByIdResults[0]);
 
                     if (getThesisInfoByIdResults) {
                         for (var i = 0; i < getThesisInfoByIdResults[0].length; i++) {
@@ -39,13 +35,10 @@ student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) => 
                                     const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                                     const notificationReceived = await getNotificationReceived(res, getThesisInfoByIdResults[0][i].lecturer1_id);
                                     const socketReceiver1 = await getSocketById(res, getThesisInfoByIdResults[0][i].lecturer1_id);
-                                    console.log("socket ID " + socketReceiver1[0]);
-                                    console.log("socket ID 1 " + socketReceiver1[0].socket_id);
 
                                     if (socketReceiver1 === null || socketReceiver1 === undefined) {
                                     }
                                     else {
-                                        console.log("socket ID 2 : " + socketReceiver1[0].socket_id);
                                         io.to(socketReceiver1[0].socket_id).emit("notificationReceived", (notificationReceived))
                                     };
                                 }
@@ -108,11 +101,10 @@ student_add_router.post('/registrationBachelorThesis', verifyTokenStudent, async
                     }
                     else {
                         studentId = req.userId;
-                        console.log("studentId" + studentId);
                         var query = "INSERT INTO registrations_for_bachelor_thesis (student_id, matriculation_number, surname, forename, date_of_birth, place_of_birth , signature, student_date, title_bachelor_thesis, thesis_type, further_participants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued , deadline_copy, extension_granted, chairman_of_examination ,date_of_issue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
                         var queryParams = [studentId, matriculationNumber, surName, foreName, dateOfBirth, placeOfBirth, signature, student_date, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue]
                         var dbResults = await executeQuery(res, query, queryParams);
-                        console.log(dbResults);
+                        res.send("done");
                     }
                 }
             }

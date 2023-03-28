@@ -8,11 +8,9 @@ const addThesisLecturer11 = (req,res,next) => {
     try {
         const decoded =jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         console.log(decoded);
-        console.log(typeof(JSON.parse(decoded.role)));
         // req.role = JSON.parse(decoded.role);
         const accessRole = ['lecturer1.1'];
         const role = decoded.role.replace(/[[\]]/g,'');
-        console.log(accessRole.includes(JSON.parse(role)));
         if(accessRole.includes(JSON.parse(role))){
             req.userId = decoded.id;
             req.username = decoded.username;

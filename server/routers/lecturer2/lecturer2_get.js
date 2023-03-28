@@ -21,12 +21,6 @@ lecturer2_get_router.post('/theses', getThesesLecturer2, async (req, res) => {
         var wasDefended = (req.body.wasDefended === undefined || req.body.wasDefended === null || typeof (req.body.wasDefended) != 'boolean') ? false : req.body.wasDefended;
         if (req.username && req.userId) {
             if (role) {
-                console.log("thesisTopic" + thesisTopic);
-                console.log("thesisField" + thesisField);
-                console.log("step" + step);
-                console.log("slot" + slot);
-                console.log("slotMaximum" + slotMaximum);
-                console.log("confirmSUp2" + confirmSup2);
                 const query = "call getThesesByLecturer2ByTitle(?,?,?,?,?,?,?,?,?);"
                 const queryParams = [thesisTopic, thesisField, step, slot, slotMaximum, lecturer1Title, confirmSup2, req.userId, wasDefended];
                 const results = await executeQuery(res, query, queryParams);
@@ -68,7 +62,7 @@ lecturer2_get_router.get('/thesis/:id', verifyTokenLecturer2, async (req, res) =
                     const query = "call getThesesByThesisId(?);"
                     const queryParams = [thesisId];
                     const results = await executeQuery(res, query, queryParams);
-                    console.log(results[0].length);
+                    
                     for (var i = 0; i < results[0].length; i++) {
                         studentId = results[0][i].student_id;
                         const registrationBachelorThesisQuery = "SELECT * FROM registrations_for_bachelor_thesis WHERE student_id  = ?";

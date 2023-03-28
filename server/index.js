@@ -10,8 +10,6 @@ const adminRoute = require('./routers/admin');
 const studentRoute = require('./routers/student')
 const lecturer1Route = require('./routers/lecturer1');
 const lecturer2Route = require('./routers/lecturer2');
-const chatRoute = require('./routers/chatRoutes');
-const { application } = require('express');
 const bodyParser = require('body-parser');
 app.use(cors());
 app.use(express.json({ limit: '10mb' })); // for parsing application/json
@@ -29,12 +27,9 @@ app.get('/getNotifications', verifyToken, async (req, res) =>{
             var role = req.role;
             if(req.username){
                 var id = req.userId;
-                console.log(id);
                 const query = "SELECT * FROM notifications WHERE receiver = ?";
                 const queryParams = [id];
                 const dbResults = await executeQuery(res, query, queryParams); 
-                console.log(dbResults);
-                console.log(dbResults.length);
                 res.send(dbResults);
                 // for (let i = 0; i < dbResults.length; i++){
                 //     res.send({

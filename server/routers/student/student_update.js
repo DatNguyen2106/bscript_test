@@ -60,7 +60,6 @@ student_update_router.put('/registrationBachelorThesis', verifyTokenStudent, asy
                                 const sendNotificationSup1 = await sendNotification(res, sendNotificationSup1Query, sendNotificationSup1Params);
 
                                 const notificationReceived1 = await getNotificationReceived(res, getThesisResults[0][i].lecturer1_id);
-                                console.log(notificationReceived1);
                                 const socket1 = await getSocketById(res, getThesisResults[0][i].lecturer1_id);
                                 const socketReceiver1Id = socket1[0].socket_id;
                                 if (socket1 === null || socket1 === undefined) {
@@ -71,7 +70,6 @@ student_update_router.put('/registrationBachelorThesis', verifyTokenStudent, asy
                                 const sendNotificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
 
                                 const notificationReceived2 = await getNotificationReceived(res, getThesisResults[0][i].lecturer2_id);
-                                console.log(notificationReceived1);
                                 const socket2 = await getSocketById(res, getThesisResults[0][i].lecturer2_id);
                                 const socketReceiver2Id = socket2[0].socket_id;
                                 if (socket2 === null || socket2 === undefined) {
@@ -122,9 +120,7 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
                     const getRegistrationBachelorThesisParams = [req.userId];
                     const getRegistrationBachelorThesisResults = await executeQuery(res, getRegistrationBachelorThesisQuery, getRegistrationBachelorThesisParams);
                     const infoRegistrationBachelor = getRegistrationBachelorThesisResults[0];
-                    console.log(infoRegistrationBachelor)
-                    console.log(matriculationNumber);
-                    console.log(surName);
+
                     const query = "UPDATE registrations_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, supervisor1_title = ?, supervisor2_title = ?, spectators_present = ?, weekdate = ?, proposed_date = ?, proposed_time = ?, room = ?, concerned_agreed = ?, date_receive = ?, date_submission = ?, step = ? where student_id = ?";
                     const queryParams = [matriculationNumber, surName, foreName, supervisor1_title, supervisor2_title, spectatorsPresent, weekDate, proposedDate, proposedTime, room, concernedAgreed, dateReceive, dateSubmission, 1, studentId]
                     const dbResults = await executeQuery(res, query, queryParams);
@@ -148,7 +144,6 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
                                 const sendNotificationSup1Params = [`Student update registration oral defense`, req.userId, getThesisResults[0][i].lecturer1_id, `Student ${getThesisResults[0][i].student_id} has filled in the registration oral defense "${getThesisResults[0][i].thesis_topic}"`];
                                 const sendNotificationSup1 = await sendNotification(res, sendNotificationSup1Query, sendNotificationSup1Params);
                                 const notificationReceived1 = await getNotificationReceived(res, getThesisResults[0][i].lecturer1_id);
-                                console.log(notificationReceived1);
                                 const socket1 = await getSocketById(res, getThesisResults[0][i].lecturer1_id);
                                 const socketReceiver1Id = socket1[0].socket_id;
                                 if (socket1 === null || socket1 === undefined) {
@@ -158,7 +153,6 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
                                 const sendNotificationSup2Params = [`Student update registration oral defense`, req.userId, getThesisResults[0][i].lecturer2_id, `Student ${getThesisResults[0][i].student_id} has filled in the registration oral defense "${getThesisResults[0][i].thesis_topic}"`];
                                 const sendNotificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
                                 const notificationReceived2 = await getNotificationReceived(res, getThesisResults[0][i].lecturer2_id);
-                                console.log(notificationReceived1);
                                 const socket2 = await getSocketById(res, getThesisResults[0][i].lecturer2_id);
                                 const socketReceiver2Id = socket2[0].socket_id;
                                 if (socket2 === null || socket2 === undefined) {
@@ -195,9 +189,7 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                     const getThesisFromStudentBeforeQuery = "call getThesisFromStudentId(?)"
                     const getThesisFromStudentBeforeParams = [studentId];
                     const thesisResultsBefore = await executeQuery(res, getThesisFromStudentBeforeQuery, getThesisFromStudentBeforeParams);
-                    console.log(thesisResultsBefore[0]);
                     thesisId = thesisResultsBefore[0][0].thesis_id;
-                    console.log(thesisId);
                     const query = "call addLecturer2ByStudent(?,?)";
                     const queryParams = [lecturer2_id, thesisId];
                     const results = await executeQuery(res, query, queryParams);
@@ -215,7 +207,6 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                                         const sendParams = [`Student add sup2`, req.userId, thesisResultsAfter[0][i].lecturer1_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2 with student ${thesisResultsAfter[0][i].student_id}"`];
                                         const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                                         const notificationReceived1 = await getNotificationReceived(res, thesisResultsAfter[0][i].lecturer1_id);
-                                        console.log(notificationReceived1);
 
                                         const socket1 = await getSocketById(res, thesisResultsAfter[0][i].lecturer1_id);
                                         const socketReceiver1Id = socket1[0].socket_id;
@@ -237,7 +228,6 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                                         const sendNotificationForSup2Params = [`Student add sup2`, req.userId, lecturer2_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2 "`];
                                         const sendNotificationForSup2Noti = await sendNotification(res, sendNotificationForSup2Query, sendNotificationForSup2Params);
                                         const notificationReceived3 = await getNotificationReceived(res, lecturer2_id);
-                                        console.log(notificationReceived3);
 
                                         const socket3 = await getSocketById(res, lecturer2_id);
                                         const socketReceiver3Id = socket3[0].socket_id;
@@ -251,7 +241,6 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                                         const sendParams = [`Student add sup2`, req.userId, thesisResultsAfter[0][i].lecturer1_id, `${thesisResultsAfter[0][i].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2"`];
                                         const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                                         const notificationReceived1 = await getNotificationReceived(res, thesisResultsAfter[0][i].lecturer1_id);
-                                        console.log(notificationReceived1);
 
                                         const socket1 = await getSocketById(res, thesisResultsAfter[0][i].lecturer1_id);
                                         const socketReceiver1Id = socket1[0].socket_id;
@@ -260,7 +249,6 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                                         else { io.to(socketReceiver1Id).emit("notificationReceived", (notificationReceived1)) };
 
                                         const notificationReceived2 = await getNotificationReceived(res, lecturer2_id);
-                                        console.log(notificationReceived2);
                                         const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
 
                                         const sendNotificationSup2Params = [`Student add sup2`, req.userId, lecturer2_id, `You was requested to join your thesis "${thesisResultsAfter[0][i].thesis_topic} as supervisor 2"`];
@@ -322,7 +310,6 @@ student_update_router.put('/signature', verifyTokenStudent, async (req, res) => 
                 res.status(500).send("Undefined id for add");
             }
             else {
-                console.log(signature)
                 const updateSignatureQuery = "UPDATE students SET signature = ? WHERE student_id = ?";
                 const updateSignatureQueryParams = [signature, req.userId];
                 const results = await executeQuery(res, updateSignatureQuery, updateSignatureQueryParams);

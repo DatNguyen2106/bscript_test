@@ -19,16 +19,8 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) => {
         var slotMaximum = (req.body.slotMaximum === undefined || req.body.slotMaximum === null || req.body.slotMaximum == "") ? '%' : ('%' + req.body.slotMaximum + '%');
         var wasDefended = (req.body.wasDefended === undefined || req.body.wasDefended === null || typeof (req.body.wasDefended) != 'boolean') ? false : req.body.wasDefended;
         var page = (req.body.page === "" || req.body.page === undefined) ? 1 : req.body.page;
-        console.log(wasDefended)
         if (req.username && req.userId) {
             if (role) {
-                console.log("thesisTopic" + thesisTopic);
-                console.log("thesisField" + thesisField);
-                console.log("step" + step);
-                console.log("slot" + slot);
-                console.log("lecturer1" + lecturer1Title);
-                console.log("lecturer2" + lecturer2Title);
-                console.log("slotMaximum" + slotMaximum);
                 const query = "call getThesesByLecturer1ByTitle(?,?,?,?,?,?,?,?,?);"
                 const queryParams = [thesisTopic, thesisField, lecturer1Title, lecturer2Title, step, slot, slotMaximum, req.userId, wasDefended];
                 const results = await executeQuery(res, query, queryParams);
@@ -36,11 +28,11 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) => {
                 const getLecturer1Query = "CALL getLecturer1(?)";
                 const getLecturer1Params = [req.userId];
                 const getLecturer1Results = await executeQuery(res, getLecturer1Query, getLecturer1Params);
-                console.log(getLecturer1Results);
+
                 var totalResults = getLecturer1Results[0].filter((u) => u.lecturer_id == req.userId);
                 var filteredResults = getLecturer1Results[0].filter((u) => u.lecturer_id == req.userId && u.slot == u.slot_maximum);
                 var nonFilteredValue = totalResults.length - filteredResults.length;
-                console.log("filtered Results", filteredResults);
+
                 if (page > results[0].chunk(chunkForPage).length) {
                     res.send({
                         "totalPage": results[0].chunk(chunkForPage).length,
@@ -86,7 +78,6 @@ lecturer1_get_router.get('/thesis/:id', verifyTokenLecturer1, async (req, res) =
                     const query = "call getThesesByThesisId(?);"
                     const queryParams = [thesisId];
                     const results = await executeQuery(res, query, queryParams);
-                    console.log(results[0].length);
                     for (var i = 0; i < results[0].length; i++) {
                         studentId = results[0][i].student_id;
                         const registrationBachelorThesisQuery = "SELECT * FROM registrations_for_bachelor_thesis WHERE student_id  = ?";
@@ -111,7 +102,6 @@ lecturer1_get_router.get('/thesis/:id', verifyTokenLecturer1, async (req, res) =
                         results[0][i]['assessmentBachelorThesisResults'] = assessmentBachelorThesisResults;
                         results[0][i]['assessmentOralDefenseResults'] = assessmentOralDefenseResults;
                     }
-                    console.log(results);
                     results.id = req.userId;
                     res.send({ "lecturer_id": results.id, "list": results[0] });
                 }
@@ -157,8 +147,6 @@ lecturer1_get_router.get('/testForm/:id', verifyTokenLecturer1, async (req, res)
                     const queryParamsAssessmentOralDefense = [studentId]
                     const assessmentOralDefenseResults = await executeQuery(res, assessmentOralDefenseQuery, queryParamsAssessmentOralDefense);
                     results.pop();
-                    console.log(results[0]);
-                    console.log(results[0].length);
                     var studentList = [];
                     for (var i = 0; i < results[0].length; i++) {
                         // var studentList = {"student_id" : results[0][i].student_id, "fullName" : results[0][i].fullname, "intake" : results[0][i].intake, "email" : results[0][i].email, "confirmSup1" : results[0][i].confirm_sup1}
@@ -170,7 +158,6 @@ lecturer1_get_router.get('/testForm/:id', verifyTokenLecturer1, async (req, res)
                         delete results[0][i]["student_id"];
                         delete results[0][i]["confirm_sup1"];
                     }
-                    console.log(results[0]["student_id"]);
 
                     results[0]["student_list"] = studentList;
                     res.send({ "student_id": studentId, "list": results[0], registrationBachelorThesisResults, registrationOralDefenseResults, assessmentBachelorThesisResults, assessmentOralDefenseResults });
