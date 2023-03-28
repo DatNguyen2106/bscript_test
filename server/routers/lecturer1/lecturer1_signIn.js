@@ -139,7 +139,9 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup2', verifyTokenLec
                 }
                 else if (confirmSignature === false) {
                     // do something here 
-
+                    const changeStepRegistrationBachelorThesisQuery = "Update registrations_for_bachelor_thesis SET step = ? where student_id = ?";
+                    const changeStepRegistrationBachelorThesisQueryParams = [0, studentId];
+                    const changeStepRegistrationBachelorThesisResults = await executeQuery(res, changeStepRegistrationBachelorThesisQuery, changeStepRegistrationBachelorThesisQueryParams);
                 }
                 else {
                     res.send("invalid confirmSignature")

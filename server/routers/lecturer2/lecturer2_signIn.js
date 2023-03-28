@@ -17,7 +17,7 @@ lecturer2_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer2
                 const lecturerTitle = basicInfoLecturerResults[0][0].title;
                 if (confirmSignature === true) {
                     const changeStepRegistrationBachelorThesisQuery = "Update registrations_for_bachelor_thesis SET step = ? where student_id = ?";
-                    const changeStepRegistrationBachelorThesisQueryParams = [2, studentId];
+                    const changeStepRegistrationBachelorThesisQueryParams = [3, studentId];
                     const changeStepRegistrationBachelorThesisResults = await executeQuery(res, changeStepRegistrationBachelorThesisQuery, changeStepRegistrationBachelorThesisQueryParams);
 
                     const getThesisIdByStudentIdQuery = " call getThesisIdByStudentId(?)";

@@ -133,11 +133,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesisAsSup1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3OTY0NzQ0MiwiZXhwIjoxNjc5NjQ4MzQyfQ.V6O0IPQEpbF_FJSgGMwJjLD3UUYqVgDyRTqB8yWtlo0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MDAwMjA4OCwiZXhwIjoxNjgwMDAyOTg4fQ.QauZ6-eKqMa6pftQY9pK3XJTb5jXZe04-4-vZ7qtrzs
 Content-Type: application/json
 
 {
-    "studentId" : 18593,
+    "studentId" : 12345,
     "confirmSignature" : true
 }
 ###
@@ -153,22 +153,22 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer2/signIn/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjc5NjQ2ODM5LCJleHAiOjE2Nzk2NDc3Mzl9.pDc5RuR4ELH2T2IKrhSnoXr8_iGSZWqhc3kISO_0Ybw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjgwMDAxODQ1LCJleHAiOjE2ODAwMDI3NDV9.dQJ_hEHHpW2pfSLuIJNVahLi06Q3Qo_5n-OyIJUU214
 Content-Type: application/json
 
 {
-    "studentId" : 18593,
+    "studentId" : 12345,
     "confirmSignature" : true
 }
 
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentBachelor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3OTkyMjIyOSwiZXhwIjoxNjc5OTIzMTI5fQ.RkAzR2Je2NgmDajJNsW7psbC2ueKYu0nGODzOyZeHGc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MDAxNDMxMCwiZXhwIjoxNjgwMDE1MjEwfQ.w5sjUjMcyufinnNZRXcYqxDcbKPG5eRMYdVIM_tqFDU
 Content-Type: application/json
 
 {
-    "studentId" : 19363,
+    "studentId" : 18593,
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen1",
     "foreName" : "long1",
@@ -185,7 +185,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3OTk4Mjk4MCwiZXhwIjoxNjc5OTgzODgwfQ.w1_WV-MxIN1FvDHxK8yyloQSLJzxU0fBVYGvcOluRPo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MDAxNTA2NywiZXhwIjoxNjgwMDE1OTY3fQ.WBeCJN5U1e5-D5M-fdRHCJIg8GjCzHoypVnQ-yiDCG0
 Content-Type: application/json
 
 {
@@ -229,7 +229,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer2/update/assessmentOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjc5NjUxNzQ2LCJleHAiOjE2Nzk2NTI2NDZ9.SyZtmgU62kwjwDyR-Pda3So5vvs1jBFDSdZcYZCfqmA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MDAxNTA2NywiZXhwIjoxNjgwMDE1OTY3fQ.WBeCJN5U1e5-D5M-fdRHCJIg8GjCzHoypVnQ-yiDCG0
 Content-Type: application/json
 
 {

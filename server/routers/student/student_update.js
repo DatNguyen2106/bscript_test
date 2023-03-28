@@ -178,7 +178,7 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
 student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =>{
     try {
         var role = req.role;
-        var lecturer2_id = (req.body.lecturer2Id === null || req.body.lecturer2Id === undefined) ? null : req.body.lecturer2Id;
+        var lecturer2_id = (req.body.lecturer2_id === null || req.body.lecturer2_id === undefined) ? null : req.body.lecturer2_id;
         if(req.username) {
             if(role){
                 if(req.userId === undefined || req.userId === ''){
@@ -213,7 +213,7 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                     const notificationReceived2 = await getNotificationReceived(res, lecturer2_id);
                     const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
 
-                    const sendNotificationSup2Params = [`Student add sup2` , req.userId, lecturer2_id, `You were requested to join your thesis "${thesisResultsAfter[0][0].thesis_topic} as supervisor 2"`];
+                    const sendNotificationSup2Params = [`Student add sup2` , req.userId, lecturer2_id, `You were requested to join the thesis "${thesisResultsAfter[0][0].thesis_topic}" as supervisor 2`];
                     const notificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
                     const notificationSup2Received = await getNotificationReceived(res, lecturer2_id);
                     const socket2 = await getSocketById(res, lecturer2_id);

@@ -32,7 +32,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZ
 
 ###
 POST http://localhost:5000/student/add/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDAyMDAsImV4cCI6MTY4MDAwMTEwMH0.RVYAHZ0PAjZsZIE6w_gTzze3ZKiTgihdfA0DGspljKY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDE2NzAsImV4cCI6MTY4MDAwMjU3MH0.qfnFFGbkm2zYIfiR8PtkA7U34CXKO9PLA4RB7VzWOCA
 Content-Type: application/json
 
 {
@@ -53,7 +53,7 @@ Content-Type: application/json
     "supervisor2_signature" : "",
     "supervisor2_date" : "2022-12-12",
     "issued" : "2023-1-12",
-    "deadlineCopy" : 2,
+    "deadlineCopy" : "2023-1-12",
     "extensionGranted" : "2022-12-29",
     "chairmanOfExamination" : "VGU",
     "date_of_issue" : "2000-12-23"
@@ -169,16 +169,16 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/student/update/confirmSup2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDEzODYsImV4cCI6MTY4MDAwMjI4Nn0.RaFfi2pdRqlRcgThfI2GPOxvFL0aQBH_sWWCVgjV-Ng
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDE2NzAsImV4cCI6MTY4MDAwMjU3MH0.qfnFFGbkm2zYIfiR8PtkA7U34CXKO9PLA4RB7VzWOCA
 Content-Type: application/json
 
 {
-    "lecturer2Id" : "22323"
+    "lecturer2_id" : "22323"
 }
 
 ###
 PUT http://localhost:5000/student/update/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDAyMDAsImV4cCI6MTY4MDAwMTEwMH0.RVYAHZ0PAjZsZIE6w_gTzze3ZKiTgihdfA0DGspljKY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDE2NzAsImV4cCI6MTY4MDAwMjU3MH0.qfnFFGbkm2zYIfiR8PtkA7U34CXKO9PLA4RB7VzWOCA
 Content-Type: application/json
 
 {
@@ -199,7 +199,7 @@ Content-Type: application/json
     "supervisor2_signature" : "",
     "supervisor2_date" : "2022-12-12",
     "issued" : "2023-1-12",
-    "deadlineCopy" : 2,
+    "deadlineCopy" : "2023-1-12",
     "extensionGranted" : "2022-12-29",
     "chairmanOfExamination" : "VGU",
     "dateOfIssue" : "2000-12-23"
