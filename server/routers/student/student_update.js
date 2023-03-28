@@ -209,7 +209,7 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                 const thesisResultsAfter = await executeQuery(res, getThesisFromStudentIdQueryAfter, getThesisFromStudentIdQueryAfterParams);
                 if(thesisResultsAfter){
                     const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                    const sendParams = [`Student add sup2` , req.userId, thesisResultsAfter[0][0].lecturer1_id, `${thesisResultsAfter[0][0].lecturer2_title} was requested to join your thesis "${thesisResultsAfter[0][0].thesis_topic} as supervisor 2"`];
+                    const sendParams = [`Student add sup2` , req.userId, thesisResultsAfter[0][0].lecturer1_id, `${thesisResultsAfter[0][0].lecturer2_title} was requested to join the thesis "${thesisResultsAfter[0][0].thesis_topic} as supervisor 2"`];
                     const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                     const notificationReceived1 = await getNotificationReceived(res, thesisResultsAfter[0][0].lecturer1_id);
                     console.log(notificationReceived1);
@@ -222,7 +222,7 @@ student_update_router.put('/confirmSup2', verifyTokenStudent, async (req, res) =
                     console.log(notificationReceived2);
                     const sendNotificationSup2Query = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
 
-                    const sendNotificationSup2Params = [`Student add sup2` , req.userId, lecturer2_id, `You was requested to join your thesis "${thesisResultsAfter[0][0].thesis_topic} as supervisor 2"`];
+                    const sendNotificationSup2Params = [`Student add sup2` , req.userId, lecturer2_id, `You were requested to join the thesis "${thesisResultsAfter[0][0].thesis_topic} as supervisor 2"`];
                     const notificationSup2 = await sendNotification(res, sendNotificationSup2Query, sendNotificationSup2Params);
                     const notificationSup2Received = await getNotificationReceived(res, lecturer2_id);
                     const socket2 = await getSocketById(res, lecturer2_id);
