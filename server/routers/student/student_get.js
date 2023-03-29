@@ -83,8 +83,8 @@ student_get_router.get('/lecturer/:id', verifyTokenStudent, async (req, res) => 
                     const queryParams = [lecturerId];
                     const results = await executeQuery(res, query, queryParams);
                     var todayDate = moment().valueOf();
-                    var totalResults = results[0].filter((u) => u.lecturer1_id_thesis == lecturerId && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
-                    var filteredResults = results[0].filter((u) => u.lecturer1_id_thesis == lecturerId && u.slot == u.slot_maximum  && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
+                    var totalResults = results[0].filter((u) => u.lecturer_id == lecturerId && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
+                    var filteredResults = results[0].filter((u) => u.lecturer_id == lecturerId && u.slot == u.slot_maximum  && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
                     var nonFilteredValue = totalResults.length - filteredResults.length;
                     console.log(totalResults)
                     res.send({

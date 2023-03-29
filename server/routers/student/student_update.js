@@ -121,13 +121,13 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
                 const getRegistrationBachelorThesisParams = [req.userId];
                 const getRegistrationBachelorThesisResults = await executeQuery(res, getRegistrationBachelorThesisQuery, getRegistrationBachelorThesisParams);
                 const infoRegistrationBachelor = getRegistrationBachelorThesisResults[0];
-
+                console.log(infoRegistrationBachelor)
                 const query = "UPDATE registrations_for_oral_defense SET matriculation_number = ?, surname = ?, forename = ?, supervisor1_title = ?, supervisor2_title = ?, spectators_present = ?, weekdate = ?, proposed_date = ?, proposed_time = ?, room = ?, concerned_agreed = ?, date_receive = ?, date_submission = ?, step = ? where student_id = ?";
                 const queryParams = [matriculationNumber, surName, foreName, supervisor1_title, supervisor2_title, spectatorsPresent, weekDate, proposedDate, proposedTime, room, concernedAgreed, dateReceive, dateSubmission, 1, studentId]
                 const dbResults = await executeQuery(res, query, queryParams);
                 //add row to assessmentBachelor and assessmentOral
-                const insertAssessmentBachelorThesisQuery = "INSERT INTO assessment_for_bachelor_thesis (student_id, matriculation_number, surname, forename, thesis_type, further_participants, supervisor1_title, supervisor2_title, step) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                const insertAssessmentBachelorThesisParams = [req.userId, matriculationNumber, infoRegistrationBachelor.surname, infoRegistrationBachelor.forename, infoRegistrationBachelor.thesis_type, infoRegistrationBachelor.further_participants, infoRegistrationBachelor.supervisor1_title, infoRegistrationBachelor.supervisor2_title, 0];
+                const insertAssessmentBachelorThesisQuery = "INSERT INTO assessment_for_bachelor_thesis (student_id, matriculation_number, surname, forename, thesis_title, thesis_type, further_participants, supervisor1_title, supervisor2_title, step) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                const insertAssessmentBachelorThesisParams = [req.userId, matriculationNumber, infoRegistrationBachelor.surname, infoRegistrationBachelor.forename, infoRegistrationBachelor.title_bachelor_thesis, infoRegistrationBachelor.thesis_type, infoRegistrationBachelor.further_participants, infoRegistrationBachelor.supervisor1_title, infoRegistrationBachelor.supervisor2_title, 0];
                 const insertAssessmentBachelorThesisResults = await executeQuery(res, insertAssessmentBachelorThesisQuery, insertAssessmentBachelorThesisParams);
 
                 const insertAssessmentOralQuery = "INSERT INTO assessment_for_oral_defense (student_id, matriculation_number, surname, forename, supervisor1_title, supervisor2_title, step) VALUES (?, ?, ?, ?, ?, ?, ?)";

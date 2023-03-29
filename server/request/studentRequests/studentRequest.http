@@ -41,16 +41,13 @@ Content-Type: application/json
     "foreName" : "long",
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
-    "signature" : "",
     "student_date" : "2022-12-2",
     "titleBachelorThesis" : "Data Mining",
     "thesisType" : "1",
     "furtherParticipants" : "",
     "supervisor1_title" : "Prof. Huynh Trung Hieu",
-    "supervisor1_signature" : "",
     "supervisor1_date" : "2022-12-12",
     "supervisor2_title" : "Master Huynh Nguyen",
-    "supervisor2_signature" : "",
     "supervisor2_date" : "2022-12-12",
     "issued" : "2023-1-12",
     "deadlineCopy" : "2023-1-12",
@@ -146,8 +143,8 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/student/get/lecturer/23483
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NjMwNDUzNCwiZXhwIjoxNjc2MzA1NDM0fQ.6OO2eQiGCFA8bqi_UZRLyZVk5Ow_zMHnG0WLvjT7GY4
+GET http://localhost:5000/student/get/lecturer/26029
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNTcsInVzZXJuYW1lIjoibG9uZ3BoYW5uZ3V5ZW4iLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY4MDA5NjMwNSwiZXhwIjoxNjgwMDk3MjA1fQ.rzUlSw6ULYSRrhgiR0GmXxt-BCPDWn3RjaP3a7PXs2U
 
 
 ###
@@ -187,16 +184,13 @@ Content-Type: application/json
     "foreName" : "long",
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
-    "signature" : "",
     "student_date" : "2022-12-2",
     "titleBachelorThesis" : "Data Mining",
     "thesisType" : "1",
     "furtherParticipants" : "",
     "supervisor1_title" : "Prof. Huynh Trung Hieu",
-    "supervisor1_signature" : "",
     "supervisor1_date" : "2022-12-12",
     "supervisor2_title" : "Master Huynh Nguyen",
-    "supervisor2_signature" : "",
     "supervisor2_date" : "2022-12-12",
     "issued" : "2023-1-12",
     "deadlineCopy" : "2023-1-12",
@@ -208,7 +202,7 @@ Content-Type: application/json
 ###
 
 PUT http://localhost:5000/student/update/registrationOralDefense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkzNjMsInVzZXJuYW1lIjoiYXJpY2tlbGwzIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzk5MjIwNjAsImV4cCI6MTY3OTkyMjk2MH0.NXl17v64-rBvxWi36B3gFaNPU5bnCECwoNZu9xWg0cQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkzNjMsInVzZXJuYW1lIjoiYXJpY2tlbGwzIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwOTY3MzYsImV4cCI6MTY4MDA5NzYzNn0.0szdYyzZlkspnfzrrCcx_faysE3dIJKoMVhzqihSfdw
 Content-Type: application/json
 
 {
@@ -219,12 +213,12 @@ Content-Type: application/json
     "supervisor2_title" : "Master Huynh Nguyen", 
     "spectatorsPresent" : 1,
     "weekDate" : "3", 
-    "proposedDate" : "2023-03-29", 
+    "proposedDate" : "2023-04-29", 
     "proposedTime" : "07:00:00", 
     "room" : "A2392.3", 
     "concernedAgreed" : 1, 
-    "dateReceive" : "2023-03-29", 
-    "dateSubmission" : "2023-03-29"
+    "dateReceive" : "2023-04-29", 
+    "dateSubmission" : "2023-04-29"
 }
 
 

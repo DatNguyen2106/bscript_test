@@ -30,12 +30,8 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) => {
                 const getLecturer1Results = await executeQuery(res, getLecturer1Query, getLecturer1Params);
                 console.log(typeof(getLecturer1Results[0][0].proposed_date));
                 var todayDate = moment().valueOf();
-                var proposedDate = moment(getLecturer1Results[0][0].proposed_date).valueOf();
-                console.log(todayDate);
-                console.log(getLecturer1Results[0][0].proposed_date);
-                console.log(proposedDate > todayDate);
-                var totalResults = getLecturer1Results[0].filter((u) => u.lecturer1_id_thesis == req.userId && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
-                var filteredResults = getLecturer1Results[0].filter((u) => u.lecturer1_id_thesis == req.userId && u.slot == u.slot_maximum  && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
+                var totalResults = getLecturer1Results[0].filter((u) => u.lecturer_id == req.userId && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
+                var filteredResults = getLecturer1Results[0].filter((u) => u.lecturer_id == req.userId && u.slot == u.slot_maximum  && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
                 var nonFilteredValue = totalResults.length - filteredResults.length;
                 console.log(totalResults)
                 if (page > results[0].chunk(chunkForPage).length) {
