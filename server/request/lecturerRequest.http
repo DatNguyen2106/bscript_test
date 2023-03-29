@@ -42,6 +42,15 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
+    "username" : "longle",
+    "password" : "21933"
+}
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
     "username" : "alexnguyen",
     "password" : "21029"
 }
@@ -114,30 +123,30 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZ
 
 ###
 POST http://localhost:5000/lecturer2/confirm/confirmThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3OTAzNzI1MCwiZXhwIjoxNjc5MDM4MTUwfQ.ZdMFmcGfpOtiHjaBF79oJheA0sGwJtDW9Oe3dWS5fbw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjgwMTA2NjYwLCJleHAiOjE2ODAxMDc1NjB9.XeFyhC6SZeYNkpU1g6WqtVd8OheilJqd1GyWqkcxO5E
 Content-Type: application/json
 
 {
-    "thesisId" : 210291,
+    "thesisId" : 123554,
     "confirmThesis" : true
 }
-###registrationBachelorThesisAsSup1
+###confirm thesis
 POST http://localhost:5000/lecturer1/confirm/confirmThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3OTAzODU2NSwiZXhwIjoxNjc5MDM5NDY1fQ.O51x0m0-o_1gZSGwnU48MBF6TwKJ4Lbf15cNUyID6hU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjE5MzMsInVzZXJuYW1lIjoibG9uZ2xlIiwicm9sZSI6IltcImxlY3R1cmVyMS4yXCJdIiwiaWF0IjoxNjgwMTA1NzkxLCJleHAiOjE2ODAxMDY2OTF9.Kue1cKG99F0dQPTk5HeZWQy4g3pxqWVxYPEg689ICuw
 Content-Type: application/json
 
 {
-    "thesisId" : 210292,
-    "confirmThesis" : false
+    "thesisId" : 123122,
+    "confirmThesis" : true
 }
 
-###
+###registrationBachelorThesisAsSup1
 POST http://localhost:5000/lecturer1/signIn/registrationBachelorThesisAsSup1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MDAwMjA4OCwiZXhwIjoxNjgwMDAyOTg4fQ.QauZ6-eKqMa6pftQY9pK3XJTb5jXZe04-4-vZ7qtrzs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MDEwMTcyNCwiZXhwIjoxNjgwMTAyNjI0fQ.4gI21se2jha8QjpO51R-1iuFW3W6T2-6zneerbzhgsM
 Content-Type: application/json
 
 {
-    "studentId" : 12345,
+    "studentId" : 18593,
     "confirmSignature" : true
 }
 ###

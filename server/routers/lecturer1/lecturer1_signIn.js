@@ -29,7 +29,7 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup1', verifyTokenLec
                     const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
                     const getExactThesisFromStudentIdParams = [studentId];
                     const getExactThesisFromStudentIdResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentIdParams);
-
+                    console.log(getExactThesisFromStudentIdResults)
                     if (getExactThesisFromStudentIdResults[0]) {
                         if (getExactThesisFromStudentIdResults[0][0].studentId !== null && getExactThesisFromStudentIdResults[0][0].lecturer2_title !== null) {
                             const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
@@ -52,6 +52,8 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup1', verifyTokenLec
                             }
                             else { io.to(socketStudentId).emit("notificationReceived", (notificationReceivedStudent)) };
                         }
+                    } else {getExactThesisFromStudentIdResults[0][0].lecturer2_title === null}{
+                        console.log("no sup 2 for that student");
                     }
 
                     res.send(result);
@@ -60,6 +62,35 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup1', verifyTokenLec
                     const query = "UPDATE registrations_for_bachelor_thesis SET step = ? WHERE student_id = ?";
                     const queryParams = [0, studentId];
                     const result = await executeQuery(res, query, queryParams);
+
+                    const getExactThesisFromStudentIdQuery = "call getExactThesisFromStudentId(?)";
+                    const getExactThesisFromStudentIdParams = [studentId];
+                    const getExactThesisFromStudentIdResults = await executeQuery(res, getExactThesisFromStudentIdQuery, getExactThesisFromStudentIdParams);
+                    if (getExactThesisFromStudentIdResults[0]) {
+                        if (getExactThesisFromStudentIdResults[0][0].studentId !== null && getExactThesisFromStudentIdResults[0][0].lecturer2_title !== null) {
+                            const sendNotificationAnotherSupQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationAnotherSupParams = [`Lecturer sign-in registration bachelor`, req.userId, getExactThesisFromStudentIdResults[0][0].lecturer2_id, `${lecturerTitle} has rejected the registration bachelor thesis form for the thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}" from the student ${studentId}`];
+                            const sendNotificationAnotherSup = await sendNotification(res, sendNotificationAnotherSupQuery, sendNotificationAnotherSupParams);
+
+                            const notificationReceivedAnotherSup = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].lecturer2_id);
+                            const socketSup = await getSocketById(res, req.userId);
+                            const socketSupId = socketSup[0].socket_id;
+                            if (socketSup === null || socketSup === undefined) {
+                            }
+                            else { io.to(socketSupId).emit("notificationReceived", (notificationReceivedAnotherSup)) };
+                            const sendNotificationStudentQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationStudentParams = [`Lecturer sign-in registration bachelor`, req.userId, getExactThesisFromStudentIdResults[0][0].student_id, `${lecturerTitle} has rejected the registration bachelor thesis form for the thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}"`];
+                            const sendNotificationStudent = await sendNotification(res, sendNotificationStudentQuery, sendNotificationStudentParams);
+                            const notificationReceivedStudent = await getNotificationReceived(res, getExactThesisFromStudentIdResults[0][0].student_id);
+                            const socketStudent = await getSocketById(res, getExactThesisFromStudentIdResults[0][0].student_id);
+                            const socketStudentId = socketStudent[0].socket_id;
+                            if (socketStudent === null || socketStudent === undefined) {
+                            }
+                            else { io.to(socketStudentId).emit("notificationReceived", (notificationReceivedStudent)) };
+                        } else {getExactThesisFromStudentIdResults[0][0].lecturer2_title === null}{
+                        console.log("no sup 2 for that student");
+                        }
+                    }
                     res.send(result);
                 }
                 else {

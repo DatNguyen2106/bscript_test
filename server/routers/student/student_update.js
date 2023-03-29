@@ -158,8 +158,23 @@ student_update_router.put('/registrationOralDefense', verifyTokenStudent, async 
                         const socketReceiver2Id = socket2[0].socket_id;
                         if(socket2 === null || socket2 === undefined){
                             }
-                            else { io.to(socketReceiver2Id).emit("notificationReceived", (notificationReceived2))};    
-                    }
+                        else { io.to(socketReceiver2Id).emit("notificationReceived", (notificationReceived2))};
+                        }
+                        // admin notifications
+                        const getAllAdmin = "call getAllAdmin()";
+                        const getAllAdminResults = await executeQuery(res, getAllAdmin);
+                        console.log(getAllAdminResults[0]);
+                        for (let j = 0; j < getAllAdminResults[0].length; j++){
+                            const sendNotificationForAdminQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationForAdminParams = [`Student update registration oral defense` , req.userId, getAllAdminResults[0][j].id, `Student ${getThesisResults[0][i].student_id} has filled in the registration oral defense form for the thesis "${getThesisResults[0][i].thesis_topic}"`];
+                            const sendNotificationForAdminResults = await executeQuery(res, sendNotificationForAdminQuery, sendNotificationForAdminParams);
+                            let notificationReceivedAdmin = await getNotificationReceived(res, getAllAdminResults[0][j].id);
+                            let adminSocket = await getSocketById(res, getAllAdminResults[0][j].id);
+                            let adminSocketId = adminSocket[0].socket_id;
+                            if(adminSocket === null || adminSocket === undefined){
+                                }
+                            else { io.to(adminSocketId).emit("notificationReceived", (notificationReceivedAdmin))};
+                        }
                     }
                 }
                 res.send(dbResults);  

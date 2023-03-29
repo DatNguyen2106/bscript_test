@@ -2,10 +2,10 @@ POST http://localhost:4000/signup
 Content-Type: application/json
 
 {
-    "id" : "21457",
-    "username" : "haotran12",
-    "password" : "21457",
-    "role" : ["lecturer1.1"]
+    "id" : "100000",
+    "username" : "admin",
+    "password" : "100000",
+    "role" : ["admin"]
 }
 
 ###
@@ -16,6 +16,16 @@ Content-Type: application/json
 {
     "username" : "lukas",
     "password" : "30000"
+}
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "password" : "100000"
 }
 ###
 GET http://localhost:5000/getNotifications

@@ -59,6 +59,7 @@ student_add_router.post('/confirmSup1', verifyTokenStudent, async (req, res) => 
     }
 
 })
+//test
 student_add_router.post('/registrationBachelorThesis', verifyTokenStudent, async (req, res) => {
     try {
         var role = req.role;

@@ -57,7 +57,21 @@ lecturer2_confirm_router.post('/confirmThesis', verifyTokenLecturer2, async (req
                     const changeStepQuery = "UPDATE theses SET step = ? where thesis_id = ?";
                     const changeStepQueryParams = [2, thesisId];
                     const changeStepResult = await executeQuery(res, changeStepQuery, changeStepQueryParams);
-
+                    // admin notifications
+                    const getAllAdmin = "call getAllAdmin()";
+                    const getAllAdminResults = await executeQuery(res, getAllAdmin);
+                    console.log(getAllAdminResults[0]);
+                    for (let j = 0; j < getAllAdminResults[0].length; j++){
+                        const sendNotificationForAdminQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                        const sendNotificationForAdminParams = [`Lecturer2 accept thesis` , req.userId, getAllAdminResults[0][j].id, `The thesis "${getThesesByThesisIdResults[0][0].thesis_topic} has been ready to start"`];
+                        const sendNotificationForAdminResults = await executeQuery(res, sendNotificationForAdminQuery, sendNotificationForAdminParams);
+                        let notificationReceivedAdmin = await getNotificationReceived(res, getAllAdminResults[0][j].id);
+                        let adminSocket = await getSocketById(res, getAllAdminResults[0][j].id);
+                        let adminSocketId = adminSocket[0].socket_id;
+                        if(adminSocket === null || adminSocket === undefined){
+                            }
+                        else { io.to(adminSocketId).emit("notificationReceived", (notificationReceivedAdmin))};
+                    }
                     res.send(changeStepResult);
                 }
                 else if (confirmThesis === false) {
