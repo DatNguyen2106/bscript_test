@@ -4,6 +4,8 @@ const readStudentMiddleware = require('../../middleware/readStudentMiddleware');
 const db = require('../../db/connectDB');
 const verifyTokenStudent = require('../../middleware/verifyTokenStudent');
 const { request } = require('express');
+const moment = require('moment');
+
 
 student_get_router.post('/lecturers', verifyTokenStudent, async (req, res) => {
     // because of unique id value, so this api just returns 1 or no value.
@@ -77,12 +79,14 @@ student_get_router.get('/lecturer/:id', verifyTokenStudent, async (req, res) => 
                     res.status(404).send("Need a number Parameter Id");
                 } else {
                     lecturerId = req.params.id;
-                    const query = "CALL getLecturer1(?)";
+                    const query = "CALL getLecturer1WithProposedDate(?)";
                     const queryParams = [lecturerId];
                     const results = await executeQuery(res, query, queryParams);
-                    var totalResults = results[0].filter((u) => u.lecturer_id == lecturerId);
-                    var filteredResults = results[0].filter((u) => u.lecturer_id == lecturerId && u.slot == u.slot_maximum);
+                    var todayDate = moment().valueOf();
+                    var totalResults = results[0].filter((u) => u.lecturer1_id_thesis == lecturerId && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
+                    var filteredResults = results[0].filter((u) => u.lecturer1_id_thesis == lecturerId && u.slot == u.slot_maximum  && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
                     var nonFilteredValue = totalResults.length - filteredResults.length;
+                    console.log(totalResults)
                     res.send({
                         "filterTheses": filteredResults.length,
                         "totalTheses": totalResults.length,
