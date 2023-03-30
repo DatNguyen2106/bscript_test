@@ -139,7 +139,7 @@ lecturer1_confirm_router.post('/confirmThesis', verifyTokenLecturer1, async (req
                         console.log(getAllAdminResults[0]);
                         for (let j = 0; j < getAllAdminResults[0].length; j++){
                             const sendNotificationForAdminQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                            const sendNotificationForAdminParams = [`Lecturer confirm thesis` , req.userId, getAllAdminResults[0][j].id, `The thesis "${getThesesByThesisIdResults[0][0].thesis_topic} has been ready to start"`];
+                            const sendNotificationForAdminParams = [`Lecturer confirm thesis` , req.userId, getAllAdminResults[0][j].id, `The thesis "${getThesesByThesisIdResults[0][0].thesis_topic}" has been ready to start`];
                             const sendNotificationForAdminResults = await executeQuery(res, sendNotificationForAdminQuery, sendNotificationForAdminParams);
                             let notificationReceivedAdmin = await getNotificationReceived(res, getAllAdminResults[0][j].id);
                             let adminSocket = await getSocketById(res, getAllAdminResults[0][j].id);

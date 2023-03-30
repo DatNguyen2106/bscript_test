@@ -159,12 +159,26 @@ lecturer1_signIn_router.post('/registrationBachelorThesisAsSup2', verifyTokenLec
                             if (socketStudent === null || socketStudent === undefined) {
                             }
                             else { io.to(socketStudentId).emit("notificationReceived", (notificationReceivedStudent)) };
+                            // admin notifications
+                            const getAllAdmin = "call getAllAdmin()";
+                            const getAllAdminResults = await executeQuery(res, getAllAdmin);
+                            console.log(getAllAdminResults[0]);
+                            for (let j = 0; j < getAllAdminResults[0].length; j++){
+                                const sendNotificationForAdminQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                                const sendNotificationForAdminParams = [`Lecturer1 sign in registration bachelor thesis as sup 2` , req.userId, getAllAdminResults[0][j].id, `The registration bachelor thesis form for the thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}" from the student "${getExactThesisFromStudentIdResults[0][0].student_id}" has been completed`];
+                                const sendNotificationForAdminResults = await executeQuery(res, sendNotificationForAdminQuery, sendNotificationForAdminParams);
+                                let notificationReceivedAdmin = await getNotificationReceived(res, getAllAdminResults[0][j].id);
+                                let adminSocket = await getSocketById(res, getAllAdminResults[0][j].id);
+                                let adminSocketId = adminSocket[0].socket_id;
+                                if(adminSocket === null || adminSocket === undefined){
+                                    }
+                                else { io.to(adminSocketId).emit("notificationReceived", (notificationReceivedAdmin))};
+                            }
                         }
                     }
                     const changeStep3InThesesQuery = " call updateStep3OnThesesByThesisId(?)";
                     const changeStep3InThesesQueryParams = [thesisId];
                     const changeStep3InThesesResults = await executeQuery(res, changeStep3InThesesQuery, changeStep3InThesesQueryParams);
-
                     //final results
                     res.send(changeStep3InThesesResults);
                 }

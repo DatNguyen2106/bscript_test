@@ -59,8 +59,24 @@ lecturer2_update_router.put('/assessmentBachelor', verifyTokenLecturer2, async (
                         if (socketId === null || socketId === undefined) {
                         }
                         else { io.to(socketId).emit("notificationReceived", (notificationReceived)) };
+                        // admin notifications
+                        const getAllAdmin = "call getAllAdmin()";
+                        const getAllAdminResults = await executeQuery(res, getAllAdmin);
+                        console.log(getAllAdminResults[0]);
+                        for (let j = 0; j < getAllAdminResults[0].length; j++){
+                            const sendNotificationForAdminQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationForAdminParams = [`Lecturer2 update assessment registration bachelor form` , req.userId, getAllAdminResults[0][j].id, `${lecturerTitle} has completed the assessment bachelor thesis from the thesis  "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
+                            const sendNotificationForAdminResults = await executeQuery(res, sendNotificationForAdminQuery, sendNotificationForAdminParams);
+                            let notificationReceivedAdmin = await getNotificationReceived(res, getAllAdminResults[0][j].id);
+                            let adminSocket = await getSocketById(res, getAllAdminResults[0][j].id);
+                            let adminSocketId = adminSocket[0].socket_id;
+                            if(adminSocket === null || adminSocket === undefined){
+                                }
+                            else { io.to(adminSocketId).emit("notificationReceived", (notificationReceivedAdmin))};
+                        } 
                     }
                 }
+
 
                 res.send({ "result": "done" });
             }
@@ -129,6 +145,21 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
                         if (socketSup === null || socketSup === undefined) {
                         }
                         else { io.to(socketSupId).emit("notificationReceived", (notificationReceivedAnotherSup)) };
+                        // admin notifications
+                        const getAllAdmin = "call getAllAdmin()";
+                        const getAllAdminResults = await executeQuery(res, getAllAdmin);
+                        console.log(getAllAdminResults[0]);
+                        for (let j = 0; j < getAllAdminResults[0].length; j++){
+                            const sendNotificationForAdminQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
+                            const sendNotificationForAdminParams = [`Lecturer2 update assessment oral defense form` , req.userId, getAllAdminResults[0][j].id, `${lecturerTitle} has completed the assessment oral defense from the thesis  "${getExactThesisFromStudentResults[0][0].thesis_topic}" for the student "${getExactThesisFromStudentResults[0][0].student_id}"`];
+                            const sendNotificationForAdminResults = await executeQuery(res, sendNotificationForAdminQuery, sendNotificationForAdminParams);
+                            let notificationReceivedAdmin = await getNotificationReceived(res, getAllAdminResults[0][j].id);
+                            let adminSocket = await getSocketById(res, getAllAdminResults[0][j].id);
+                            let adminSocketId = adminSocket[0].socket_id;
+                            if(adminSocket === null || adminSocket === undefined){
+                                }
+                            else { io.to(adminSocketId).emit("notificationReceived", (notificationReceivedAdmin))};
+                        } 
                     }
                 }
                 res.send({ "result": "done" });
