@@ -147,7 +147,9 @@ admin_update_router.put('/thesis/:thesisId', verifyTokenAdmin, async (req, res) 
                     }
                     // submissionDeadline = null, we do later.
                     else {
-                        console.log("error ");
+                        const updateThesisQuery = "UPDATE theses SET thesis_topic = ?, thesis_field = ?, activate_registration = ?, activate_defense = ?, number_hard_copies = ?, print_requirements = ?, template_files = ?, submission_deadline = ? where thesis_id = ?"
+                        const queryParams = [thesisTopic, thesisField, activateRegistration, activateDefense, numberOfHardCopies, printRequirements, templateFiles, null, paramId];
+                        const results = await executeQuery(res, updateThesisQuery, queryParams);
                     }
 
                     if (getThesisInfoQueryResults[0][0].activate_registration === 0 && activateRegistration === true) {
