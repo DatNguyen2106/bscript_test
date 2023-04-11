@@ -27,11 +27,18 @@ app.post('/signup', async (req , res) => {
             if(err) {res.send(err);}     
             // Store hash in database here
             else  { 
-                db.query(insertUserQuery,[id,username,hash,salt,roles], (err, result) => {
+                db.query(insertUserQuery,[id,username,hash,salt,roles], async (err, result) => {
                     if(err) {
                         res.send("Cannot Insert on tbl_user into database")
                     }
-                    else res.json(result);
+                    else {
+                        if(roles === '["admin"]'){
+                            insertAdminQuery = "insert into admins (admin_id, admin_user_name) values (?,?)";
+                            insertAdminParams = [id, username];
+                            insertAdminResults = await executeQuery(res, insertAdminQuery, insertAdminParams);
+                        }
+                        res.send(result);
+                    };
                 })} 
          });
       });
@@ -140,4 +147,14 @@ const updateRefreshToken = (username, refreshToken) => {
     // if user is not = username pass through, return user
     return user;
 })
+}
+const executeQuery = (res, query, queryParams) => {
+    const results =  new Promise((resolve) => {
+        db.query(query, queryParams, (err, result) => {
+            if(err) {res.status(500).send(err.message)}
+            else
+            {  resolve(JSON.parse(JSON.stringify(result)))}
+        })
+        })
+    return results;
 }

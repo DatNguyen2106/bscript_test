@@ -41,7 +41,7 @@ Content-Type: application/json
     "foreName" : "long",
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
-    "student_date" : "2022-12-2",
+    "student_date" : "2023-12-04",
     "titleBachelorThesis" : "Data Mining",
     "thesisType" : "1",
     "furtherParticipants" : "",
