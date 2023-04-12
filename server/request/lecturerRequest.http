@@ -298,9 +298,24 @@ Content-Type: application/json
 }
 
 ###
+PUT http://localhost:5000/lecturer1/modify/thesis
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MTI4NTgyMCwiZXhwIjoxNjgxMjg2NzIwfQ.tb2LEYIAaysbOVQzm7ea61e2b3KG8IoS83-QKiwT_tY
+Content-Type: application/json
+
+{
+    "thesisId" : 210291,
+    "thesisTopic" : "Topic test",
+    "thesisField" : "Field test"
+}
+
+###
 GET http://localhost:5000/lecturer1/get/testForm/12486
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3ODk4NzcxNCwiZXhwIjoxNjc4OTg4NjE0fQ.5-27Aw8UjIev1HOfRBQH4ym0JTSHOrsqq2_D--lrBKA
 
 ###
 GET http://localhost:5000/lecturer2/get/testForm/12486
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjA0ODksInVzZXJuYW1lIjoicm9tZWluIiwicm9sZSI6IltcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY3ODk4NzkzOCwiZXhwIjoxNjc4OTg4ODM4fQ.1gnaX7vRPRq9sdqQlI8KLq4geW6SAT0Ang4PNzggz40
+
+###
+DELETE http://localhost:5000/lecturer1/delete/thesis/210291
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjE5MzMsInVzZXJuYW1lIjoibG9uZ2xlIiwicm9sZSI6IltcImxlY3R1cmVyMS4yXCJdIiwiaWF0IjoxNjgxMjg3OTM5LCJleHAiOjE2ODEyODg4Mzl9.2MFWnheld66H_n3VGEhPBxYWe4c5_8UoeDTE3EJgBoo
