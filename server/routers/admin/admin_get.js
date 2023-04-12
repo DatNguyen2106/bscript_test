@@ -88,6 +88,27 @@ admin_get_router.post('/lecturers', verifyTokenAdmin, async (req, res) =>{
                     console.log(results);
                     console.log(results.chunk(page)[page-1]);
                     console.log("TotalPage " + results.chunk(chunkForPage).length);
+                    const getAllLecturersInProjectByAdminQuery = "call getAllLecturersInProjectByAdmin()";
+                    const getAllLecturersInProjectByAdminResults = await executeQuery(res, getAllLecturersInProjectByAdminQuery);
+                    console.log(getAllLecturersInProjectByAdminResults[0]);
+                    const getAllLecturersInProjectByAdminArray = [];
+                    for(var i = 0; i < getAllLecturersInProjectByAdminResults[0].length; i++){
+                        getAllLecturersInProjectByAdminArray.push(getAllLecturersInProjectByAdminResults[0][i].lecturer_id);
+                        getAllLecturersInProjectByAdminArray.push(getAllLecturersInProjectByAdminResults[0][i].lecturer2);
+                    }
+                    const getAllLecturersInProjectByAdminArrayWithoutNull = getAllLecturersInProjectByAdminArray.filter(element => {
+                        return element !== null;
+                      });
+                    console.log(results[0])
+                    console.log(getAllLecturersInProjectByAdminArrayWithoutNull);
+                    for(var i = 0; i < results.length; i++){
+                        var inProject = false;
+                        if((getAllLecturersInProjectByAdminArrayWithoutNull.includes(results[i].lecturer_id))){
+                            results[i]["inProject"] = true;
+                        } else {
+                            results[i]["inProject"] = false;
+                        }
+                    }
                     io.emit("getLecturers", results);
                     if(page > results.chunk(chunkForPage).length){
                         res.send({
@@ -187,6 +208,23 @@ admin_get_router.post('/students', verifyTokenAdmin, async (req, res) =>{
                           }
                         })
                       })
+                    const getAllStudentsInProjectByAdminQuery = "call getAllStudentsInProjectByAdmin()";
+                    const getAllStudentsInProjectByAdminResults = await executeQuery(res, getAllStudentsInProjectByAdminQuery);
+                    console.log(typeof(getAllStudentsInProjectByAdminResults[0]));
+                    const getAllStudentsInProjectByAdminArray = [];
+                    for(var i = 0; i < getAllStudentsInProjectByAdminResults[0].length; i++){
+                        getAllStudentsInProjectByAdminArray.push(getAllStudentsInProjectByAdminResults[0][i].student_id);
+                    }
+                    console.log(results[0])
+                    console.log(getAllStudentsInProjectByAdminArray);
+                    for(var i = 0; i < results.length; i++){
+                        var inProject = false;
+                        if((getAllStudentsInProjectByAdminArray.includes(results[i].student_id))){
+                            results[i]["inProject"] = true;
+                        } else {
+                            results[i]["inProject"] = false;
+                        }
+                    }
                     if(page > results.chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results.chunk(chunkForPage).length,
@@ -282,7 +320,7 @@ admin_get_router.get('/student/:id', verifyTokenAdmin, async (req, res) =>{
                     if(!id || typeof(id) === 'undefined') {
                         res.send("No user params");
                     } else {
-                        {
+                        {   
                             const studentQuery = "SELECT * FROM students WHERE student_id = ?";
                             const registrationBachelorThesisQuery = "SELECT * FROM registrations_for_bachelor_thesis WHERE student_id = ?";
                             const assessmentBachelorThesisQuery = "SELECT * FROM assessment_for_bachelor_thesis WHERE student_id = ?";

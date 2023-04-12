@@ -5,13 +5,13 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "paskasz",
-    "password" : "19999"
+    "username" : "lukas",
+    "password" : "30000"
 }
 
 ###
 POST http://localhost:5000/admin/get/students
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzIzMzI1NjIsImV4cCI6MTY3MjMzMzQ2Mn0.F-mkdH88uWTakrsWyYxRbNxzk8wCaOlVuaSvEOqj_M8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTU3MTIsImV4cCI6MTY4MTMxNjYxMn0.C0aINkom5xXIthFr-eA5xEE2JRXuXF_3LK0nHdAJSII
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
     "email" : "",
     "ects" : "",
     "signature" : "",
-    "page" : "1"
+    "page" : "3"
 }
 ###
 GET http://localhost:5000/admin/get/student/13961
@@ -51,7 +51,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ### 
 POST http://localhost:5000/admin/add/student
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzM0MjY1MzQsImV4cCI6MTY3MzQyNzQzNH0.yGXlytqaczwhChCMBstw0pppCjzUo6PGQqomCMj1pWQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTI2ODMsImV4cCI6MTY4MTMxMzU4M30.9pEXcnp5cujA9Fep17FXL3MYMAA3R-SOkW1dgBVeTY0
 Content-Type: application/json
 
 {

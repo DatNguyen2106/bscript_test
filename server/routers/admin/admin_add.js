@@ -18,7 +18,8 @@ admin_add_router.post('/lecturer', verifyTokenAdmin, async (req, res) => {
     var email;
     email = checkTypeToAdd(req.body.email, emailFormat);
     var supervisor = (req.body.supervisor === "" || req.body.supervisor === undefined) ? null : req.body.supervisor;
-    var maximumTheses = (req.body.maximumTheses === "" || req.body.maximumTheses === undefined) ? 0 : req.body.maximumTheses;
+    // default maximumTheses
+    var maximumTheses = 100000;
     var bio = (req.body.bio === "" || req.body.bio === undefined) ? 0 : req.body.bio;
     if (req.username) {
         if (role) {

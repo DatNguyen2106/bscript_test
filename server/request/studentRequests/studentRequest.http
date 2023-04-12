@@ -22,7 +22,16 @@ Content-Type: application/json
 
 {
     "username" : "datnguyen",
-    "password" : "12345"
+    "password" : "12486"
+}
+
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username" : "test",
+    "password" : "12365"
 }
 ###
 GET http://localhost:5000/student/get/12486
@@ -32,7 +41,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZ
 
 ###
 POST http://localhost:5000/student/add/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDE2NzAsImV4cCI6MTY4MDAwMjU3MH0.qfnFFGbkm2zYIfiR8PtkA7U34CXKO9PLA4RB7VzWOCA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNjUsInVzZXJuYW1lIjoidGVzdCIsInJvbGUiOiJbXCJzdHVkZW50XCJdIiwiaWF0IjoxNjgxMTQ5Mjk4LCJleHAiOjE2ODExNTAxOTh9.EOMsW1GiNdBI5ApLwE7IKVEYRV3NtJU9dkmSvum7f8M
 Content-Type: application/json
 
 {
@@ -175,7 +184,7 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/student/update/registrationBachelorThesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODAwMDE2NzAsImV4cCI6MTY4MDAwMjU3MH0.qfnFFGbkm2zYIfiR8PtkA7U34CXKO9PLA4RB7VzWOCA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNjUsInVzZXJuYW1lIjoidGVzdCIsInJvbGUiOiJbXCJzdHVkZW50XCJdIiwiaWF0IjoxNjgxMTQ5Mjk4LCJleHAiOjE2ODExNTAxOTh9.EOMsW1GiNdBI5ApLwE7IKVEYRV3NtJU9dkmSvum7f8M
 Content-Type: application/json
 
 {
@@ -184,7 +193,7 @@ Content-Type: application/json
     "foreName" : "long",
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
-    "student_date" : "2022-12-2",
+    "student_date" : "2023-12-04",
     "titleBachelorThesis" : "Data Mining",
     "thesisType" : "1",
     "furtherParticipants" : "",
@@ -224,7 +233,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/student/get/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNDUsInVzZXJuYW1lIjoiZGF0bmd1eWVuIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzg5NTAyOTUsImV4cCI6MTY3ODk1MTE5NX0.W25mNvhClOIFrvQN7JGES07GFEYmBpGn6v0pOs6Qfrk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNTcsInVzZXJuYW1lIjoibG9uZ3BoYW5uZ3V5ZW4iLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY4MTIxMDc3MywiZXhwIjoxNjgxMjExNjczfQ.vrqoSAC42fQYTKB9U6PS-uy-GqCI9GsfcXWmr0dWZj0
 
 ###
 GET http://localhost:5000/student/update/account

@@ -3,12 +3,22 @@ POST http://localhost:4000/signup
 Content-Type: application/json
 
 {
-    "id" : "100001",
-    "username" : "admin1",
-    "password" : "100001",
+    "id" : "100002",
+    "username" : "test1",
+    "password" : "100002",
     "role" : ["admin"]
 }
 
+###
+POST http://localhost:4000/signup
+Content-Type: application/json
+
+{
+    "id" : "100001",
+    "username" : "test1",
+    "password" : "100001",
+    "role" : ["admin"]
+}
 ###
 
 POST http://localhost:4000/login
@@ -75,7 +85,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2Vyb
 
 ###
 POST http://localhost:5000/admin/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzk5MjAxNDIsImV4cCI6MTY3OTkyMTA0Mn0.NPXRu-RXb3fnXXoEaPYt9Pqwgb2FpxcVbz3HQxTElIA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTY2NDcsImV4cCI6MTY4MTMxNzU0N30.9J8c0DPxddjbDpFCAqy6qug0xhzXBq9xhUKRp7czMNE
 Content-Type: application/json
 
 {
@@ -103,17 +113,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/admin/add/lecturer
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzc1OTA4NTYsImV4cCI6MTY3NzU5MTc1Nn0.xeiaYmNe2qS2jd0JgeUhwDiydQU8vLbpl6oEA_2eGic
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IltcImFkbWluXCJdIiwiaWF0IjoxNjgxMzE0MjY4LCJleHAiOjE2ODEzMTUxNjh9.j-wjOWInNmoT7glC77mkDx7Oe_6vXKgQXn6KdEUHWuE
 Content-Type: application/json
 
 {
-    "id" : 21933,
-    "username" : "haotran12",
+    "id" : 21333,
+    "username" : "haotran11",
     "email" : "haotran@gmail.com",
-    "title" : "Dr. Hao Tran",
+    "title" : "Dr. Hao Tran A",
     "supervisor" : "lecturer1.1",
     "signature" : "signature",
-    "maximumTheses" : 3,
     "bio" : "this is new bio"
 }
 
@@ -138,8 +147,16 @@ GET http://localhost:5000/admin/get/lecturer/21029
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzk5ODIzOTAsImV4cCI6MTY3OTk4MzI5MH0.TEaccMVjdpdnR_UXPLPkfbdtD8Ba3Y6wEv9JPQNQLAg
 
 ###
-DELETE http://localhost:5000/admin/delete/lecturer/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMwMDAwIiwidXNlcm5hbWUiOiJsdWthcyIsInJvbGUiOiJbXCJhZG1pblwiXSIsImlhdCI6MTY2NzAzNDY4OSwiZXhwIjoxNjY3MDM0NzE5fQ.jWem9asn3mJG01BiqgTelT8GqfBT96MkfTPwFv364k0
+DELETE http://localhost:5000/admin/delete/lecturer/21029
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTE0MTcsImV4cCI6MTY4MTMxMjMxN30.tzK8yfh-5dWmgtjrlrZhRXVmaAiTO-jcL4qJGZcNEqA
+
+###
+DELETE http://localhost:5000/admin/delete/student/18593
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTE0MTcsImV4cCI6MTY4MTMxMjMxN30.tzK8yfh-5dWmgtjrlrZhRXVmaAiTO-jcL4qJGZcNEqA
+
+###
+DELETE http://localhost:5000/admin/delete/thesis/453252
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTE0MTcsImV4cCI6MTY4MTMxMjMxN30.tzK8yfh-5dWmgtjrlrZhRXVmaAiTO-jcL4qJGZcNEqA
 
 ###
 GET http://localhost:5000/admin/get/testForm/12486
