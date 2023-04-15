@@ -87,7 +87,7 @@ app.post('/login',  async (req, res) => {
     users = await getList("query");
     const user = users.find((u) => u.username === username);
     if(!user) {
-        res.send("No user");
+        res.send("Wrong User Name or Password");
         return;
         }
     const isValid = await bcrypt.compare(password, user.password);
@@ -118,9 +118,13 @@ const generateTokens = payload => {
 return {accessToken, refreshToken};
 }
 
-app.delete('/logout', verifyToken, (req, res) => {
-    const user = users.find(user => user.id === req.userId)
-    updateRefreshToken(user.username, null)
+app.delete('/logout', verifyToken, async (req, res) => {
+    const user = users.find(user => user.id === req.userId);
+    console.log(user);
+    updateRefreshToken(user.username, null);
+    // const updateNullForSocketQuery = "UPDATE tbl_user SET socket_id = NULL WHERE username = ?;"
+    // const updateNullForSocketParams = [user.username];
+    // const updateNullForSocketResults = await executeQuery(res, updateNullForSocketQuery, updateNullForSocketParams)
     console.log(users)
     res.sendStatus(204)
 })
