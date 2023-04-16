@@ -378,8 +378,8 @@ admin_update_router.put('/student/:id/assessmentBachelorThesis', verifyTokenAdmi
         var foreName = (req.body.foreName === "" || req.body.foreName === undefined) ? null : req.body.foreName;
         var thesisType = (req.body.thesisType === "" || req.body.thesisType === undefined) ? null : req.body.thesisType;
         var furtherParticipants = (req.body.furtherParticipants === "" || req.body.furtherParticipants === undefined) ? null : req.body.furtherParticipants;
-        var supervisor1_title = (req.body.supervisor1_title === "" || req.body.supervisor1_grade === undefined) ? null : req.body.supervisor1_title;
-        var supervisor1_grade = (req.body.supervisor1_grade === "" || req.body.supervisor1_signature === undefined) ? null : req.body.supervisor1_grade;
+        var supervisor1_title = (req.body.supervisor1_title === "" || req.body.supervisor1_title === undefined) ? null : req.body.supervisor1_title;
+        var supervisor1_grade = (req.body.supervisor1_grade === "" || req.body.supervisor1_grade === undefined) ? null : req.body.supervisor1_grade;
         var supervisor2_title = (req.body.supervisor2_title === "" || req.body.supervisor2_title === undefined) ? null : req.body.supervisor2_title;
         var supervisor2_grade = (req.body.supervisor2_grade === "" || req.body.supervisor2_grade === undefined) ? null : req.body.supervisor2_grade;
         var assessmentThesis = (req.body.assessmentThesis === "" || req.body.assessmentThesis === undefined) ? null : req.body.assessmentThesis;
