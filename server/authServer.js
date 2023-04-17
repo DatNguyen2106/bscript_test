@@ -11,10 +11,10 @@ const { application } = require('express');
 const bodyParser = require('body-parser');
 
 app.use(cors());
-app.use(express.json({ limit: '10mb' })); // for parsing application/json
-app.use(express.urlencoded({ extended: true, limit : '10mb' }));
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '50mb' })); // for parsing application/json
+app.use(express.urlencoded({ extended: true, limit : '50mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 var users = [];
 
 app.post('/signup', async (req , res) => {

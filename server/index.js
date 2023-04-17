@@ -12,10 +12,10 @@ const lecturer1Route = require('./routers/lecturer1');
 const lecturer2Route = require('./routers/lecturer2');
 const bodyParser = require('body-parser');
 app.use(cors());
-app.use(express.json({ limit: '10mb' })); // for parsing application/json
-app.use(express.urlencoded({ extended: true, limit : '10mb' }));
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '50mb' })); // for parsing application/json
+app.use(express.urlencoded({ extended: true, limit : '50mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 // Dùng userRoute cho tất cả các route bắt đầu bằng '/users'
 app.use('/admin', adminRoute);
 app.use('/student', studentRoute);
