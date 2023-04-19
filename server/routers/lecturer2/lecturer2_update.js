@@ -173,6 +173,33 @@ lecturer2_update_router.put('/assessmentOralDefense', verifyTokenLecturer2, asyn
     }
 
 })
+lecturer2_update_router.put('/account', verifyTokenLecturer2, async (req, res) => {
+    // because of unique id value, so this api just returns 1 or no value.
+    try {
+        var role = req.role;
+        var title = (req.body.title === "" || req.body.title === undefined) ? null : req.body.title;
+        var email = (req.body.email === "" || req.body.email === undefined) ? null : req.body.email;
+        var maximum_of_theses = (req.body.maximum_of_theses === "" || req.body.maximum_of_theses === undefined) ? null : req.body.maximum_of_theses;
+        var bio = (req.body.bio === "" || req.body.bio === undefined) ? null : req.body.bio;
+        var signature = (req.body.signature === "" || req.body.signature === undefined) ? null : req.body.signature;
+
+        if (req.username && req.userId) {
+            if (role) {
+                var lecturerId = req.userId;
+                const updateAccountQuery = "UPDATE lecturers SET title = ?, email = ?, maximum_of_theses = ?, bio = ?, signature = ? where lecturer_id = ?";
+                const updateAccountParams = [title, email, maximum_of_theses, bio, signature, lecturerId];
+                const updateAccountResults = await executeQuery(res, updateAccountQuery, updateAccountParams);
+                res.send(updateAccountResults);
+            }
+            else res.status(405).send("You are not allowed to access, You are not lecturer1.1")
+        }
+        else res.status(404).send("No user with that username");
+    } catch (error) {
+        console.log(error.message);
+        res.status(404).send("You got an error" + error.message);
+    }
+
+})
 lecturer2_update_router.put('/signature', verifyTokenLecturer2, async (req, res) => {
     // because of unique id value, so this api just returns 1 or no value.
     var role = req.role;

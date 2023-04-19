@@ -279,6 +279,19 @@ Content-Type: application/json
     "bio" : "This is test for 1",
     "signature" : "singature"
 }
+
+###
+PUT http://localhost:5000/lecturer2/update/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY3NTg2NTY0NSwiZXhwIjoxNjc1ODY2NTQ1fQ.eudyBcZujAvI6v3p9I0rS7gCKaP9VdJq2JGfMv2tYgs
+Content-Type: application/json
+
+{
+    "title" : "Dr.Test 1",
+    "email" : "sadl@gmail.com",
+    "maximum_of_theses" : 1,
+    "bio" : "This is test for 1",
+    "signature" : "singature"
+}
 ###
 PUT http://localhost:5000/lecturer1/update/signature
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzIwNjQ1MDgsImV4cCI6MTY3MjA2NTQwOH0.RPwHQDP0Z8YfmkaiFBQ0Hd8rrZgJYJMo_9RaQF2k-fg

@@ -89,16 +89,13 @@ Content-Type: application/json
     "foreName" : "long",
     "dateOfBirth" : "2000-12-23",
     "placeOfBirth" : "HCM city",
-    "signature" : "",
     "student_date": "2023-01-01",
     "titleBachelorThesis" : "Data Mining",
     "thesisType" : "1",
     "furtherParticipants" : "",
     "supervisor1_title" : "Prof. Huynh Trung Hieu",
-    "supervisor1_signature" : "",
     "supervisor1_date" : "2022-12-12",
     "supervisor2_title" : "Master Huynh Nguyen",
-    "supervisor2_signature" : "",
     "supervisor2_date" : "2022-12-12",
     "issued" : "2023-1-12",
     "deadlineCopy" : 2,
@@ -127,6 +124,28 @@ Content-Type: application/json
     "dateSubmission" : "2023-03-29"
 }
 ###
+###
+PUT http://localhost:5000/admin/update/13961/assessmentOralDefense
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjgwMTY1NDQ2LCJleHAiOjE2ODAxNjYzNDZ9.ihdjsZWHZHGd9pxkSiY5SLXnvOBQ8wLCaIko57x_7pc
+Content-Type: application/json
+
+{
+    "studentId" : 18593,
+    "matriculationNumber" : 1238432,
+    "surName" : "phannguyen",
+    "foreName" : "long",
+    "dateDefense" : "2023-03-19",
+    "placeDefense" : "HCM city",
+    "startDate" : "2022-12-29",
+    "finishDate" : "2023-03-19",
+    "stateOfHealth" : 1,
+    "supervisor1_title" : "Prof Huynh Trung Hieu 2",
+    "supervisor1_grade" : 1.2,
+    "supervisor2_title" : "Master Huynh Nguyen 2", 
+    "supervisor2_grade" : 1.2,
+    "record" : "This is record 2",
+    "assessmentDate" : "2023-03-19"
+}
 
 PUT http://localhost:5000/admin/update/student/13961/assessmentBachelorThesis
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk5NzQ2NTQsImV4cCI6MTY2OTk3NTU1NH0.FMmsb_IOe1cWPDLID98pa45aeH7w2tXLnULcj1P1rqs
@@ -143,8 +162,6 @@ Content-Type: application/json
     "supervisor2_grade" : 1.2,
     "assessmentThesis" : "This is assessment Thesis",
     "assessmentDate" : "2022-12-29",
-    "supervisor1_signature" : "",
-    "supervisor2_signature" : ""
 }
 ###
 DELETE http://localhost:5000/admin/delete/student/12345

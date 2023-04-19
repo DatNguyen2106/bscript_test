@@ -262,16 +262,13 @@ admin_update_router.put('/student/:id/registrationBachelorThesis', verifyTokenAd
         var foreName = (req.body.foreName === "" || req.body.foreName === undefined) ? null : req.body.foreName;
         var dateOfBirth = (req.body.dateOfBirth === "" || req.body.dateOfBirth === undefined) ? null : req.body.dateOfBirth;
         var placeOfBirth = (req.body.placeOfBirth === "" || req.body.placeOfBirth === undefined) ? null : req.body.placeOfBirth;
-        var signature = (req.body.signature === "" || req.body.signature === undefined) ? null : req.body.signature;
         var student_date = (req.body.student_date === "" || req.body.student_date === undefined) ? null : req.body.student_date;
         var titleBachelorThesis = (req.body.titleBachelorThesis === "" || req.body.titleBachelorThesis === undefined) ? null : req.body.titleBachelorThesis;
         var thesisType = (req.body.thesisType === "" || req.body.thesisType === undefined) ? null : req.body.thesisType;
         var furtherParticipants = (req.body.furtherParticipants === "" || req.body.furtherParticipants === undefined) ? null : req.body.furtherParticipants;
         var supervisor1_title = (req.body.supervisor1_title === "" || req.body.supervisor1_title === undefined) ? null : req.body.supervisor1_title;
-        var supervisor1_signature = (req.body.supervisor1_signature === "" || req.body.supervisor1_signature === undefined) ? null : req.body.signature;
         var supervisor1_date = (req.body.supervisor1_date === "" || req.body.supervisor1_date === undefined) ? null : req.body.supervisor1_date;
         var supervisor2_title = (req.body.supervisor2_title === "" || req.body.supervisor2_title === undefined) ? null : req.body.supervisor2_title;
-        var supervisor2_signature = (req.body.supervisor2_signature === "" || req.body.supervisor2_signature === undefined) ? null : req.body.supervisor2_signature;
         var supervisor2_date = (req.body.supervisor2_date === "" || req.body.supervisor2_date === undefined) ? null : req.body.supervisor2_date;
         var issued = (req.body.issued === "" || req.body.issued === undefined) ? null : req.body.issued;
         var deadlineCopy = (req.body.deadlineCopy === "" || req.body.deadlineCopy === undefined) ? null : req.body.deadlineCopy;
@@ -292,8 +289,24 @@ admin_update_router.put('/student/:id/registrationBachelorThesis', verifyTokenAd
                 }
                 else {
                     studentId = req.params.id;
+                    const getStudentInfoQuery = "CALL getAccountByStudentId(?)";
+                    const getStudentInfoParams = [studentId];
+                    const getStudentInfoResults = await executeQuery(res, getStudentInfoQuery, getStudentInfoParams);
+
+                    const getThesisFromStudentIdQuery = "CALL getExactThesisFromStudentId(?)"; 
+                    const getThesisFromStudentIdParams = [studentId];
+                    const getThesisFromStudentResults = await executeQuery(res, getThesisFromStudentIdQuery, getThesisFromStudentIdParams);
+                    
+                    const getSupervisor1InfoQuery = "CALL getBasicInfoLecturerByLecturerId(?)";
+                    const getSupervisor1InfoParams = [getThesisFromStudentResults[0][0].lecturer1_id];
+                    const getSupervisor1InfoResults = await executeQuery(res, getSupervisor1InfoQuery, getSupervisor1InfoParams);
+
+                    const getSupervisor2InfoQuery = "CALL getBasicInfoLecturerByLecturerId(?)";
+                    const getSupervisor2InfoParams = [getThesisFromStudentResults[0][0].lecturer2_id];
+                    const getSupervisor2InfoResults = await executeQuery(res, getSupervisor2InfoQuery, getSupervisor2InfoParams);
+                    
                     const query = "UPDATE registrations_for_bachelor_thesis SET surname = ?, forename = ?, date_of_birth = ?, place_of_birth = ?, signature = ?, student_date = ?, title_bachelor_thesis = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_signature = ?, supervisor1_date = ?, supervisor2_title = ?, supervisor2_signature = ?, supervisor2_date = ?, issued = ?, deadline_copy = ?, extension_granted = ?, chairman_of_examination = ?, date_of_issue = ? where student_id = ?";
-                    const queryParams = [surName, foreName, dateOfBirth, placeOfBirth, signature, student_date, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, supervisor1_signature, supervisor1_date, supervisor2_title, supervisor2_signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue, studentId]
+                    const queryParams = [surName, foreName, dateOfBirth, placeOfBirth, getStudentInfoResults[0][0].signature , student_date, titleBachelorThesis, thesisType, furtherParticipants, supervisor1_title, getSupervisor1InfoResults[0][0].signature, supervisor1_date, supervisor2_title, getSupervisor2InfoResults[0][0].signature, supervisor2_date, issued, deadlineCopy, extensionGranted, chairmanOfExamination, dateOfIssue, studentId]
                     const dbResults = await executeQuery(res, query, queryParams);
                     const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                     const sendParams = [`Update from ${req.userId} to ${req.params.id}`, req.userId, req.params.id, "update Student Registration Bachelor Thesis of " + req.params.id + " successfully"];
@@ -384,8 +397,6 @@ admin_update_router.put('/student/:id/assessmentBachelorThesis', verifyTokenAdmi
         var supervisor2_grade = (req.body.supervisor2_grade === "" || req.body.supervisor2_grade === undefined) ? null : req.body.supervisor2_grade;
         var assessmentThesis = (req.body.assessmentThesis === "" || req.body.assessmentThesis === undefined) ? null : req.body.assessmentThesis;
         var assessmentDate = (req.body.assessmentDate === "" || req.body.assessmentDate === undefined) ? null : req.body.assessmentDate;
-        var supervisor1_signature = (req.body.supervisor1_signature === "" || req.body.supervisor1_signature === undefined) ? null : req.body.supervisor1_signature;
-        var supervisor2_signature = (req.body.supervisor2_signature === "" || req.body.supervisor2_signature === undefined) ? null : req.body.supervisor2_signature;
 
         if (req.username) {
             if (role) {
@@ -394,8 +405,20 @@ admin_update_router.put('/student/:id/assessmentBachelorThesis', verifyTokenAdmi
                 }
                 else {
                     studentId = req.params.id;
+                    const getThesisFromStudentIdQuery = "CALL getExactThesisFromStudentId(?)"; 
+                    const getThesisFromStudentIdParams = [studentId];
+                    const getThesisFromStudentResults = await executeQuery(res, getThesisFromStudentIdQuery, getThesisFromStudentIdParams);
+                    
+                    const getSupervisor1InfoQuery = "CALL getBasicInfoLecturerByLecturerId(?)";
+                    const getSupervisor1InfoParams = [getThesisFromStudentResults[0][0].lecturer1_id];
+                    const getSupervisor1InfoResults = await executeQuery(res, getSupervisor1InfoQuery, getSupervisor1InfoParams);
+
+                    const getSupervisor2InfoQuery = "CALL getBasicInfoLecturerByLecturerId(?)";
+                    const getSupervisor2InfoParams = [getThesisFromStudentResults[0][0].lecturer2_id];
+                    const getSupervisor2InfoResults = await executeQuery(res, getSupervisor2InfoQuery, getSupervisor2InfoParams);
+                    
                     const query = "UPDATE assessment_for_bachelor_thesis SET surname = ?, forename = ?, thesis_type = ?, further_participants = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, assessment_thesis = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ? where student_id = ?";
-                    const queryParams = [surName, foreName, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, supervisor1_signature, supervisor2_signature, studentId];
+                    const queryParams = [surName, foreName, thesisType, furtherParticipants, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, assessmentThesis, assessmentDate, getSupervisor1InfoResults[0][0].signature, getSupervisor2InfoResults[0][0].signature, studentId];
                     const dbResults = await executeQuery(res, query, queryParams);
                     const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                     const sendParams = [`Update from ${req.userId} to ${req.params.id}`, req.userId, req.params.id, "update Student Assessment Bachelor Thesis of " + req.params.id + " successfully"];
@@ -438,8 +461,6 @@ admin_update_router.put('/student/:id/assessmentOralDefense', verifyTokenAdmin, 
         var supervisor2_grade = (req.body.supervisor2_grade === "" || req.body.supervisor2_grade === undefined) ? null : req.body.supervisor2_grade;
         var record = (req.body.record === "" || req.body.record === undefined) ? null : req.body.record;
         var assessmentDate = (req.body.assessmentDate === "" || req.body.assessmentDate === undefined) ? null : req.body.assessmentDate;
-        var supervisor1_signature = (req.body.supervisor1_signature === "" || req.body.supervisor1_signature === undefined) ? null : req.body.supervisor1_signature;
-        var supervisor2_signature = (req.body.supervisor2_signature === "" || req.body.supervisor2_signature === undefined) ? null : req.body.supervisor1_signature;
 
         if (req.username) {
             if (role) {
@@ -448,8 +469,20 @@ admin_update_router.put('/student/:id/assessmentOralDefense', verifyTokenAdmin, 
                 }
                 else {
                     studentId = req.params.id;
+                    const getThesisFromStudentIdQuery = "CALL getExactThesisFromStudentId(?)"; 
+                    const getThesisFromStudentIdParams = [studentId];
+                    const getThesisFromStudentResults = await executeQuery(res, getThesisFromStudentIdQuery, getThesisFromStudentIdParams);
+                    
+                    const getSupervisor1InfoQuery = "CALL getBasicInfoLecturerByLecturerId(?)";
+                    const getSupervisor1InfoParams = [getThesisFromStudentResults[0][0].lecturer1_id];
+                    const getSupervisor1InfoResults = await executeQuery(res, getSupervisor1InfoQuery, getSupervisor1InfoParams);
+
+                    const getSupervisor2InfoQuery = "CALL getBasicInfoLecturerByLecturerId(?)";
+                    const getSupervisor2InfoParams = [getThesisFromStudentResults[0][0].lecturer2_id];
+                    const getSupervisor2InfoResults = await executeQuery(res, getSupervisor2InfoQuery, getSupervisor2InfoParams);
+                    
                     const query = "UPDATE assessment_for_oral_defense SET surName = ?, foreName = ?, date_defense = ?, place_defense = ?, start_date = ?, finish_date = ?, state_of_health = ?, supervisor1_title = ?, supervisor1_grade = ?, supervisor2_title = ?, supervisor2_grade = ?, record = ?, assessment_date = ?, supervisor1_signature = ?, supervisor2_signature = ? where student_id = ?";
-                    const queryParams = [surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, supervisor1_signature, supervisor2_signature, studentId]
+                    const queryParams = [surName, foreName, dateDefense, placeDefense, startDate, finishDate, stateOfHealth, supervisor1_title, supervisor1_grade, supervisor2_title, supervisor2_grade, record, assessmentDate, getSupervisor1InfoResults[0][0].signature, getSupervisor2InfoResults[0][0].signature, studentId]
                     const dbResults = await executeQuery(res, query, queryParams);
 
                     const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
