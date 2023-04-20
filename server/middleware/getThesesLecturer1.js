@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const getThesesLecturer1 = (req,res,next) => {
     const authHeader = req.header('Authorization');
@@ -6,6 +7,7 @@ const getThesesLecturer1 = (req,res,next) => {
     if(!token) return res.sendStatus(401);
     
     try {
+        console.log(process.env.ACCESS_TOKEN_SECRET);
         const decoded =jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         console.log(decoded);
         // req.role = JSON.parse(decoded.role);

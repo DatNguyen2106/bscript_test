@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const readStudentMiddleware = (req,res,next) => {
     const authHeader = req.header('Authorization');

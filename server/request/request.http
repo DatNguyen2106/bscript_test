@@ -50,7 +50,7 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:5000/getNotifications
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODA1MzgzODUsImV4cCI6MTY4MDUzOTI4NX0.Dz8GnCBhxD4TxvpdZl58EDzk8JYunV8TCfT0xuhot-0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODE5MjE4NTAsImV4cCI6MTY4MTkyMjc1MH0.p4hKpQ1LOKe7bMm6E-5p8tC4Bvzvq2IGFyVz9AQBayw
 
 ###
 GET http://localhost:4000/roles
@@ -65,7 +65,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/admin/get/test
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjgxNjYzMjcsImV4cCI6MTY2ODE2NjM1N30.gPxyJo4AmL92o-Slzcqfpa4k-lXA092S99FzaNeaAH0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODE5MjE4NTAsImV4cCI6MTY4MTkyMjc1MH0.p4hKpQ1LOKe7bMm6E-5p8tC4Bvzvq2IGFyVz9AQBayw
 
 ###
 GET http://localhost:5000/admin/get1
@@ -73,7 +73,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hb
 
 ###
 GET http://localhost:5000/admin/get2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInVzZXJuYW1lIjoiamFtZXMxMDMiLCJyb2xlIjoiW1wiYWRtaW5cIixcImxlY3R1cmVyMlwiXSIsImlhdCI6MTY2NjQxNzYwMCwiZXhwIjoxNjY2NDE3NjMwfQ.bpYOUSeeK1f-D9shUCENja1Tq7VGyyGj4Qajt_lRRXU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODE5MjE4NTAsImV4cCI6MTY4MTkyMjc1MH0.p4hKpQ1LOKe7bMm6E-5p8tC4Bvzvq2IGFyVz9AQBayw
 
 
 ###
@@ -87,7 +87,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJ1c2Vyb
 
 ###
 GET http://localhost:5000/admin/get/student/19363
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NzIzMzI0OTAsImV4cCI6MTY3MjMzMzM5MH0.yL6kAMkx5BdwLSTrkHfrk_AC-42KxXf8V83D6Ih1X8k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODE5MjE1OTEsImV4cCI6MTY4MTkyMjQ5MX0.rx45jkqaKXllaHvMldLrGzSNguy7sw8bIjtjQbpiuZ
 
 ###
 GET http://localhost:5000/lecturer2/test
@@ -95,7 +95,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2Vyb
 
 ###
 POST http://localhost:5000/admin/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTY2NDcsImV4cCI6MTY4MTMxNzU0N30.9J8c0DPxddjbDpFCAqy6qug0xhzXBq9xhUKRp7czMNE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODE5MjE4NTAsImV4cCI6MTY4MTkyMjc1MH0.p4hKpQ1LOKe7bMm6E-5p8tC4Bvzvq2IGFyVz9AQBayw
 Content-Type: application/json
 
 {
