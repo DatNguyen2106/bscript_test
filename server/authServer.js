@@ -162,4 +162,3 @@ const executeQuery = (res, query, queryParams) => {
         })
     return results;
 }
-  
