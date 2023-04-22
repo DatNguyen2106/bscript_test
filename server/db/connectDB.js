@@ -6,6 +6,8 @@ const db = mysql.createConnection(
         password: 'admin',
         database : 'mydb',
         dialect: "mysql",
+        supportBigNumbers: true,
+        bigNumberStrings: true,
         pool: {
           max: 5,
           min: 0,

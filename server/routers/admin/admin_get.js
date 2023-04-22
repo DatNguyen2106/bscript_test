@@ -373,6 +373,10 @@ admin_get_router.post('/theses', verifyTokenAdmin, async (req, res) =>{
                         })
                      //return status server response
                     var dbResults = results.pop();
+                    for (let i = 0; i < dbResults.length; i++) {
+                        results[i]["thesis_id"].toString();
+                    }
+                    console.log(results);
                     if(page > results[0].chunk(chunkForPage).length){
                         res.send({
                             "totalPage" : results[0].chunk(chunkForPage).length,

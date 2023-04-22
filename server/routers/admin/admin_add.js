@@ -166,7 +166,7 @@ admin_add_router.post('/thesis', verifyTokenAdmin, async (req, res) => {
     if (req.username) {
         if (role && req.userId) {
             var thesisId = `${currentTimeValue}${lecturer1_id}`;
-            thesisId = parseInt(thesisId);
+            thesisId = BigInt(thesisId);
             const insertThesesQuery = "call addNewThesis(?, ?, ?, ?, ?)";
             const queryParams = [thesisId, thesisTopic, thesisField, lecturer1_id, slotMaximum];
             const results = await executeQuery(res, insertThesesQuery, queryParams);
