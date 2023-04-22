@@ -29,15 +29,14 @@ lecturer1_update_router.put('/assessmentBachelor', verifyTokenLecturer1, async (
                 const getBeforeAssessmentBachelorThesisQuery = "SELECT * FROM assessment_for_bachelor_thesis where student_id = ?";
                 const getBeforeAssessmentBachelorThesisParams = [studentId];
                 const getBeforeAssessmentBachelorThesisResults = await executeQuery(res, getBeforeAssessmentBachelorThesisQuery, getBeforeAssessmentBachelorThesisParams);
-
+                
                 const getExactThesisFromStudentIdBeforeQuery = "call getExactThesisFromStudentId(?)";
                 const getExactThesisFromStudentBeforeParams = [studentId];
                 const getExactThesisFromStudentBeforeResults = await executeQuery(res, getExactThesisFromStudentIdBeforeQuery, getExactThesisFromStudentBeforeParams);
-
+                
                 const getBasicInfoLecturerByLecturerIdQuery = "call getBasicInfoLecturerByLecturerId(?)";
                 const getBasicInfoLecturerByLecturerIdParams = [req.userId];
                 const basicInfoLecturerResults = await executeQuery(res, getBasicInfoLecturerByLecturerIdQuery, getBasicInfoLecturerByLecturerIdParams);
-
                 if (getExactThesisFromStudentBeforeResults[0][0].lecturer1_id === basicInfoLecturerResults[0][0].lecturer_id) {
                     console.log("Lecturer 1 => supervisor 1")
                     if (getBeforeAssessmentBachelorThesisResults === null || getBeforeAssessmentBachelorThesisResults === undefined) {
@@ -133,8 +132,8 @@ lecturer1_update_router.put('/assessmentBachelor', verifyTokenLecturer1, async (
                             }
                         }
                     }
-
                 }
+                else {console.log("this lecturer is not in thesis")}
 
                 res.send({ "result": "done" });
             }
