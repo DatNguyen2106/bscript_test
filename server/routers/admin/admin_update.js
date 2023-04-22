@@ -529,13 +529,33 @@ admin_update_router.post('/signature', verifyTokenAdmin, async (req, res) => {
     }
     else res.status(404).send("No user with that username");
 });
-admin_update_router.get('/lecturer', (req, res) => {
+admin_update_router.post('/signature', verifyTokenAdmin, async (req, res) => {
+    // because of unique id value, so this api just returns 1 or no value.
+    var role = req.role;
+    var signature = req.body.signature;
+    if (req.username) {
+        if (role) {
+            if (req.userId === undefined || req.userId === '') {
+                res.status(500).send("Undefined id for add");
+            }
+            else {
+                const updateSignatureQuery = "UPDATE admins SET signature = ? WHERE admin_id = ?";
+                const updateSignatureQueryParams = [signature, req.userId];
+                const results = await executeQuery(res, updateSignatureQuery, updateSignatureQueryParams);
+                res.send(results);
+            }
+        }
+        else res.status(405).send("You are not allowed to access, You are not admin")
+    }
+    else res.status(404).send("No user with that username");
+});
+admin_update_router.put('/lecturer', (req, res) => {
     res.send("Default routes for admin/update/lecturer");
 })
-admin_update_router.get('/student', (req, res) => {
+admin_update_router.put('/student', (req, res) => {
     res.send("Default routes for admin/update/student");
 })
-admin_update_router.get('/thesis', (req, res) => {
+admin_update_router.put('/thesis', (req, res) => {
     res.send("Default routes for admin/update/thesis");
 })
 // use for email

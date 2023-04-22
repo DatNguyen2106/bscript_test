@@ -24,16 +24,20 @@ lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) => {
                 const query = "call getThesesByLecturer1ByTitle(?,?,?,?,?,?,?,?,?);"
                 const queryParams = [thesisTopic, thesisField, lecturer1Title, lecturer2Title, step, slot, slotMaximum, req.userId, wasDefended];
                 const results = await executeQuery(res, query, queryParams);
-
+                console.log(results);
                 const getLecturer1Query = "CALL getLecturer1WithProposedDate(?)";
                 const getLecturer1Params = [req.userId];
                 const getLecturer1Results = await executeQuery(res, getLecturer1Query, getLecturer1Params);
-                console.log(typeof(getLecturer1Results[0][0].proposed_date));
+                if(getLecturer1Results[0] !== null && getLecturer1Results[0] !== undefined && getLecturer1Results[0].length != 0){
                 var todayDate = moment().valueOf();
                 var totalResults = getLecturer1Results[0].filter((u) => u.lecturer_id == req.userId && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
                 var filteredResults = getLecturer1Results[0].filter((u) => u.lecturer_id == req.userId && u.slot == u.slot_maximum  && ((moment(u.proposed_date).valueOf() > todayDate) || (u.proposed_date === null)));
                 var nonFilteredValue = totalResults.length - filteredResults.length;
                 console.log(totalResults)
+                } else {
+                    var totalResults = [];
+                    var filteredResults = [];
+                }
                 if (page > results[0].chunk(chunkForPage).length) {
                     res.send({
                         "totalPage": results[0].chunk(chunkForPage).length,
