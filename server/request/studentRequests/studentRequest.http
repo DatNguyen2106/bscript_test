@@ -34,8 +34,8 @@ Content-Type: application/json
     "password" : "12365"
 }
 ###
-GET http://localhost:5000/student/get/12486
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNjUsInVzZXJuYW1lIjoidGVzdCIsInJvbGUiOiJbXCJzdHVkZW50XCJdIiwiaWF0IjoxNjgxOTIwNjg1LCJleHAiOjE2ODE5MjE1ODV9.hvUwhAOqd8MqLj7yPjo1Akyi8NuwAtRmDUPxMD5QezE
+GET http://localhost:5000/student/get/113112
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNTcsInVzZXJuYW1lIjoibG9uZ3BoYW5uZ3V5ZW4iLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY4MjI1MjY1MiwiZXhwIjoxNjgyMjUzNTUyfQ.TLpzro9EJFiv2QZB-kQtap71mnzohrsCQIjH-_GTV1U
 
 
 
@@ -158,7 +158,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNTcsInVzZ
 
 ###
 GET http://localhost:5000/student/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3MTAyNjI2NCwiZXhwIjoxNjcxMDI3MTY0fQ.fd2LX1ccsHOhogkhAB-yXqkLJzw2cfIsLemW7XTkrSw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNTcsInVzZXJuYW1lIjoibG9uZ3BoYW5uZ3V5ZW4iLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY4MjI1MjY1MiwiZXhwIjoxNjgyMjUzNTUyfQ.TLpzro9EJFiv2QZB-kQtap71mnzohrsCQIjH-_GTV1U
 
 ###
 GET http://localhost:5000/student/get/account
@@ -233,7 +233,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/student/get/thesis
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNTcsInVzZXJuYW1lIjoibG9uZ3BoYW5uZ3V5ZW4iLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY4MTIxMDc3MywiZXhwIjoxNjgxMjExNjczfQ.vrqoSAC42fQYTKB9U6PS-uy-GqCI9GsfcXWmr0dWZj0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzNTcsInVzZXJuYW1lIjoibG9uZ3BoYW5uZ3V5ZW4iLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY4MjI1MjY1MiwiZXhwIjoxNjgyMjUzNTUyfQ.TLpzro9EJFiv2QZB-kQtap71mnzohrsCQIjH-_GTV1U
 
 ###
 GET http://localhost:5000/student/update/account
@@ -243,6 +243,3 @@ Content-Type: application/json
 {
     "signature" : "sign student"
 }
-###
-GET http://localhost:5000/student/get/testForm
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE0NzUsInVzZXJuYW1lIjoiZHBhbXBsaW41Iiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2Nzg5ODgwMjYsImV4cCI6MTY3ODk4ODkyNn0.fEjzi0OvU02nT-LVc8LhVLvAPlESZGjzpieIjM8gIGE

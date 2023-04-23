@@ -161,7 +161,6 @@ lecturer2_get_router.get('/account', verifyTokenLecturer2, async (req, res) => {
     // because of unique id value, so this api just returns 1 or no value.
     try {
         var role = req.role;
-        var thesisId;
         if (req.username) {
             if (role) {
                 if (req.userId === undefined || req.userId === "") {

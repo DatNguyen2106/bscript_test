@@ -33,8 +33,8 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username" : "walther",
-    "password" : "26029"
+    "username" : "tiffany",
+    "password" : "23483"
 }
 ###
 
@@ -56,7 +56,7 @@ Content-Type: application/json
 }
 ###
 POST http://localhost:5000/lecturer1/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MTkyMjI4NiwiZXhwIjoxNjgxOTIzMTg2fQ.vqcbKue7pDCtPOqI2X933AY4puygoS86S3bLL8ENCLI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MjE3MzgzNywiZXhwIjoxNjgyMTc0NzM3fQ.PjBI6wVFI7yWL5g8fpo6tLu3xhfoLqWWRFy461rIqXk
 
 ###
 POST http://localhost:5000/lecturer1/add/thesis
@@ -71,7 +71,7 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/lecturer1/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MTkyMjIxMywiZXhwIjoxNjgxOTIzMTEzfQ.K5XfkVvpJ7sJDF8mz8ohRf8g7gPtcisMEH5auAIge5k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MjE3MzgzNywiZXhwIjoxNjgyMTc0NzM3fQ.PjBI6wVFI7yWL5g8fpo6tLu3xhfoLqWWRFy461rIqXk
 Content-Type: application/json
 
 {
@@ -82,7 +82,7 @@ Content-Type: application/json
     "step" : "",
     "slot" : "",
     "slotMaximum" : "",
-    "wasDefended" : false,
+    "wasDefended" : true,
     "page" : 1
 }
 
@@ -173,17 +173,17 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer1/update/assessmentBachelor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEwMjksInVzZXJuYW1lIjoiYWxleG5ndXllbiIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MDE2NTQxMCwiZXhwIjoxNjgwMTY2MzEwfQ.npz9dPAz2reRZUHat6E1ppERNCl8Cjy3Kt1ksvaG8_c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM0ODMsInVzZXJuYW1lIjoidGlmZmFueSIsInJvbGUiOiJbXCJsZWN0dXJlcjEuMVwiXSIsImlhdCI6MTY4MjE3MTcwNCwiZXhwIjoxNjgyMTcyNjA0fQ.RIskaK-YsccGR6ljbUCBg70WVHLYjhfEc157rdW6VDk
 Content-Type: application/json
 
 {
-    "studentId" : 12323,
+    "studentId" : 12211,
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen1",
     "foreName" : "long1",
     "thesisTitle" : "title 12211 update lecturer1",
-    "thesisType" : "1",
-    "furtherParticipants" : "dat",
+    "thesisType" : "0",
+    "furtherParticipants" : "",
     "supervisor1_title" : "Prof. Huynh Trung Hieu of lecturer1 ",
     "supervisor1_grade" : 1.5,
     "supervisor2_title" : "Master Huynh Nguyen of lec1",
@@ -217,15 +217,15 @@ Content-Type: application/json
 
 ###
 PUT http://localhost:5000/lecturer2/update/assessmentBachelor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjgwMTY1NDQ2LCJleHAiOjE2ODAxNjYzNDZ9.ihdjsZWHZHGd9pxkSiY5SLXnvOBQ8wLCaIko57x_7pc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjIzMjMsInVzZXJuYW1lIjoibWlrYWRhbmciLCJyb2xlIjoiW1wibGVjdHVyZXIyXCJdIiwiaWF0IjoxNjgyMTcxNjU0LCJleHAiOjE2ODIxNzI1NTR9.9IxkaLpT-1A21Lg7f05dbslOZ3aDIegxZ0A8nt79ld4
 Content-Type: application/json
 
 {
-    "studentId" : 18593,
+    "studentId" : 12211,
     "matriculationNumber" : 1238432,
     "surName" : "phannguyen12",
     "foreName" : "long",
-    "thesisTitle" : "thesis title 2",
+    "thesisTitle" : "thesis title 12211",
     "thesisType" : "1",
     "furtherParticipants" : "",
     "supervisor1_title" : "Prof. Huynh Trung Hieu 2",

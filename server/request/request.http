@@ -95,7 +95,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgiLCJ1c2Vyb
 
 ###
 POST http://localhost:5000/admin/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODE5MjE4NTAsImV4cCI6MTY4MTkyMjc1MH0.p4hKpQ1LOKe7bMm6E-5p8tC4Bvzvq2IGFyVz9AQBayw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IltcImFkbWluXCJdIiwiaWF0IjoxNjgyMjY5NDg0LCJleHAiOjE2ODIyNzAzODR9.Zit9uXcMX7k0FkPdQdiTtb8BTOmJEZ2TeNB6sdNG93c
 Content-Type: application/json
 
 {
@@ -123,15 +123,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 POST http://localhost:5000/admin/add/lecturer
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IltcImFkbWluXCJdIiwiaWF0IjoxNjgxMzE0MjY4LCJleHAiOjE2ODEzMTUxNjh9.j-wjOWInNmoT7glC77mkDx7Oe_6vXKgQXn6KdEUHWuE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IltcImFkbWluXCJdIiwiaWF0IjoxNjgyMDkyNDU1LCJleHAiOjE2ODIwOTMzNTV9.uJEaynIz7Z3MEVMMDf-FmjuZGdI8eP0YDCvtymefZT4
 Content-Type: application/json
 
 {
-    "id" : 21333,
-    "username" : "haotran11",
+    "id" : 21493,
+    "username" : "haotran1133",
     "email" : "haotran@gmail.com",
-    "title" : "Dr. Hao Tran A",
-    "supervisor" : "lecturer1.1",
+    "title" : "Dr. Hao Tran d",
+    "supervisor" : "lecturer1.2",
     "signature" : "signature",
     "bio" : "this is new bio"
 }
@@ -154,7 +154,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:5000/admin/get/lecturer/21029
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzk5ODIzOTAsImV4cCI6MTY3OTk4MzI5MH0.TEaccMVjdpdnR_UXPLPkfbdtD8Ba3Y6wEv9JPQNQLAg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODIwNjI1NjgsImV4cCI6MTY4MjA2MzQ2OH0.hh-TZOf5GiH_Iq5U8xbnDtDkxigGCQRHUG2dN8MrSlE
 
 ###
 DELETE http://localhost:5000/admin/delete/lecturer/21029
@@ -162,15 +162,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 
 ###
 DELETE http://localhost:5000/admin/delete/student/18593
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTE0MTcsImV4cCI6MTY4MTMxMjMxN30.tzK8yfh-5dWmgtjrlrZhRXVmaAiTO-jcL4qJGZcNEqA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODIyMjQyNjAsImV4cCI6MTY4MjIyNTE2MH0.sZoyWCUiPndt4FixFSWqHLcpCoZHLO9j2ArnocH_iSY
 
 ###
-DELETE http://localhost:5000/admin/delete/thesis/453252
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODEzMTE0MTcsImV4cCI6MTY4MTMxMjMxN30.tzK8yfh-5dWmgtjrlrZhRXVmaAiTO-jcL4qJGZcNEqA
+DELETE http://localhost:5000/admin/delete/thesis/210291
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODIyMjQyNjAsImV4cCI6MTY4MjIyNTE2MH0.sZoyWCUiPndt4FixFSWqHLcpCoZHLO9j2ArnocH_iSY
 
 ###
 GET http://localhost:5000/admin/get/testForm/12486
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Nzg5NzUwMjUsImV4cCI6MTY3ODk3NTkyNX0.8eVgfpbqXe3p058XTLW3WN_sATvz-_myXhQoucTy7EU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODIyMjQyNjAsImV4cCI6MTY4MjIyNTE2MH0.sZoyWCUiPndt4FixFSWqHLcpCoZHLO9j2ArnocH_iSY
 
 ###
 DELETE http://localhost:4000/logout

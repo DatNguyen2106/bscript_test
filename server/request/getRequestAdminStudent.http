@@ -44,10 +44,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZ
 GET http://localhost:5000/admin/get/student/13961/assessmentOralDefense
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2Njk3OTU4MzksImV4cCI6MTY2OTc5NjczOX0.fh3u2QXSZ_Y1F0DtykTDIq9jVbfNM1-w6bfiKq-Dvlo
 
-###
-
-POST http://localhost:3001/addSocket
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2NjgxOTIwNjQsImV4cCI6MTY2ODE5MjA5NH0.1QdCjEGNYw07-_6h5O1UoUvd_8D2ZE1tNr7MueR09WQ
 
 ### 
 POST http://localhost:5000/admin/add/student

@@ -84,7 +84,8 @@ admin_delete_router.delete('/thesis/:id', verifyTokenAdmin, async (req, res) => 
                             console.log(getThesisInfoQueryResults[0][i].student_id);
                             const deleteFormsByStudentIdQuery = "call deleteAllFormsByStudentId(?)";
                             const deleteFormsByStudentIdParams = [getThesisInfoQueryResults[0][i].student_id];
-                            const deleteFormsBYStudentResults = await executeQuery(res, deleteFormsByStudentIdQuery, deleteFormsByStudentIdParams);
+                            const deleteFormsByStudentResults = await executeQuery(res, deleteFormsByStudentIdQuery, deleteFormsByStudentIdParams);
+                            
                             const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
                             const sendParams = [`Admin delete thesis`, req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has deleted the information of the thesis "${getThesisInfoQueryResults[0][i].thesis_topic}" with the student id "${getThesisInfoQueryResults[0][i].student_id}"`];
                             const notification = await sendNotification(res, sendNotificationQuery, sendParams);
