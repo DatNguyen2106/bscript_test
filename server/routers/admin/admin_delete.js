@@ -81,8 +81,12 @@ admin_delete_router.delete('/thesis/:id', verifyTokenAdmin, async (req, res) => 
                 for (var i = 0; i < getThesisInfoQueryResults[0].length; i++) {
                     if (getThesisInfoQueryResults[0][i].lecturer1_id !== null) {
                         if (getThesisInfoQueryResults[0][i].student_id !== null) {
+                            console.log(getThesisInfoQueryResults[0][i].student_id);
+                            const deleteFormsByStudentIdQuery = "call deleteAllFormsByStudentId(?)";
+                            const deleteFormsByStudentIdParams = [getThesisInfoQueryResults[0][i].student_id];
+                            const deleteFormsBYStudentResults = await executeQuery(res, deleteFormsByStudentIdQuery, deleteFormsByStudentIdParams);
                             const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                            const sendParams = [`Admin delete thesis`, req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has updated the information of your thesis "${getThesisInfoQueryResults[0][i].thesis_topic}" with the student id "${getThesisInfoQueryResults[0][i].student_id}"`];
+                            const sendParams = [`Admin delete thesis`, req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has deleted the information of the thesis "${getThesisInfoQueryResults[0][i].thesis_topic}" with the student id "${getThesisInfoQueryResults[0][i].student_id}"`];
                             const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                             const notificationReceived = await getNotificationReceived(res, getThesisInfoQueryResults[0][i].lecturer1_id);
                             const socket1 = await getSocketById(res, getThesisInfoQueryResults[0][i].lecturer1_id);
@@ -92,7 +96,7 @@ admin_delete_router.delete('/thesis/:id', verifyTokenAdmin, async (req, res) => 
                             else { io.to(socketReceiver1Id).emit("notificationReceived", (notificationReceived)) };
                         } else {
                             const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                            const sendParams = [`Admin delete thesis`, req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has updated the information of your thesis "${getThesisInfoQueryResults[0][i].thesis_topic}" with no student`];
+                            const sendParams = [`Admin delete thesis`, req.userId, getThesisInfoQueryResults[0][i].lecturer1_id, `An admin has deleted the information of the thesis "${getThesisInfoQueryResults[0][i].thesis_topic}" with no student`];
                             const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                             const notificationReceived = await getNotificationReceived(res, getThesisInfoQueryResults[0][i].lecturer1_id);
                             const socket1 = await getSocketById(res, getThesisInfoQueryResults[0][i].lecturer1_id);
