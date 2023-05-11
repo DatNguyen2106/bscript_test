@@ -190,7 +190,7 @@ lecturer2_update_router.put('/account', verifyTokenLecturer2, async (req, res) =
                 const updateAccountParams = [title, email, maximum_of_theses, bio, signature, lecturerId];
                 const updateAccountResults = await executeQuery(res, updateAccountQuery, updateAccountParams);
                 const sendNotificationQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                const sendParams = [`Lecturer2 update account` , req.userId, req.userId, "You have updated your account successfully"];
+                const sendParams = [`Lecturer2 update account` , req.userId, req.userId, "You have updated your account successfully" ];
                 const notification = await sendNotification(res, sendNotificationQuery, sendParams);
                 const notificationReceived1 = await getNotificationReceived(res, req.userId);
                 
