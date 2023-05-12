@@ -9,11 +9,11 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/admin/get/theses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAwMDAwLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6IltcImFkbWluXCJdIiwiaWF0IjoxNjgyMTU1NzU5LCJleHAiOjE2ODIxNTY2NTl9.6max4xehNnF8fFNd10Vui2tI36TtkPx_2t8Uxi1WVsI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAwMDAsInVzZXJuYW1lIjoibHVrYXMiLCJyb2xlIjoiW1wiYWRtaW5cIl0iLCJpYXQiOjE2ODM5MDMzOTgsImV4cCI6MTY4MzkwNDI5OH0.8pDv4fRlUJyD8PZYJ237cKygYzvT7MfHU0sGphe-nrk
 Content-Type: application/json
 
 {
-    "id" : "",
+    "thesisId" : "21",
     "thesisTopic" : "",
     "thesisField" : "",
     "availableDay" : "",
