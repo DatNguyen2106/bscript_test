@@ -4,9 +4,7 @@ const verifyTokenAdmin = require('../../middleware/verifyTokenAdmin');
 const db = require('../../db/connectDB');
 const io = require('../.././socketServer');
 
-// api for delete by id
 admin_delete_router.delete('/lecturer/:id', verifyTokenAdmin, async (req, res) => {
-    // because of unique id value, so this api just returns 1 or no value.
     var id;
     var role = req.role;
     if (req.username) {
@@ -36,7 +34,6 @@ admin_delete_router.delete('/lecturer', (req, res) => {
 })
 
 admin_delete_router.delete('/student/:id', verifyTokenAdmin, async (req, res) => {
-    // because of unique id value, so this api just returns 1 or no value.
     var id;
     var role = req.role;
     if (req.username) {
@@ -183,5 +180,4 @@ const executeQuery = (res, query, queryParams) => {
     })
     return results;
 }
-// Exports cho admin_delete_router
 module.exports = admin_delete_router;
