@@ -6,7 +6,6 @@ const getThesesLecturer1 = require('../../middleware/getThesesLecturer1');
 const verifyTokenLecturer1 = require('../../middleware/verifyTokenLecturer1');
 const moment = require('moment');
 lecturer1_get_router.post('/theses', getThesesLecturer1, async (req, res) => {
-    // because of unique id value, so this api just returns 1 or no value.
     try {
         var role = req.role;
         var chunkForPage = 5;
@@ -123,7 +122,6 @@ lecturer1_get_router.get('/thesis/:id', verifyTokenLecturer1, async (req, res) =
 
 })
 lecturer1_get_router.get('/testForm/:id', verifyTokenLecturer1, async (req, res) => {
-    // because of unique id value, so this api just returns 1 or no value.
     try {
         var studentId = req.params.id;
         var role = req.role;
@@ -180,7 +178,6 @@ lecturer1_get_router.get('/testForm/:id', verifyTokenLecturer1, async (req, res)
 
 })
 lecturer1_get_router.get('/account', verifyTokenLecturer1, async (req, res) => {
-    // because of unique id value, so this api just returns 1 or no value.
     try {
         var role = req.role;
         var thesisId;
