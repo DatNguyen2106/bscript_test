@@ -61,7 +61,7 @@ lecturer2_signIn_router.post('/registrationBachelorThesis', verifyTokenLecturer2
                              console.log(getAllAdminResults[0]);
                              for (let j = 0; j < getAllAdminResults[0].length; j++){
                                  const sendNotificationForAdminQuery = "INSERT INTO notifications (title, sender, receiver, content) VALUES (?, ?, ?, ?)";
-                                 const sendNotificationForAdminParams = [`Lecturer 2 sign-in registration bachelor as Sup 2` , req.userId, getAllAdminResults[0][j].id, `The registration bachelor thesis form for the thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}" from the student "${getExactThesisFromStudentIdResults[0][0].student_id}" has been completed`];
+                                 const sendNotificationForAdminParams = [`Lecturer 2 sign-in registration bachelor as Sup 2` , req.userId, getAllAdminResults[0][j].id, `The registration bachelor thesis form for the thesis "${getExactThesisFromStudentIdResults[0][0].thesis_topic}" from the student ${getExactThesisFromStudentIdResults[0][0].student_id} has been completed`];
                                  const sendNotificationForAdminResults = await executeQuery(res, sendNotificationForAdminQuery, sendNotificationForAdminParams);
                                  let notificationReceivedAdmin = await getNotificationReceived(res, getAllAdminResults[0][j].id);
                                  let adminSocket = await getSocketById(res, getAllAdminResults[0][j].id);
