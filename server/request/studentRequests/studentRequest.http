@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
     "username" : "datnguyen",
-    "password" : "12486"
+    "password" : 12486
 }
 
 ###
@@ -139,12 +139,12 @@ Content-Type: application/json
 
 ###
 POST http://localhost:5000/student/get/lecturers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI0ODYsInVzZXJuYW1lIjoiZG5vYWtlczEiLCJyb2xlIjoiW1wic3R1ZGVudFwiXSIsImlhdCI6MTY3NjI4OTM2MSwiZXhwIjoxNjc2MjkwMjYxfQ.T-qs-7edv0C3lHp-qZoXb_xwvYimIB2q5IUzSKHI4Wg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkzNjMsInVzZXJuYW1lIjoiYXJpY2tlbGwzIiwicm9sZSI6IltcInN0dWRlbnRcIl0iLCJpYXQiOjE2ODUyNzc5MDEsImV4cCI6MTY4NTI3ODgwMX0.gT2ZhiHnYFpGG8Z2puuGavxTp4OGBPrS_Elzk630kWQ
 Content-Type: application/json
 
 {
     "lecturerId" : "",
-    "lecturerTitle" : "",
+    "lecturerTitle" : "as",
     "email" : "",
     "supervisor" : "",
     "isAvailable" : true,
